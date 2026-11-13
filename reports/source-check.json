@@ -1,0 +1,456 @@
+{
+  "checked_at": "2026-11-12T21:49:52+08:00",
+  "total": 42,
+  "ok": 22,
+  "partial": 0,
+  "missing": 20,
+  "no_source": 0,
+  "by_url": {
+    "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/": {
+      "ok": 7,
+      "partial": 0,
+      "missing": 2,
+      "no_source": 0
+    },
+    "https://github.com/forrestchang/andrej-karpathy-skills": {
+      "ok": 0,
+      "partial": 0,
+      "missing": 12,
+      "no_source": 0
+    },
+    "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting": {
+      "ok": 2,
+      "partial": 0,
+      "missing": 1,
+      "no_source": 0
+    },
+    "https://x.com/karpathy/status/2105819303471976479": {
+      "ok": 0,
+      "partial": 0,
+      "missing": 4,
+      "no_source": 0
+    },
+    "https://x.com/karpathy/status/2026731645169185220": {
+      "ok": 0,
+      "partial": 0,
+      "missing": 1,
+      "no_source": 0
+    },
+    "https://x.com/karpathy/status/2037921699824607591": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://x.com/karpathy/status/2053872850101285137": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://x.com/karpathy/status/2049903821095354523": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md": {
+      "ok": 1,
+      "partial": 0,
+      "missing": 0,
+      "no_source": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "fx-outcome-01",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "curl"
+    },
+    {
+      "id": "fx-outcome-02",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "curl"
+    },
+    {
+      "id": "kp-think_first-03",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 2,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-think_first-04",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-think_first-05",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-think_first-06",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-think_first-07",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-think_first-08",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "em-format-09",
+      "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+      "verdict": "ok",
+      "fragments": 2,
+      "hit": 2,
+      "via": "curl"
+    },
+    {
+      "id": "em-format-10",
+      "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "curl"
+    },
+    {
+      "id": "em-format-11",
+      "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "curl"
+    },
+    {
+      "id": "kp-format-12",
+      "url": "https://x.com/karpathy/status/2105819303471976479",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "fx-verify-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "curl"
+    },
+    {
+      "id": "fx-verify-14",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "curl"
+    },
+    {
+      "id": "fx-verify-15",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "curl"
+    },
+    {
+      "id": "kp-verify-16",
+      "url": "https://x.com/karpathy/status/2026731645169185220",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-verify-17",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-verify-18",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "fx-perspective-19",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "ok",
+      "fragments": 2,
+      "hit": 2,
+      "via": "curl"
+    },
+    {
+      "id": "fx-perspective-20",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "curl"
+    },
+    {
+      "id": "kp-perspective-21",
+      "url": "https://x.com/karpathy/status/2037921699824607591",
+      "verdict": "ok",
+      "fragments": 2,
+      "hit": 2,
+      "via": "web_extract"
+    },
+    {
+      "id": "fx-expert_method-22",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "curl"
+    },
+    {
+      "id": "fx-expert_method-23",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "curl"
+    },
+    {
+      "id": "kp-form-24",
+      "url": "https://x.com/karpathy/status/2105819303471976479",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-form-25",
+      "url": "https://x.com/karpathy/status/2105819303471976479",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-form-26",
+      "url": "https://x.com/karpathy/status/2053872850101285137",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-form-27",
+      "url": "https://x.com/karpathy/status/2105819303471976479",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-form-28",
+      "url": "https://x.com/karpathy/status/2049903821095354523",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-cut-29",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-cut-30",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-boundary-31",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "kp-boundary-32",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "verdict": "missing",
+      "fragments": 1,
+      "hit": 0,
+      "via": "web_extract"
+    },
+    {
+      "id": "fabric-v1-improve-prompt",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-golden-rules",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-review-code",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-incident-analysis",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-git-changes",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-design-doc",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-extract-wisdom",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-explain-code",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-falsifiability",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    },
+    {
+      "id": "fabric-v1-secure-design",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md",
+      "verdict": "ok",
+      "fragments": 1,
+      "hit": 1,
+      "via": "github-api:pinned-tag"
+    }
+  ]
+}

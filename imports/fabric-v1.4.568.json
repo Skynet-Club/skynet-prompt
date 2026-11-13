@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "source": {
+    "name": "Fabric",
+    "owner": "Daniel Miessler and Fabric contributors",
+    "version": "v1.4.568",
+    "date": "2026-11-10",
+    "license": "MIT",
+    "license_file": "licenses/fabric-MIT.txt",
+    "repository": "https://github.com/danielmiessler/fabric"
+  },
+  "items": [
+    {
+      "id": "fabric-v1-improve-prompt",
+      "cat": "expert_method",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md",
+      "snapshot": "improve_prompt-system.md",
+      "en": "You are an expert LLM prompt writing service. You take an LLM/AI prompt as input and output a better prompt based on your prompt writing expertise and the knowledge below.",
+      "zh": "你是一个专业的 LLM 提示词写作服务。你接收一条 LLM/AI 提示词，并依据提示词写作经验以及下面的知识，输出一版更好的提示词。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-golden-rules",
+      "cat": "boundary",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md",
+      "snapshot": "create_golden_rules-system.md",
+      "en": "Golden rules are the non-negotiable standards that, if followed, prevent 80% of problems.",
+      "zh": "黄金规则是不可协商的标准；只要遵守它们，就能避免 80% 的问题。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-review-code",
+      "cat": "verify",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md",
+      "snapshot": "review_code-system.md",
+      "en": "You are a Principal Software Engineer, renowned for your meticulous attention to detail and your ability to provide clear, constructive, and educational code reviews.",
+      "zh": "你是一位首席软件工程师，以细致入微、清晰、建设性且具有教育意义的代码审查能力著称。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-incident-analysis",
+      "cat": "verify",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md",
+      "snapshot": "analyze_incident-system.md",
+      "en": "For each article, extract the specified information below, presenting it in an organized and succinct format. Ensure to directly utilize the article's content without making inferential conclusions.",
+      "zh": "对每篇文章提取下列指定信息，以有条理且简洁的格式呈现。直接使用文章内容，不要作推断性结论。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-git-changes",
+      "cat": "format",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md",
+      "snapshot": "summarize_git_changes-system.md",
+      "en": "You are an expert project manager and developer, and you specialize in creating super clean updates for what changed a Github project in the last 7 days.",
+      "zh": "你是一位专业的项目经理和开发者，擅长把 GitHub 项目过去 7 天的变化整理成非常清晰的更新说明。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-design-doc",
+      "cat": "form",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md",
+      "snapshot": "create_design_document-system.md",
+      "en": "Given a description of idea or system, provide a well written, detailed design document.",
+      "zh": "给定一个想法或系统的描述，写出一份结构清晰、详细的设计文档。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-extract-wisdom",
+      "cat": "think_first",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md",
+      "snapshot": "extract_wisdom-system.md",
+      "en": "You extract surprising, insightful, and interesting information from text content.",
+      "zh": "你从文本内容中提取出人意料、有洞察力且有趣的信息。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-explain-code",
+      "cat": "perspective",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md",
+      "snapshot": "explain_code-system.md",
+      "en": "You are an expert coder that takes code and documentation as input and do your best to explain it.",
+      "zh": "你是一位专业程序员，接收代码和文档作为输入，并尽最大努力解释它。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-falsifiability",
+      "cat": "verify",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md",
+      "snapshot": "check_falsifiability-system.md",
+      "en": "A claim is falsifiable if there exists some possible observation or argument that would prove it wrong.",
+      "zh": "如果一个主张存在某种可能证明其错误的观察或论证，那么它就是可证伪的。",
+      "excerpt": true
+    },
+    {
+      "id": "fabric-v1-secure-design",
+      "cat": "think_first",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md",
+      "snapshot": "ask_secure_by_design_questions-system.md",
+      "en": "Create a perfect set of questions to ask in order to address the security of the component/system at the fundamental design level.",
+      "zh": "为在基础设计层面处理组件或系统的安全问题，设计一组完整的问题。",
+      "excerpt": true
+    }
+  ]
+}

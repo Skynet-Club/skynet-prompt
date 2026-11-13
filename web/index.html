@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>skynet-prompt</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Prompt Capability Layer</p>
+      <h1>skynet-prompt</h1>
+    </div>
+    <p id="status" class="status">正在加载…</p>
+  </header>
+
+  <main class="workspace">
+    <aside class="rail" aria-label="搜索与类目">
+      <label class="search">
+        <span>搜索提示词</span>
+        <input id="search" type="search" autocomplete="off" placeholder="关键词、作者、原文…">
+      </label>
+      <nav id="categories" class="categories" aria-label="类目"></nav>
+      <p class="rail-note">本地只读 · 不记录输入 · 不调用模型</p>
+    </aside>
+
+    <section class="results" aria-label="搜索结果">
+      <div class="section-head">
+        <h2>提示词</h2>
+        <span id="count">0 条</span>
+      </div>
+      <div id="items" class="item-list"></div>
+    </section>
+
+    <section class="detail" aria-label="提示词详情">
+      <div id="empty-detail" class="empty">
+        <strong>选择一条提示词</strong>
+        <span>核对原文、来源和可信状态后再加入组合。</span>
+      </div>
+      <article id="detail" hidden>
+        <div class="detail-head">
+          <div>
+            <p id="detail-category" class="eyebrow"></p>
+            <h2 id="detail-title"></h2>
+          </div>
+          <span id="evidence" class="badge"></span>
+        </div>
+
+        <section class="block">
+          <h3>插入文本</h3>
+          <p id="insert-text" class="insert-text"></p>
+          <button id="add" class="primary" type="button">加入组合</button>
+        </section>
+
+        <details class="block" open>
+          <summary>来源与证据</summary>
+          <dl class="meta">
+            <dt>作者</dt><dd id="author"></dd>
+            <dt>日期</dt><dd id="date"></dd>
+            <dt>性质</dt><dd id="nature"></dd>
+            <dt>核对</dt><dd id="checked"></dd>
+          </dl>
+          <p id="source-quote" class="quote"></p>
+          <a id="source-link" href="#" target="_blank" rel="noreferrer">打开来源</a>
+        </details>
+      </article>
+    </section>
+  </main>
+
+  <section class="composer" aria-label="提示词组合">
+    <div class="composer-head">
+      <div>
+        <p class="eyebrow">Composer</p>
+        <h2>组合预览</h2>
+      </div>
+      <button id="clear" class="ghost" type="button">清空</button>
+    </div>
+    <div id="selected" class="selected"></div>
+    <textarea id="composed" readonly placeholder="选择提示词后在这里预览。"></textarea>
+    <button id="copy" class="primary" type="button" disabled>复制组合文本</button>
+  </section>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

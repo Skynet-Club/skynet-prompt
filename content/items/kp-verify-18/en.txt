@@ -1,0 +1,1 @@
+Verify Before Done: Define what "done" looks like. Confirm it before moving on.

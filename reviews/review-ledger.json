@@ -1,0 +1,482 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-12T21:00:00+08:00",
+  "items": {
+    "fx-outcome-02": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "1051cf602addbf48cff40580b9b96cde27917a40f692edc7ff03bb1b6c3816c4"
+    },
+    "kp-think_first-03": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "be37004268be1a00271967521926377880c7bb0836f73359ef05b91c059d9808"
+    },
+    "kp-think_first-04": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "1d65c6fe48cb83572b6f628da74a370ae8fc115137e748722643a7a3e99ad0f2"
+    },
+    "kp-think_first-05": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "aadb49b8d2c38212d826f2595c615bb84ed0469579ed672ae6ba7c0baa55021f"
+    },
+    "kp-think_first-06": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "65a8c857dc2454373b95ecb21bc3ddff9c78869b5db99e889cda1edda60b69a1"
+    },
+    "kp-think_first-07": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "ed4f99f022de43045a745b83442cb987a59d414aca7961a4702b8196a4ad3916"
+    },
+    "kp-think_first-08": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "d174508f3eaba0a350ef088e2d9d0704557e526891c48310efe5dbe26b60f3da"
+    },
+    "em-format-09": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "8d316a4e6f273becfbca8c360e9e2b7cc003602861b10ee79d93b233e5740f70"
+    },
+    "em-format-11": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "d4f2c2ca820f491ab9c4d3be44bbd93f68a7a62f4a2a2ebdd7c35f8658ed0661"
+    },
+    "fx-verify-13": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "3c60371e5145a4ef2201e891062aae3f31fc255055bccab69fae4a84d086088a"
+    },
+    "fx-verify-15": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "07f4b4b288a3f02ed1c5f29fc2271681618fa1fa8620aac7e38863f1538824b0"
+    },
+    "kp-verify-17": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "120e9417559a485064d7cd554e2bb9c66c46281363fb9104583b7fef4f583102"
+    },
+    "kp-verify-18": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "062e8766102e95ef04933d33da33a3695ec0ed1aaa313e848a6f8259baa13a2c"
+    },
+    "fx-perspective-19": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "e9dd8279e8f390c765ea270b0ef71a57950fd8ec0dfe84adbfb8f7d114e52cec"
+    },
+    "fx-perspective-20": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "26a4964bccbe531e7950bfa2bd5aed7cea6b236b45144cd8b971d303773e2d3d"
+    },
+    "kp-perspective-21": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "cd0cae37054a4ff17fae7d32381838bce294c41460369cf5ffc2f3661da67963"
+    },
+    "fx-expert_method-22": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "cceb513fec057637a8c1acd96a35970158d58a2716280f0df05a9ec589d5be71"
+    },
+    "fx-expert_method-23": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "d59b03b236b2d5024e7a4dd02480766bc2a9617d3d9f97e7f54089a566bd27b4"
+    },
+    "kp-form-26": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "2b44b277dbeee2ba1389f21f4cf8734bc42c8c143cd97b0f59275a5a04fd7fc6"
+    },
+    "kp-form-28": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "90343e86eb4cf681e4e5298677b442529d780b3cfd00abf7a6aad93a584e96c0"
+    },
+    "kp-cut-29": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "55c8acb691e4258a6c7a7fe25bce95335ec98f67ebc48ae274087ca0de6245a2"
+    },
+    "kp-cut-30": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "42e2adf411b395143d29a05199d46834b58933f27cfae60460982626d2ca8d94"
+    },
+    "kp-boundary-31": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "96a1c8ab4a9545f08ec3009241cdedcf99a97468654b663df5128297552537c7"
+    },
+    "kp-boundary-32": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "abed51356b0ff9267ed4eac1210784fffdc53a5f4e3dd63e90c0f8c231b43303"
+    },
+    "fabric-v1-improve-prompt": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "b6b887e74e67a520959b1e0cbde906304f35b9571a75d9d95e1b861236152f83"
+    },
+    "fabric-v1-golden-rules": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "9dc3a28f7ce33110d7b94c2b7cb9d17148d506877018e8b88c5013bc11d43aa4"
+    },
+    "fabric-v1-review-code": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "61099aa3f015bf094ebcbcb936aa8140272a21926d6670182b9b7bcbcc84a286"
+    },
+    "fabric-v1-incident-analysis": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "fbf0d28602afaccc768d43087e6ac62398f36ccb96b1db71b88da2ca1dd1906e"
+    },
+    "fabric-v1-git-changes": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "e5f639269a3ed1a9825702dcc81af3f2bd027977c0689dfd34dbeb9fd8519f81"
+    },
+    "fabric-v1-design-doc": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "a79c424ec907a5ee886fad7dc5e5e609adfc553a49fa79ba38682802fce8fecd"
+    },
+    "fabric-v1-extract-wisdom": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "17ab58ab8e8920343f2ce2f70732ba33467a586041a3f2a7c4c2b39c752454fd"
+    },
+    "fabric-v1-explain-code": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "6306754d192004400eabc1c0b704a00160c8c8d0689ac915641dd797876212ba"
+    },
+    "fabric-v1-falsifiability": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "2f97b192583d4e1be66383f31e9431929f45f989ba8245fc35f7685c422b5830"
+    },
+    "fabric-v1-secure-design": {
+      "source": "reviewed",
+      "translation": "reviewed",
+      "safety": "reviewed",
+      "reviewer": {
+        "id": "codex-agent",
+        "kind": "ai-assisted",
+        "name": "Codex"
+      },
+      "method": "bilingual-semantic-review",
+      "safety_method": "deterministic-rule-scan+codex-triage",
+      "reviewed_at": "2026-11-12T21:00:00+08:00",
+      "item_sha256": "53911301e5339a16ae6a8b5aa985f0330fb5a068224221793e13f37ced1199aa"
+    }
+  }
+}

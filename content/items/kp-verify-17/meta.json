@@ -1,0 +1,21 @@
+{
+  "id": "kp-verify-17",
+  "cat": "verify",
+  "author": "Karpathy",
+  "date": "2026-11-11",
+  "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+  "origin": "compilation",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+    "author": "Karpathy",
+    "published_at": "2026-11-11",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "0d16006b160a9ce6ba94f9112e6aedd9b03c71d8ec253f813bc63d187854c1ad",
+    "en": "91529672033f08163248ead8347d2a8b7b41dd3b7850143fcc2d395ad3b2b6e0"
+  }
+}

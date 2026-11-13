@@ -1,0 +1,1 @@
+Diagrams / images. Instead of writing, ask your LLM to create a diagram. These can be a lot easier to process, parse, and understand.

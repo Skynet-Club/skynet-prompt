@@ -1,0 +1,6 @@
+---
+name: "psup-kp-form-25"
+description: "中文直译 · 换形态 · 未核实 · 节选 · 讲解视频。我最看好的输出形态，是就任意题目现场生成的完全定制的讲解视频。…"
+disable-model-invocation: true
+---
+讲解视频。我最看好的输出形态，是就任意题目现场生成的完全定制的讲解视频。可以这样试：「做一个 3b1b 风格的视频讲解 X。用我的 ElevenLabs API key 做配音。」

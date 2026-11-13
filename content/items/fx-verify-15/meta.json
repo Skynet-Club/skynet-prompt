@@ -1,0 +1,21 @@
+{
+  "id": "fx-verify-15",
+  "cat": "verify",
+  "author": "Felix Rieseberg",
+  "date": "2026-10-13",
+  "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+  "origin": "verbatim",
+  "excerpt": false,
+  "source": {
+    "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+    "author": "Felix Rieseberg",
+    "published_at": "2026-10-13",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "85b9d80e66f1e2bbd2e7f2c405e2af3ce0bd7529ca4b874fb6ed1f4d38b2b655",
+    "en": "d1037c6eb36aa1981228e0119bb24db8527812aa97810520d7c06f9cbb49fa3c"
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "product": "skynet-prompt",
+  "version": "0.3.0",
+  "trigger": "；；",
+  "source": {
+    "type": "local-checkout",
+    "immutable_ref_required_for_release": true
+  },
+  "entrypoint": "scripts/agent_install.py",
+  "installer": "scripts/install.py",
+  "platforms": [
+    "linux"
+  ],
+  "requires": {
+    "python": ">=3.8"
+  },
+  "adapters": [
+    {
+      "id": "cli",
+      "detect": {
+        "always": true
+      },
+      "install_args": [],
+      "capabilities": [
+        "cli",
+        "mcp",
+        "http"
+      ],
+      "changes": [
+        "在 ~/.local/bin 创建 psup、psup-mcp、psupd 链接"
+      ],
+      "level": "fallback"
+    },
+    {
+      "id": "codex",
+      "detect": {
+        "command": "codex"
+      },
+      "version": {
+        "command": ["codex", "--version"],
+        "regex": "(\\d+\\.\\d+\\.\\d+)",
+        "min": "0.167.2"
+      },
+      "install_args": [
+        "codex"
+      ],
+      "capabilities": [
+        "skill",
+        "trigger",
+        "cli"
+      ],
+      "changes": [
+        "注册本地 Codex 插件市场并安装 skynet-prompt 插件"
+      ],
+      "level": "native-or-instruction"
+    },
+    {
+      "id": "pi",
+      "detect": {
+        "command": "pi"
+      },
+      "version": {
+        "command": ["pi", "--version"],
+        "regex": "(\\d+\\.\\d+\\.\\d+)",
+        "min": "1.5.0"
+      },
+      "install_args": [
+        "pi"
+      ],
+      "capabilities": [
+        "package",
+        "trigger",
+        "insert",
+        "undo"
+      ],
+      "changes": [
+        "通过 pi install 注册本地包"
+      ],
+      "level": "native"
+    },
+    {
+      "id": "opencode",
+      "detect": {
+        "command": "opencode"
+      },
+      "version": {
+        "command": ["opencode", "--version"],
+        "regex": "(\\d+\\.\\d+\\.\\d+)",
+        "min": "2.2.7"
+      },
+      "install_args": [
+        "opencode"
+      ],
+      "capabilities": [
+        "plugin",
+        "selector",
+        "mcp"
+      ],
+      "changes": [
+        "在 ~/.config/opencode/cli.json 注册插件并清理旧命令副本"
+      ],
+      "level": "native-command"
+    },
+    {
+      "id": "hermes",
+      "detect": {
+        "command": "hermes"
+      },
+      "version": {
+        "command": ["hermes", "--version"],
+        "regex": "(\\d+\\.\\d+\\.\\d+)",
+        "min": "0.22.5"
+      },
+      "install_args": [
+        "hermes"
+      ],
+      "capabilities": [
+        "drawer",
+        "trigger",
+        "insert",
+        "undo"
+      ],
+      "changes": [
+        "备份并修改 Hermes cli_tui_mixin.py 以挂载 ；； 抽屉"
+      ],
+      "level": "native"
+    },
+    {
+      "id": "copilot",
+      "detect": {
+        "command": "copilot"
+      },
+      "version": {
+        "command": ["copilot", "--version"],
+        "regex": "(\\d+\\.\\d+\\.\\d+)",
+        "min": "1.0.107"
+      },
+      "install_args": [
+        "copilot"
+      ],
+      "capabilities": [
+        "skill",
+        "trigger",
+        "mcp",
+        "cli"
+      ],
+      "changes": [
+        "通过 copilot skill add 安装 skynet-prompt skill",
+        "通过 copilot mcp add 注册本地 skynet-prompt MCP",
+        "安装 Copilot 输入触发器 Extension 并开启 extensions.mode"
+      ],
+      "level": "native-or-instruction"
+    },
+    {
+      "id": "claude",
+      "detect": {
+        "command": "claude"
+      },
+      "version": {
+        "command": ["claude", "--version"],
+        "regex": "(\\d+\\.\\d+\\.\\d+)",
+        "min": "2.1.314"
+      },
+      "install_args": [
+        "claude"
+      ],
+      "capabilities": [
+        "skill",
+        "trigger",
+        "hook",
+        "mcp",
+        "cli"
+      ],
+      "changes": [
+        "安装 Claude 个人 Skill 和 UserPromptSubmit Hook",
+        "通过 claude mcp add 注册用户级 skynet-prompt MCP"
+      ],
+      "level": "native-or-instruction"
+    }
+  ],
+  "verification": [
+    {
+      "command": [
+        "psup",
+        "selftest"
+      ],
+      "expect": {
+        "ok": true,
+        "count": 42,
+        "sha256_equals_meta_sha256": true
+      }
+    },
+    {
+      "command": [
+        "psup",
+        "doctor"
+      ],
+      "expect": {
+        "ok": true
+      }
+    }
+  ],
+  "safety": {
+    "requires_sudo": false,
+    "reads_credentials": false,
+    "sends_prompts": false,
+    "remote_script_execution": false,
+    "plan_before_apply": true,
+    "immutable_source_required_for_release": true
+  }
+}

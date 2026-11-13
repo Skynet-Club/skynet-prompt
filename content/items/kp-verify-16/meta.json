@@ -1,0 +1,21 @@
+{
+  "id": "kp-verify-16",
+  "cat": "verify",
+  "author": "Karpathy",
+  "date": "2026-02-26",
+  "url": "https://x.com/karpathy/status/2026731645169185220",
+  "origin": "unverified",
+  "excerpt": true,
+  "source": {
+    "url": "https://x.com/karpathy/status/2026731645169185220",
+    "author": "Karpathy",
+    "published_at": "2026-02-26",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "23bb08203f7cd5c44473e6b31b05ec57dadec842090a42bc1018ab25cbbd57a4",
+    "en": "33fbe47ca774e33a0b0120110e88a9b972de4856a8d27fb2aa0e8c264db327ca"
+  }
+}

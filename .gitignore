@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+# 抓下来的原文页面只用于复核，体积大、可重抓，不进版本库
+reports/sources/*
+!reports/sources/index.json
+# 飞书导出的中间文件保留（快照可复现的输入），只忽略临时垃圾
+*.tmp
+/dist/

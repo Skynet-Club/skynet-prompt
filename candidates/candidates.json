@@ -1,0 +1,485 @@
+{
+  "schema_version": 1,
+  "candidates": [
+    {
+      "id": "cand-9cb5c7a91e0c",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "You are an expert LLM prompt writing service. You take an LLM/AI prompt as input and output a better prompt based on your prompt writing expertise and the knowledge below.",
+      "text_sha256": "0c669f879c01fbb5c1f0219972a1ef8e4fc77f8fdadf42fc83589e8cee841430",
+      "zh": "你是一个专业的 LLM 提示词写作服务。你接收一条 LLM/AI 提示词，并依据提示词写作经验以及下面的知识，输出一版更好的提示词。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-2babf523d09d",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "Golden rules are the non-negotiable standards that, if followed, prevent 80% of problems.",
+      "text_sha256": "f9f02e206ff248cf7e8cf87cdb6da8bf4912c6d9b357bc5d159226d088b35c5f",
+      "zh": "黄金规则是不可协商的标准；只要遵守它们，就能避免 80% 的问题。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-09ed1616632a",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "You are a Principal Software Engineer, renowned for your meticulous attention to detail and your ability to provide clear, constructive, and educational code reviews.",
+      "text_sha256": "3ac7b824fa6e6ec57e9de2534820ec17e37f1b97e9b3dd27e9128323e18a488e",
+      "zh": "你是一位首席软件工程师，以细致入微、清晰、建设性且具有教育意义的代码审查能力著称。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-ca14dd519038",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "For each article, extract the specified information below, presenting it in an organized and succinct format. Ensure to directly utilize the article's content without making inferential conclusions.",
+      "text_sha256": "ec1ba5867be9f0bdbe19ed5bfbaefed9eb6f7f24af597673af6324c011568ee0",
+      "zh": "对每篇文章提取下列指定信息，以有条理且简洁的格式呈现。直接使用文章内容，不要作推断性结论。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-5485b8080b18",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "You are an expert project manager and developer, and you specialize in creating super clean updates for what changed a Github project in the last 7 days.",
+      "text_sha256": "87eb3c262fc4b9b88a12153eaf9f8166318cef988f7914fc33517e6237c24705",
+      "zh": "你是一位专业的项目经理和开发者，擅长把 GitHub 项目过去 7 天的变化整理成非常清晰的更新说明。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-8413b9581859",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "Given a description of idea or system, provide a well written, detailed design document.",
+      "text_sha256": "2f91a5cc58c1f7dc9df9eee4433f4ad56f6c79606e6631898d2241e598e36395",
+      "zh": "给定一个想法或系统的描述，写出一份结构清晰、详细的设计文档。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-1b616b998aca",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "You extract surprising, insightful, and interesting information from text content.",
+      "text_sha256": "382b3ec9e413d938d023bd8fb237afd3f0b28c7a36c23e2a8fe982c42b94aa42",
+      "zh": "你从文本内容中提取出人意料、有洞察力且有趣的信息。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-981668ba2922",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "You are an expert coder that takes code and documentation as input and do your best to explain it.",
+      "text_sha256": "b04e4d1130c1a62eff932c95c7cab1d9811177ffb24ff079d7da544ca68a1cba",
+      "zh": "你是一位专业程序员，接收代码和文档作为输入，并尽最大努力解释它。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-0e1cdbe1da67",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "A claim is falsifiable if there exists some possible observation or argument that would prove it wrong.",
+      "text_sha256": "9b78abc0dc72269fa82252e4dc3081322779bc4c3fe40518cfdbd3c5f263fa60",
+      "zh": "如果一个主张存在某种可能证明其错误的观察或论证，那么它就是可证伪的。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    },
+    {
+      "id": "cand-43e4f86e44bc",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md",
+      "normalized_url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "en": "Create a perfect set of questions to ask in order to address the security of the component/system at the fundamental design level.",
+      "text_sha256": "cb3467ed7a337e4f7d0a101440f27585381a7dad53d746a6849a12a5865fd2cb",
+      "zh": "为在基础设计层面处理组件或系统的安全问题，设计一组完整的问题。",
+      "license": "MIT",
+      "language": "en",
+      "status": "published",
+      "submitted_by": "import:fabric",
+      "created_at": "2026-11-12T21:46:26+08:00",
+      "updated_at": "2026-11-12T21:46:26+08:00",
+      "history": [
+        {
+          "status": "candidate",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "submitted"
+        },
+        {
+          "status": "sourced",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "translated",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "reviewed",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        },
+        {
+          "status": "published",
+          "at": "2026-11-12T21:46:26+08:00",
+          "by": "import:fabric",
+          "note": "Fabric v1.4.568"
+        }
+      ]
+    }
+  ]
+}

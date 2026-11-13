@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "keys": [
+    {
+      "key_id": "skynet-club-dev-2026-11",
+      "algorithm": "ed25519",
+      "publisher": "skynet-club",
+      "public_key": "skynet-club-dev.pub.pem",
+      "fingerprint_sha256": "211a42c2672ea945e26a92b3b77e784109e4ebdc2a189bf01ec9fddbdb9a4e92",
+      "status": "dev"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⠈⣡⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  Available Skills                                                                    │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  autonomous-ai-agents: claude-code, codex, +4 more                                   │
+│                                  creative: architecture-diagram, ascii-video, +10 more                               │
+│  deepseek-flash · Nous Research  devops: sdlc-review                                                                 │
+│  /home/skynet/skynet-prompt  email: email-inbox-triage, himalaya                                                 │
+│  Session: 680e8f06               general: installing-agent-skills, lark-approval, +30 more                           │
+│                                  media: gif-search, songsee, youtube-content                                         │
+│                                  note-taking: obsidian                                                               │
+│                                  productivity: airtable, box, +19 more                                               │
+│                                  research: arxiv, competitor-news-monitor, +4 more                                   │
+│                                  social-media: xurl                                                                  │
+│                                  software-development: agent-catalog-client, +22 more                                │
+│                                  web: blocked-page-recovery                                                          │
+│                                                                                                                      │
+│                                  21 tools · 109 skills · /help for commands                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Welcome to Hermes Agent! Type your message or /help for commands.
+✦ Tip: delegation.reasoning_effort independently controls thinking depth for subagents.
+
+ 提示词补充 · 搜索「的」· 27 条   ↑↓ 选 · Enter 补进输入框 · ⌫ 删字 · Esc 关闭
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+▸ 搜索            27 │ ▸ 挑一个不合理的目标，然后告诉模型这非常合理。                               Felix Rieseberg
+                      │ 多步任务先画一个简短的计划：1. [步骤] → 验证：[怎么确认] ……在写代码之前先就计划达…  Karpathy
+                      │ 如果存在更简单的做法，说出来。该反驳的时候反驳。                                    Karpathy
+                      │ 有不清楚的地方就停下。指出哪里让你困惑。然后问。                                    Karpathy
+                      │ 把你的假设明确说出来。不确定就问。                                                  Karpathy
+                      │ 如果提示词的目标是帮一个学生学懂某个概念，那么约束 AI「等学生回应后再往下走」… Ethan Mollick
+                      │ 如果你的指令包含多个部分，就把这些部分明确标出来（先给出几个我写商业计划时应…  Ethan Mollick
+                      │ 你应当简洁，使用简单直接的语言，避免含糊的词。                                 Ethan Mollick
+                      │ 让你的大模型用 ASD-STE100 来解释某件事，那是一套最初为航空维修文档开发的受控语言规… Karpathy
+                      │ 挑战你已知的东西：尤其在商业里，我们相信的很多东西只是对现实的粗略近似。把…  Felix Rieseberg
+                       │ 共 27 条，下面还有 17 条
+                       └──────────────────────────────────────────────────────────────────────────────────────────────
+                        原文  Pick unreasonable goals and tell the model that they're very reasonable.
+                        中文  挑一个不合理的目标，然后告诉模型这非常合理。
+                        作者  Felix Rieseberg · 2026-10-13
+                        链接  https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ Explain this error and how to fix it
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ ☤ deepseek-flash · ctx -- · [░░░░░░░░░░] -- · 16s · ⏲ 0s · ~/skynet-prompt          / commands · @ files · ! shell

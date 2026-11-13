@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-falsifiability",
+  "cat": "verify",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "828f9c5399b6f8f6250786b8f045f00bb17cb74bc4550f51b6bf3d25380ddf88",
+    "en": "1e48068fc86daa0f3f6ac3b9dfa3b8dcfc25073c2b2c247d7375842cdaddd938"
+  }
+}

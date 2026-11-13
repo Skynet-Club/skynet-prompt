@@ -1,0 +1,22 @@
+{
+  "name": "skynet-prompt",
+  "version": "0.3.0",
+  "description": "32 条带出处与中文直译的提示词，选中即原样插入",
+  "license": "MIT",
+  "keywords": [
+    "prompts",
+    "chinese",
+    "agents"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Skynet Prompt",
+    "shortDescription": "中文直译的大神提示词",
+    "longDescription": "32 条提示词，带作者、日期、链接与出处类型；正文逐字节冻结。",
+    "developerName": "skynet-prompt",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ]
+  }
+}

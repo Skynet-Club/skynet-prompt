@@ -1,0 +1,1 @@
+For multi-step tasks, sketch a brief plan first: 1. [Step] → verify: [how to confirm] … Get alignment on the plan before writing code.

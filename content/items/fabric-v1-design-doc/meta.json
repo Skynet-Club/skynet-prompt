@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-design-doc",
+  "cat": "form",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "7ae1747bf42a172352a1b80eb151ae68959f9e1d62b5e8d8fdd5c83cbe892320",
+    "en": "00e6bcfac0d527fd46402d1bc03281fc2bd32efea41ab647d35971ab23d9aa8c"
+  }
+}

@@ -1,0 +1,1 @@
+This works really well btw, at the end of your query ask your LLM to "structure your response as HTML", then view the generated file in your browser.

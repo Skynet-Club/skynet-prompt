@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-13",
+  "content_version": "2026-11-13",
+  "expected_count": 42,
+  "prompt_id": "kp-verify-18",
+  "results": [
+    {
+      "agent": "1agent",
+      "version": "0.96.1",
+      "status": "pass-with-caveat",
+      "caveat": "terminal tools pass; deepseek provider unsupported by this build",
+      "artifact": "/home/skynet/.local/state/skynet-term/sessions/term-1794494100357-2247-109/exec/1794494100743-120.output"
+    },
+    {
+      "agent": "hermes",
+      "version": "0.22.5+3133.gc419cf7",
+      "status": "pass",
+      "artifact": "/home/skynet/.local/state/skynet-term/sessions/term-1794493349766-2247-92/exec/1794493350149-97.output"
+    },
+    {
+      "agent": "pi",
+      "version": "1.5.0",
+      "status": "pass",
+      "artifact": "/home/skynet/.local/state/skynet-term/sessions/term-1794493371970-2247-94/exec/1794493372354-100.output"
+    },
+    {
+      "agent": "claude",
+      "version": "2.1.314",
+      "status": "pass",
+      "artifact": "/home/skynet/.local/state/skynet-term/sessions/term-1794493445851-2247-96/exec/1794493446234-105.output"
+    },
+    {
+      "agent": "opencode",
+      "version": "2.2.7",
+      "status": "pass",
+      "mode": "standalone",
+      "artifact": "/home/skynet/.local/state/skynet-term/sessions/term-1794493475917-2247-99/exec/1794493476300-107.output"
+    },
+    {
+      "agent": "codex",
+      "version": "0.167.2",
+      "status": "pass",
+      "plugin_version": "0.3.0",
+      "artifact": "/home/skynet/.local/state/skynet-term/sessions/term-1794493512788-2247-100/exec/1794493513173-108.output"
+    },
+    {
+      "agent": "copilot",
+      "version": "1.0.107",
+      "status": "pass",
+      "duration_ms": 288236,
+      "artifact": "/home/skynet/.local/state/skynet-term/sessions/term-1794493543303-2247-101/exec/1794493543688-109.output"
+    },
+    {
+      "agent": "dsh-headless",
+      "version": "0.2.1-rc.5",
+      "status": "pass",
+      "artifact": "/home/skynet/.local/state/skynet-term/sessions/term-1794493859035-2247-104/exec/1794493859418-112.output"
+    },
+    {
+      "agent": "dsh-web",
+      "version": "0.2.1-rc.5",
+      "status": "pass-auth-gated",
+      "url": "http://127.0.0.1:35921/",
+      "http_status": 401
+    }
+  ]
+}

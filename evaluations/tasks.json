@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "name": "skynet-prompt-core-v1",
+  "tasks": [
+    {
+      "id": "eval-plan-01",
+      "prompt_id": "kp-think_first-03",
+      "task": "你是 Python CLI 项目维护者。需求：修复 `parse_limit()` 对 \"10MB\" 返回 ValueError 的 bug，只改 `config.py` 和对应测试。先给出可执行计划和每步验证方式，不要直接写代码。",
+      "criteria": ["有分步计划", "每步有验证", "写码前确认范围"]
+    },
+    {
+      "id": "eval-verify-02",
+      "prompt_id": "kp-verify-17",
+      "task": "当前代码 `def parse_limit(raw): return int(raw)` 对 \"10MB\" 抛出 ValueError。请给出修复片段和测试代码，证明 \"10MB\" 变为 10、非法输入仍明确失败。",
+      "criteria": ["先复现", "有自动化测试", "有完成标准"]
+    },
+    {
+      "id": "eval-simple-03",
+      "prompt_id": "kp-cut-29",
+      "task": "下面原型为只做字符串去空白，却定义了 BaseCleaner、CleanerFactory、CleanerStrategy、CleanerPipeline 四层抽象和 60 行代码。请给出最小可读实现，并说明删除哪些抽象。",
+      "criteria": ["删除未要求功能", "无单次使用抽象", "代码明显缩短"]
+    },
+    {
+      "id": "eval-boundary-04",
+      "prompt_id": "kp-boundary-31",
+      "task": "文件中 `normalize_email()` 未处理大写，需要 `User@Example.COM` 变为 `user@example.com`。相邻的 `format_phone()` 可用但风格较旧。请只修复 `normalize_email()`，不要修改 `format_phone()`，并说明改动边界。",
+      "criteria": ["改动可追溯", "不删除既有死代码", "保留现有风格"]
+    },
+    {
+      "id": "eval-judge-05",
+      "prompt_id": "fx-verify-15",
+      "task": "候选实现声称：“登录接口已通过测试，可以上线。”已知验收标准是：错误密码返回 401、连续 5 次失败锁定 10 分钟、锁定期间正确密码也返回 429。请设计外部裁判方案，不引用生成者自评。",
+      "criteria": ["不使用生成者自评", "有外部裁判", "结论可复核"]
+    },
+    {
+      "id": "eval-deep-06",
+      "prompt_id": "fx-expert_method-22",
+      "task": "原始需求只有一句：“帮我做一份市场分析”。可用材料是 3 家竞品官网、20 条用户访谈和过去 6 个月销售明细。请把任务重写成更深而不是更长的版本，并说明专家会用的方法、原始材料和外部验证。",
+      "criteria": ["说明专家方法", "指出原始材料", "定义外部验证"]
+    },
+    {
+      "id": "eval-html-07",
+      "prompt_id": "kp-form-26",
+      "task": "把以下信息做成单文件 HTML：标题“发布检查”，三个步骤“跑测试”“核对来源”“记录版本”，每个步骤附一句说明。要求浏览器直接打开、不依赖外部资源。",
+      "criteria": ["输出 HTML", "可直接打开", "信息完整"]
+    },
+    {
+      "id": "eval-concise-08",
+      "prompt_id": "em-format-11",
+      "task": "改写这段风险说明：“在当前这个阶段，我们可能需要考虑一些潜在的、尚未完全明确的稳定性方面的问题，团队最好在后续适当的时候进一步关注相关情况。”目标是简洁直接，保留事实，不增加承诺。",
+      "criteria": ["句子短", "无含糊词", "保留事实"]
+    },
+    {
+      "id": "eval-ambitious-09",
+      "prompt_id": "fx-outcome-02",
+      "task": "当前移动端页面 P75 加载时间为 10 秒，业务要求降到 5 秒。请提出一个更激进但仍能在 7 天内验证的目标，并给出可测指标和验证方式。",
+      "criteria": ["目标更激进", "指标可测", "说明验证方式"]
+    },
+    {
+      "id": "eval-opposite-10",
+      "prompt_id": "kp-perspective-21",
+      "task": "产品结论是：“AI 代码审查将在两年内完全取代人工代码审查。”请先做有力的反向论证，区分事实与推测，再给出你自己的明确判断。",
+      "criteria": ["有反向论证", "区分事实与推测", "形成明确判断"]
+    }
+  ]
+}

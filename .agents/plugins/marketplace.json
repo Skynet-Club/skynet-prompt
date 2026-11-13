@@ -1,0 +1,22 @@
+{
+  "name": "skynet-prompt",
+  "interface": {
+    "displayName": "Skynet Prompt"
+  },
+  "plugins": [
+    {
+      "name": "skynet-prompt",
+      "source": {
+        "source": "local",
+        "path": "./adapters/codex-plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "products": [
+          "CODEX"
+        ]
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

@@ -1,0 +1,964 @@
+{
+  "schema_version": 2,
+  "content_version": "2026-11-13",
+  "count": 42,
+  "origins": {
+    "verbatim": 22,
+    "compilation": 12,
+    "unverified": 8
+  },
+  "rights": {
+    "short-quotation-with-attribution": 32,
+    "explicit-license": 10
+  },
+  "excerpts": 24,
+  "cats": {
+    "outcome": 2,
+    "think_first": 8,
+    "format": 5,
+    "verify": 9,
+    "perspective": 4,
+    "expert_method": 3,
+    "form": 6,
+    "cut": 2,
+    "boundary": 3
+  },
+  "cat_names": {
+    "outcome": "要结果",
+    "think_first": "先想清楚",
+    "format": "定格式",
+    "verify": "定验收",
+    "perspective": "换视角",
+    "expert_method": "用高手的方法",
+    "form": "换形态",
+    "cut": "砍掉多余的",
+    "boundary": "别碰旁边的"
+  },
+  "digest": "3b08f6828245f3bf7429cdc1bae1c1bf869a2c7c54d52bd664eccad2a42b89f7",
+  "items": [
+    {
+      "id": "fx-outcome-01",
+      "cat": "outcome",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "unverified",
+      "excerpt": false,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "e622dd338fa561f8563f570b77c6bdf37f49bc181a648202e72249804e364926",
+        "en": "956daa4b1d09267c863d84fdb63fe752baf4adac15caa1c9123b5af0f5912334"
+      },
+      "path": "items/fx-outcome-01"
+    },
+    {
+      "id": "fx-outcome-02",
+      "cat": "outcome",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "verbatim",
+      "excerpt": false,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "4c53fa5ba2b194e4f21d2d0b7a013dfb3454d963c1575f7ed811a61d1eb36df3",
+        "en": "018ad524efebc44fef67fc6c3e4028e5eeb19c49c9d16236a5d549214020b846"
+      },
+      "path": "items/fx-outcome-02"
+    },
+    {
+      "id": "kp-think_first-03",
+      "cat": "think_first",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "79c9fbc9072051b70bd484d515a51956387d7abbe6c15458cc8a39b844a08bd9",
+        "en": "2be0f504f78a9a0d072b3c88260fa01efc43b1d7b412eb1232549acbd2d12ba4"
+      },
+      "path": "items/kp-think_first-03"
+    },
+    {
+      "id": "kp-think_first-04",
+      "cat": "think_first",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "d806f48411f019c3432ae1238a61fb668e7d89ccc389de3b5606c104419c11e2",
+        "en": "daba1598ec22c999f3f5dbc578ec540c720eeb14760b53a5ab5de5a46e175765"
+      },
+      "path": "items/kp-think_first-04"
+    },
+    {
+      "id": "kp-think_first-05",
+      "cat": "think_first",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "a7a4e2e1bfa5bf507778655bfc69dd1432e5a93f15a5e5512c001e74288f24ad",
+        "en": "83e2fc358739e57ba7334b9bbb1c592a146fad7210938cdf3ddea4de73256f87"
+      },
+      "path": "items/kp-think_first-05"
+    },
+    {
+      "id": "kp-think_first-06",
+      "cat": "think_first",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "f05d2cef727a4c07455935c0e334c5d43cf5d25781bfd700f38f1ed716db1e83",
+        "en": "7ad18aa05fbf68f04a010adf1e933fa83754593c0e040b551e56357f45a3d0de"
+      },
+      "path": "items/kp-think_first-06"
+    },
+    {
+      "id": "kp-think_first-07",
+      "cat": "think_first",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "eac0a2c9e9d6a0aaa98b17c8ab8f96ab663f8508431ec56bfea4539c757a87b3",
+        "en": "3b9d803a81d87ba1b1f30e840182caab9725abfbe54db28578edca0e529911f3"
+      },
+      "path": "items/kp-think_first-07"
+    },
+    {
+      "id": "kp-think_first-08",
+      "cat": "think_first",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "0fe5b392f8ab30da48819dcfc661e30a8eb6d49b71078d680b0398ce1d76e9dd",
+        "en": "7b4863e85a6a0a800eb0ae189f0c7dd968ddf8fc26e7ce3daaaf6f34716bb070"
+      },
+      "path": "items/kp-think_first-08"
+    },
+    {
+      "id": "em-format-09",
+      "cat": "format",
+      "author": "Ethan Mollick",
+      "date": "2023-11-01",
+      "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+        "author": "Ethan Mollick",
+        "published_at": "2023-11-01",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "27b9fb6d91d1cb7553cf223c54175c72e49ab9e8da5906a32141ea533b557a8d",
+        "en": "0691af331c62648d06be4fe49162c418191797c4d0aba3d15cd541217902b4c1"
+      },
+      "path": "items/em-format-09"
+    },
+    {
+      "id": "em-format-10",
+      "cat": "format",
+      "author": "Ethan Mollick",
+      "date": "2023-11-01",
+      "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+      "origin": "unverified",
+      "excerpt": true,
+      "source": {
+        "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+        "author": "Ethan Mollick",
+        "published_at": "2023-11-01",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "007f54e5edb78d0a536a32eb27f837d91592ddfd920555e89b5f9cbbd0232eba",
+        "en": "94f69851e8661e284e0472fbccba838695fc368e796c8eaec4abf3f8bc01a1cb"
+      },
+      "path": "items/em-format-10"
+    },
+    {
+      "id": "em-format-11",
+      "cat": "format",
+      "author": "Ethan Mollick",
+      "date": "2023-11-01",
+      "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+      "origin": "verbatim",
+      "excerpt": false,
+      "source": {
+        "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+        "author": "Ethan Mollick",
+        "published_at": "2023-11-01",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "9ba4e4f518a97f46899937ddc9b2fa914d689ac73b23aff71ad25f5f734a5419",
+        "en": "c38e16a8afe98769599b3e71bd6d9adf3ff8f5cff48ec154f139eb58c348e113"
+      },
+      "path": "items/em-format-11"
+    },
+    {
+      "id": "kp-format-12",
+      "cat": "format",
+      "author": "Karpathy",
+      "date": "2026-10-02",
+      "url": "https://x.com/karpathy/status/2105819303471976479",
+      "origin": "unverified",
+      "excerpt": true,
+      "source": {
+        "url": "https://x.com/karpathy/status/2105819303471976479",
+        "author": "Karpathy",
+        "published_at": "2026-10-02",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "42251201ac496debbb320d64ed2185e6dd951bde2a692cdb3036163b8171f0cc",
+        "en": "b497f7c9732ac75c8a745fc125e6caacdba321712343cb8507b7592fbeecd23c"
+      },
+      "path": "items/kp-format-12"
+    },
+    {
+      "id": "fx-verify-13",
+      "cat": "verify",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "8ca1e552c5c1590737963ce7cb1e4faae671af2b7db8f3471e30b1581e539abc",
+        "en": "840f855e8410205d5e9d215e1aee02078484b22f6438f001ae843d19bcd101f9"
+      },
+      "path": "items/fx-verify-13"
+    },
+    {
+      "id": "fx-verify-14",
+      "cat": "verify",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "unverified",
+      "excerpt": true,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "8b71405892affcd2e50283ff9aadab43ba99fa757760327c62cc976c691169b7",
+        "en": "1d557eeee825c0d54938604d0154e6f8f958158819fab53fa8c5499426b61b09"
+      },
+      "path": "items/fx-verify-14"
+    },
+    {
+      "id": "fx-verify-15",
+      "cat": "verify",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "verbatim",
+      "excerpt": false,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "85b9d80e66f1e2bbd2e7f2c405e2af3ce0bd7529ca4b874fb6ed1f4d38b2b655",
+        "en": "d1037c6eb36aa1981228e0119bb24db8527812aa97810520d7c06f9cbb49fa3c"
+      },
+      "path": "items/fx-verify-15"
+    },
+    {
+      "id": "kp-verify-16",
+      "cat": "verify",
+      "author": "Karpathy",
+      "date": "2026-02-26",
+      "url": "https://x.com/karpathy/status/2026731645169185220",
+      "origin": "unverified",
+      "excerpt": true,
+      "source": {
+        "url": "https://x.com/karpathy/status/2026731645169185220",
+        "author": "Karpathy",
+        "published_at": "2026-02-26",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "23bb08203f7cd5c44473e6b31b05ec57dadec842090a42bc1018ab25cbbd57a4",
+        "en": "33fbe47ca774e33a0b0120110e88a9b972de4856a8d27fb2aa0e8c264db327ca"
+      },
+      "path": "items/kp-verify-16"
+    },
+    {
+      "id": "kp-verify-17",
+      "cat": "verify",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "0d16006b160a9ce6ba94f9112e6aedd9b03c71d8ec253f813bc63d187854c1ad",
+        "en": "91529672033f08163248ead8347d2a8b7b41dd3b7850143fcc2d395ad3b2b6e0"
+      },
+      "path": "items/kp-verify-17"
+    },
+    {
+      "id": "kp-verify-18",
+      "cat": "verify",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "664401c48fdbcf8682602eea304644b2b1839723445ffcd92f80eaf2efe3cb1e",
+        "en": "f5736e12b8d682614058e27ae94c093f2bb8bc6af194c9da065dbe8c1e5cb68e"
+      },
+      "path": "items/kp-verify-18"
+    },
+    {
+      "id": "fx-perspective-19",
+      "cat": "perspective",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "303295cf5299ef96e4ac83777567d524fdc6475fc7bf5b3196a9d1e0a75c0af9",
+        "en": "8a99f7ef75499a155fc120032a6e3195a08522f86ba64d1a8b938ec12c571d79"
+      },
+      "path": "items/fx-perspective-19"
+    },
+    {
+      "id": "fx-perspective-20",
+      "cat": "perspective",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "c1825188aeeea7e738230ba7bada156caae76bcfd461d5bb05eb13dc726f0607",
+        "en": "779392a93f72a44f8d7361be023852aaf62e5c51d1fe8a9e3c6bf21e5a3f995d"
+      },
+      "path": "items/fx-perspective-20"
+    },
+    {
+      "id": "kp-perspective-21",
+      "cat": "perspective",
+      "author": "Karpathy",
+      "date": "2026-03-28",
+      "url": "https://x.com/karpathy/status/2037921699824607591",
+      "origin": "verbatim",
+      "excerpt": false,
+      "source": {
+        "url": "https://x.com/karpathy/status/2037921699824607591",
+        "author": "Karpathy",
+        "published_at": "2026-03-28",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "d87c470d4a7ac36b22462f447187aa42e2a6da0929aea6b3087ef51269c93a30",
+        "en": "9a51a35857e4c6cc50b5f43f9ee30b52af74f1118518fad5541dbeb1806bed96"
+      },
+      "path": "items/kp-perspective-21"
+    },
+    {
+      "id": "fx-expert_method-22",
+      "cat": "expert_method",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "f650b1f9a1d2c1cfabfa8c82e9fde5f945c7f640e1e30f415bfc1efe4591c846",
+        "en": "5357e57e8790e19981e982cbf79db3c4b46020b9c3f1b92ec6447b88a2c64017"
+      },
+      "path": "items/fx-expert_method-22"
+    },
+    {
+      "id": "fx-expert_method-23",
+      "cat": "expert_method",
+      "author": "Felix Rieseberg",
+      "date": "2026-10-13",
+      "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+      "origin": "verbatim",
+      "excerpt": false,
+      "source": {
+        "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+        "author": "Felix Rieseberg",
+        "published_at": "2026-10-13",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "4a6945166d82a767a99197c8728e7e546f0ee852f68f61ee6d37ad510d7ce70f",
+        "en": "d43d90ea6fb37d8c8d98333208f11a3904d1ab39b21cf24358d7c2724fcf0a3c"
+      },
+      "path": "items/fx-expert_method-23"
+    },
+    {
+      "id": "kp-form-24",
+      "cat": "form",
+      "author": "Karpathy",
+      "date": "2026-10-02",
+      "url": "https://x.com/karpathy/status/2105819303471976479",
+      "origin": "unverified",
+      "excerpt": false,
+      "source": {
+        "url": "https://x.com/karpathy/status/2105819303471976479",
+        "author": "Karpathy",
+        "published_at": "2026-10-02",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "e2f19bf2e66d1136acce250553b479bc8a327f8417634601430cb4e28bd5fe3a",
+        "en": "f68e489ee60287555de548174b3c8fdd6c9459f642eef881ba9dc608bd1aa379"
+      },
+      "path": "items/kp-form-24"
+    },
+    {
+      "id": "kp-form-25",
+      "cat": "form",
+      "author": "Karpathy",
+      "date": "2026-10-02",
+      "url": "https://x.com/karpathy/status/2105819303471976479",
+      "origin": "unverified",
+      "excerpt": true,
+      "source": {
+        "url": "https://x.com/karpathy/status/2105819303471976479",
+        "author": "Karpathy",
+        "published_at": "2026-10-02",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "fef1b9a844068f3fafec0b57c3ff6f69516f547464b3002bb8c01e49a41e4265",
+        "en": "0c1377f3400c43df5fc8f7b0f3f33649304e5c864a4ab6909b5afe8606b3d450"
+      },
+      "path": "items/kp-form-25"
+    },
+    {
+      "id": "kp-form-26",
+      "cat": "form",
+      "author": "Karpathy",
+      "date": "2026-05-12",
+      "url": "https://x.com/karpathy/status/2053872850101285137",
+      "origin": "verbatim",
+      "excerpt": false,
+      "source": {
+        "url": "https://x.com/karpathy/status/2053872850101285137",
+        "author": "Karpathy",
+        "published_at": "2026-05-12",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "b4e8cf7152ec9ca72a55fc181768c3217f2d58c6c2537585db39fb5e0226dd7d",
+        "en": "dff14bb1c104da8e46fda17908e491303bf4521478b9a4e776776025972d77e6"
+      },
+      "path": "items/kp-form-26"
+    },
+    {
+      "id": "kp-form-27",
+      "cat": "form",
+      "author": "Karpathy",
+      "date": "2026-10-02",
+      "url": "https://x.com/karpathy/status/2105819303471976479",
+      "origin": "unverified",
+      "excerpt": false,
+      "source": {
+        "url": "https://x.com/karpathy/status/2105819303471976479",
+        "author": "Karpathy",
+        "published_at": "2026-10-02",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "043abfd26995ad7607f26517a1f087ebd400ac88e7b9b51ae977e4bc9be386e4",
+        "en": "2bb0d6b9f8822c100828af37376a96f44b3a6c806abcb4df67909ef47fd88113"
+      },
+      "path": "items/kp-form-27"
+    },
+    {
+      "id": "kp-form-28",
+      "cat": "form",
+      "author": "Karpathy",
+      "date": "2026-05-01",
+      "url": "https://x.com/karpathy/status/2049903821095354523",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://x.com/karpathy/status/2049903821095354523",
+        "author": "Karpathy",
+        "published_at": "2026-05-01",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "6f5b334b87de2e5da2dda3e36dabeeee20a215ff4b7d56586d8988b71fcb1132",
+        "en": "8a1a95bb5490dbf1b33ae176a5aa43e126edac3b963669c5ce9bf8c49012b12d"
+      },
+      "path": "items/kp-form-28"
+    },
+    {
+      "id": "kp-cut-29",
+      "cat": "cut",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "6dcad94d559b3c502e402e0be7a586dc55a85cccf5464447dd9e45bb3ceaf86f",
+        "en": "5f8f65294cf1e9d3c00bf8b77a62992d4f1f9ff11ebda90cfa2d6936baa6d425"
+      },
+      "path": "items/kp-cut-29"
+    },
+    {
+      "id": "kp-cut-30",
+      "cat": "cut",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "b2064a54c63535a1de009c10956687bf090df6892f0ee548584369d4cc42ce36",
+        "en": "c62dd3f339cb6a39deee15f661ca1b56ab9ab2e8199c44c60e23e7742572932d"
+      },
+      "path": "items/kp-cut-30"
+    },
+    {
+      "id": "kp-boundary-31",
+      "cat": "boundary",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "e980da13cdbcbbac1090cf7373e0b5b7864904f4842ff1303695a69e1792204d",
+        "en": "554da553f7c2da3ccba121f60bc25c29a25a8ac743f3c7154fa96934d049ddea"
+      },
+      "path": "items/kp-boundary-31"
+    },
+    {
+      "id": "kp-boundary-32",
+      "cat": "boundary",
+      "author": "Karpathy",
+      "date": "2026-11-11",
+      "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+      "origin": "compilation",
+      "excerpt": false,
+      "source": {
+        "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+        "author": "Karpathy",
+        "published_at": "2026-11-11",
+        "license": "not-declared",
+        "rights_basis": "short-quotation-with-attribution",
+        "redistribution": "excerpt-only"
+      },
+      "sha256": {
+        "zh": "4e9e87e946eaf45b93f5b5713908462af75a64312cf08cac21590d7cf379cc8f",
+        "en": "146997a3c5b943f8a45ccfcff55f328c0b2a2610078427ad7cd5ceb28613b8b8"
+      },
+      "path": "items/kp-boundary-32"
+    },
+    {
+      "id": "fabric-v1-improve-prompt",
+      "cat": "expert_method",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "6866de3cd635ee4f2dd4b72f5582195e8c3040a845b716ee1bff1b5738a220c8",
+        "en": "aea451e4c619394ada4df0bbf4110eeb941d1dc36fc86c4c341978dfae2c37a3"
+      },
+      "path": "items/fabric-v1-improve-prompt"
+    },
+    {
+      "id": "fabric-v1-golden-rules",
+      "cat": "boundary",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "7bfe11b8363f392c1c4e9ccb38ef5f9b4db890be94c76be7f2c8c85977e1d403",
+        "en": "9c21a9301747bae6b1dcf8fdd33b5a7504fc7ceab5859099851c6e2b72e18207"
+      },
+      "path": "items/fabric-v1-golden-rules"
+    },
+    {
+      "id": "fabric-v1-review-code",
+      "cat": "verify",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "1e29661db1aeaa01fab04750cd27cc5e8c928f20e38402c5b094c41843908ee2",
+        "en": "303c1191e8c02f117a0ee9068bb04556105057756587b38aa797d4b7b698dbdf"
+      },
+      "path": "items/fabric-v1-review-code"
+    },
+    {
+      "id": "fabric-v1-incident-analysis",
+      "cat": "verify",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "e52eb8d6ec92359a81c2a3f84ef65c155b182e8b1dcd25d972abd46ef1cd9bc4",
+        "en": "78bf21bd2aef1290b1ef71d1258a7a5654a33a5114e99d64ea9e690d0ea28fc7"
+      },
+      "path": "items/fabric-v1-incident-analysis"
+    },
+    {
+      "id": "fabric-v1-git-changes",
+      "cat": "format",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "c0ba71fff0d066fe59703479ecb4cb563aee171a40f9aee05aab87b88953cbdf",
+        "en": "c2a3f55f91f5ef5ec0da4fc6fbe7edd9b1f091bdf414a12430b2e46a33608086"
+      },
+      "path": "items/fabric-v1-git-changes"
+    },
+    {
+      "id": "fabric-v1-design-doc",
+      "cat": "form",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "7ae1747bf42a172352a1b80eb151ae68959f9e1d62b5e8d8fdd5c83cbe892320",
+        "en": "00e6bcfac0d527fd46402d1bc03281fc2bd32efea41ab647d35971ab23d9aa8c"
+      },
+      "path": "items/fabric-v1-design-doc"
+    },
+    {
+      "id": "fabric-v1-extract-wisdom",
+      "cat": "think_first",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "473d17a3f842ebd1a7ab6506f438c003a967aef91e4bf63c2415dd72c5bda830",
+        "en": "b7c013e8cc1d55ec6dd1c1295843519c7420b095e69c8b50d576f888be788c31"
+      },
+      "path": "items/fabric-v1-extract-wisdom"
+    },
+    {
+      "id": "fabric-v1-explain-code",
+      "cat": "perspective",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "e2889a9e4b04d5982a75e02eb4c9c285e45c6255f5535fdb9a49735cb3939875",
+        "en": "f9868751eb116d4822c0647a43d38bc2b695f08a9cd167f80179d6baf5308612"
+      },
+      "path": "items/fabric-v1-explain-code"
+    },
+    {
+      "id": "fabric-v1-falsifiability",
+      "cat": "verify",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "828f9c5399b6f8f6250786b8f045f00bb17cb74bc4550f51b6bf3d25380ddf88",
+        "en": "1e48068fc86daa0f3f6ac3b9dfa3b8dcfc25073c2b2c247d7375842cdaddd938"
+      },
+      "path": "items/fabric-v1-falsifiability"
+    },
+    {
+      "id": "fabric-v1-secure-design",
+      "cat": "think_first",
+      "author": "Daniel Miessler / Fabric contributors",
+      "date": "2026-11-10",
+      "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md",
+      "origin": "verbatim",
+      "excerpt": true,
+      "source": {
+        "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md",
+        "author": "Daniel Miessler / Fabric contributors",
+        "published_at": "2026-11-10",
+        "license": "MIT",
+        "rights_basis": "explicit-license",
+        "redistribution": "full-text"
+      },
+      "sha256": {
+        "zh": "b4a59439f61480dd05f991e2b4c8438566febdfcd3a0a6f760f53e3198363ac5",
+        "en": "64c693c288ed1ff2d8b707e96c6515ba45f4221bf73a23b4aac82f9358b4de51"
+      },
+      "path": "items/fabric-v1-secure-design"
+    }
+  ]
+}

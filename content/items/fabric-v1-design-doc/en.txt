@@ -1,0 +1,1 @@
+Given a description of idea or system, provide a well written, detailed design document.

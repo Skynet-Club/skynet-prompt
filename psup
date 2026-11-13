@@ -1,0 +1,997 @@
+#!/usr/bin/env python3
+"""psup —— 提示词补充的命令行入口（不依赖任何 agent，只读写本地文件）。
+
+    psup list                 一行一条：id<TAB>中文<TAB>作者（给 fzf 用）
+    psup list --json          结构化输出
+    psup list 验收            按关键词过滤（中文/原文/作者/类目名）
+    psup show <id>            一条的完整内容（给 fzf 的预览窗用）
+    psup pick                 交互选择：fzf 两栏，左列表右预览，回车把中文吐到 stdout
+    psup print <id>           只要正文，方便 $(psup print kp-verify-05)
+    psup packs                列出内置与扩展提示词包
+    psup selftest             条数 + sha256 + 类目计数，任何宿主都能拿它自证
+    psup verify               校验 content/ 逐条文件，并与 data/ 做逐字节比对
+    psup build                从 content/ 生成宿主产物（pi、codex、opencode）
+    psup install              安装命令行与宿主集成（转发给 scripts/install.py）
+设计约束：取用只读 data；build 只写 adapters/ 与根清单，不发网络请求。
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parent
+sys.path.insert(0, str(REPO))
+
+from skynet_prompt import __version__  # noqa: E402
+from skynet_prompt.advisor import suggest as advisor_suggest  # noqa: E402
+from skynet_prompt.approvals import ApprovalError, create_approval  # noqa: E402
+from skynet_prompt.catalog import (  # noqa: E402
+    CATS,
+    DISPLAY,
+    PromptCatalog,
+    PromptDataError,
+    default_catalog,
+)
+from skynet_prompt.build import HOSTS, build as build_artifacts, check as check_artifacts  # noqa: E402
+from skynet_prompt.cas import stats as cache_stats  # noqa: E402
+from skynet_prompt.candidates import (  # noqa: E402
+    CandidateError,
+    add_candidate,
+    load_store,
+    save_store,
+)
+from skynet_prompt.compat import capability_manifest  # noqa: E402
+from skynet_prompt.content import ORIGIN_LABELS, verify as verify_content  # noqa: E402
+from skynet_prompt.feedback import (  # noqa: E402
+    FeedbackError,
+    add as add_feedback,
+    default_path as default_feedback_path,
+    summarize as summarize_feedback,
+)
+from skynet_prompt.release import ReleaseError, release as release_pack  # noqa: E402
+from skynet_prompt.registry import (  # noqa: E402
+    RegistryError,
+    load_registry,
+    select_pack,
+    verify_registry,
+)
+from skynet_prompt.reviews import ReviewError, load_ledger, validate_ledger  # noqa: E402
+from skynet_prompt.safety import scan_item  # noqa: E402
+from skynet_prompt.service import PromptService, PromptServiceError  # noqa: E402
+from skynet_prompt.source_snapshots import verify_manifest  # noqa: E402
+from skynet_prompt.sync import (  # noqa: E402
+    SyncError,
+    default_store,
+    doctor as sync_doctor,
+    events as sync_events,
+    pin as sync_pin,
+    rollback as sync_rollback,
+    unpin as sync_unpin,
+    update as sync_update,
+)
+from skynet_prompt.team import (  # noqa: E402
+    TeamError,
+    authorize,
+    config_env,
+    load_config,
+    resolve_registry,
+)
+from skynet_prompt.trigger import CANONICAL_TRIGGER  # noqa: E402
+from skynet_prompt.trust import (  # noqa: E402
+    TrustError,
+    add_key,
+    load_trust,
+    revoke_key,
+)
+
+
+def catalog() -> PromptCatalog:
+    try:
+        return default_catalog().load()
+    except PromptDataError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+
+
+def load() -> tuple[list[dict], dict]:
+    service = PromptService(catalog())
+    return service.items(), {"packs": service.packs()}
+
+
+def oneline(item: dict, width: int = 24) -> str:
+    """fzf 的一行：id 在第一位（预览占位符用），显示列是截断后的中文 + 作者 + 类目。
+
+    正文不截断的话，fzf 搜索命中在长句尾部时会横向滚到句尾，列表看起来像从中间开始。
+    """
+    author = item.get("author", "")
+    text = " ".join(item["zh"].split())
+    if len(text) > width:
+        text = text[: width - 1] + "…"
+    return "\t".join((item["id"], DISPLAY.get(item.get("cat", ""), ""), text, author))
+
+
+def wide(text: str, width: int) -> list[str]:
+    """按终端显示宽度折行（中文两格）。不依赖 prompt_toolkit。"""
+    import unicodedata
+
+    def w(ch: str) -> int:
+        return 2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1
+
+    lines, cur, cur_w = [], "", 0
+    for ch in " ".join(text.split()):
+        cw = w(ch)
+        if cur_w + cw > width:
+            cut = cur.rfind(" ")
+            if cut > len(cur) // 2:
+                lines.append(cur[:cut])
+                cur = cur[cut + 1 :]
+                cur_w = sum(w(c) for c in cur)
+            elif ch in "。，、；：？！）】」』”’…":
+                keep = cur[-1] if cur else ""
+                lines.append(cur[:-1])
+                cur = keep
+                cur_w = sum(w(c) for c in cur)
+            else:
+                lines.append(cur)
+                cur, cur_w = "", 0
+        cur += ch
+        cur_w += cw
+    if cur:
+        lines.append(cur)
+    return lines or [""]
+
+
+def show_block(item: dict, width: int = 56) -> str:
+    out = [f"{DISPLAY.get(item.get('cat', ''), '')}"]
+    out.append(f"{item.get('author', '')} · {item.get('date', '')} · {item.get('nature', '未核实')}")
+    out.append("─" * min(width, 56))
+    out.append("原文（节选，全文见链接）" if item.get("excerpt") else "原文")
+    out += ["  " + ln for ln in wide(item.get("en", ""), width)]
+    out.append("")
+    out.append("中文")
+    out += ["  " + ln for ln in wide(item.get("zh", ""), width)]
+    out.append("")
+    out += wide(item.get("url", ""), width)
+    return "\n".join(out)
+
+
+def cmd_list(args) -> int:
+    service = PromptService(catalog())
+    try:
+        rows = service.search(
+            " ".join(args.words),
+            category=args.category,
+            pack=args.pack,
+            limit=args.limit,
+        )
+    except PromptServiceError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    if args.json:
+        print(json.dumps(rows, ensure_ascii=False, indent=2))
+        return 0
+    for item in rows:
+        print(oneline(item))
+    return 0
+
+
+def cmd_show(args) -> int:
+    try:
+        item = PromptService(catalog()).get(args.id)
+    except PromptServiceError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(show_block(item, width=args.width or 56))
+    return 0
+
+
+def cmd_print(args) -> int:
+    try:
+        item = PromptService(catalog()).get(args.id)
+    except PromptServiceError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    if args.lang:
+        if args.lang in {"zh", "zh-CN", "zh-cn"}:
+            print(item["zh"])
+            return 0
+        translation = next(
+            (
+                row for row in item.get("translations", [])
+                if row.get("language", "").casefold() == args.lang.casefold()
+            ),
+            None,
+        )
+        if translation is None:
+            raise SystemExit(f"psup: {args.id} 没有 {args.lang} 译文")
+        print(translation["text"])
+        return 0
+    field = args.field
+    print(item.get(field, ""))
+    return 0
+
+
+def cmd_selftest(args) -> int:
+    loaded = catalog()
+    items = loaded.items()
+    packs = loaded.packs()
+    builtin = next((pack for pack in packs if pack.id == "builtin"), packs[0])
+    meta = builtin.meta
+    digest = builtin.sha256
+    counts = {key: sum(1 for i in items if i.get("cat") == key) for _, key in CATS}
+    result = {
+        "ok": len(items) == meta.get("count", len(items)),
+        "count": len(items),
+        "cats": sum(1 for v in counts.values() if v),
+        "schema_version": meta.get("schema_version", 1),
+        "natures": meta.get("natures", {}),
+        "excerpts": meta.get("excerpts", 0),
+        "sha256": digest,
+        "meta_sha256": meta.get("sha256"),
+        "data": str(builtin.path),
+        "pack_count": len(packs),
+        "packs": [
+            {"id": pack.id, "name": pack.name, "version": pack.version, "count": len(pack.items)}
+            for pack in packs
+        ],
+    }
+    result["ok"] = bool(result["ok"] and digest == meta.get("sha256", digest))
+    print(json.dumps(result, ensure_ascii=False))
+    return 0 if result["ok"] else 1
+
+
+def cmd_pick(args) -> int:
+    service = PromptService(catalog())
+    try:
+        rows = service.search(" ".join(args.words))
+    except PromptServiceError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    if not rows:
+        raise SystemExit("psup: 没有匹配的条目")
+    if not shutil.which("fzf"):
+        raise SystemExit("psup: 没装 fzf（apt install fzf / brew install fzf）")
+    self_path = shutil.which("psup") or str(Path(__file__).resolve())
+    feed = "\n".join(oneline(i) for i in rows)
+    cmd = [
+        "fzf",
+        "--delimiter=\t",
+        "--with-nth=2,3,4",   # 显示 类目/中文/作者；搜索也搜这三列 + id
+        "--no-hscroll",        # 命中在句尾时不要横向滚走句首
+        "--height=80%",
+        "--ansi",
+        "--prompt=提示词补充> ",
+        "--header=↑↓ 选 · 回车补到 stdout · 输入关键词过滤 · Esc 取消",
+        f"--preview={self_path} show {{1}}",
+        "--preview-window=right:48%:wrap",
+    ]
+    proc = subprocess.run(cmd, input=feed, text=True, capture_output=True)
+    if proc.returncode != 0:
+        return 130
+    line = proc.stdout.rstrip("\n")
+    if not line:
+        return 130
+    rid = line.split("\t")[0]
+    found = [i for i in service.items() if i["id"] == rid]
+    if not found:
+        raise SystemExit(f"psup: 选中的 id={rid} 不存在")
+    print(found[0].get(args.field, ""))
+    return 0
+
+
+def cmd_packs(args) -> int:
+    rows = PromptService(catalog()).packs()
+    if args.json:
+        print(json.dumps(rows, ensure_ascii=False, indent=2))
+        return 0
+    for row in rows:
+        print("\t".join(str(row[key]) for key in ("id", "name", "version", "count")))
+    return 0
+
+
+def cmd_audit(args) -> int:
+    result = PromptService(catalog()).audit()
+    if args.json:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        evidence = result["evidence"]
+        print(
+            f"证据 {result['count']} 条：verbatim {evidence['verbatim']} · "
+            f"paraphrase {evidence['paraphrase']} · unverified {evidence['unverified']}"
+        )
+        rights = result["rights"]
+        print(
+            "版权："
+            + " · ".join(f"{name} {count}" for name, count in rights.items())
+        )
+        print("正式包：" + ("可发布" if result["official_ready"] else "含未核实条目"))
+        if result["missing"]:
+            print("缺少结构化证据：" + ", ".join(result["missing"]))
+        if result["missing_rights"]:
+            print("缺少版权字段：" + ", ".join(result["missing_rights"]))
+    return 0 if result["ok"] else 1
+
+
+def cmd_verify(args) -> int:
+    result = verify_content()
+    if args.json:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        origins = result["origins"]
+        parts = " / ".join(
+            f"{ORIGIN_LABELS[name]} {origins[name]}" for name in ORIGIN_LABELS
+        )
+        print(f"内容 {result['count']} 条 · {parts} · 节选 {result['excerpts']}")
+        print(f"digest {result['digest']}")
+        if result["legacy"] == "match":
+            print("与 data/prompts.json 逐字节一致")
+        elif result["legacy"] == "absent":
+            print("未找到 data/（跳过迁移比对）")
+        else:
+            print("与 data/prompts.json 不一致", file=sys.stderr)
+        for error in result["errors"]:
+            print("  ✗ " + error, file=sys.stderr)
+    return 0 if result["ok"] else 1
+
+
+def cmd_build(args) -> int:
+    hosts = tuple(HOSTS) if args.host == "all" else (args.host,)
+    if args.check:
+        result = check_artifacts(hosts=hosts)
+        if args.json:
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+        elif result["ok"]:
+            print(f"产物已是最新：{result['expected']} 个文件（{' + '.join(hosts)}）")
+        else:
+            print("产物与 content/ 不一致：", file=sys.stderr)
+            for kind, label in (("missing", "缺少"), ("different", "已改"), ("extra", "多余")):
+                for rel in result[kind]:
+                    print(f"  {label} {rel}", file=sys.stderr)
+        return 0 if result["ok"] else 1
+
+    result = build_artifacts(hosts=hosts)
+    if args.json:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        print(
+            f"生成 {result['expected']} 个文件（{' + '.join(hosts)}）· "
+            f"写入 {result['written']} · 删除 {len(result['removed'])}"
+        )
+        for rel in result["added"]:
+            print("  + " + rel)
+        for rel in result["changed"]:
+            print("  ~ " + rel)
+        for rel in result["removed"]:
+            print("  - " + rel)
+    return 0 if result["ok"] else 1
+
+
+def cmd_capabilities(args) -> int:
+    manifest = capability_manifest()
+    if args.json:
+        print(json.dumps(manifest, ensure_ascii=False, indent=2))
+    else:
+        for surface in manifest["surfaces"]:
+            print(
+                f"{surface['id']}\t{surface['level']}\t"
+                f"{surface['status']}\t{surface['name']}"
+            )
+    return 0
+
+
+def cmd_version(args) -> int:
+    print(__version__)
+    return 0
+
+
+def cmd_categories(args) -> int:
+    rows = PromptService(catalog()).categories()
+    if args.json:
+        print(json.dumps(rows, ensure_ascii=False, indent=2))
+    else:
+        for row in rows:
+            print(f"{row['key']}\t{row['name']}\t{row['count']}")
+    return 0
+
+
+def cmd_safety(args) -> int:
+    rows = [
+        {"id": item["id"], **scan_item(item)}
+        for item in PromptService(catalog()).items()
+    ]
+    if args.json:
+        print(json.dumps(rows, ensure_ascii=False, indent=2))
+    else:
+        for row in rows:
+            if row["flags"]:
+                print(
+                    f"{row['id']}\t{row['status']}\t"
+                    + ",".join(row["flags"])
+                )
+        print(
+            f"安全扫描 {len(rows)} 条："
+            f"{sum(1 for row in rows if row['status'] == 'passed')} passed · "
+            f"{sum(1 for row in rows if row['status'] == 'needs-review')} needs-review"
+        )
+    return 0
+
+
+def cmd_reviews(args) -> int:
+    items = PromptService(catalog()).items()
+    path = REPO / "reviews" / "review-ledger.json"
+    try:
+        ledger = load_ledger(path)
+        validate_ledger(ledger, items)
+    except ReviewError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    if args.json:
+        print(json.dumps(ledger, ensure_ascii=False, indent=2))
+    else:
+        print(f"审核账本有效：{len(ledger['items'])} 条 · {path}")
+    return 0
+
+
+def cmd_sources(args) -> int:
+    items = PromptService(catalog()).items()
+    urls = {item["url"] for item in items}
+    result = verify_manifest(REPO / "reports" / "sources" / "index.json", urls)
+    if args.json:
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+    else:
+        print(
+            f"来源快照 {result['checked']} 个 · schema {result['schema_version']} · "
+            f"{'通过' if result['ok'] else '失败'}"
+        )
+        for error in result["errors"]:
+            print("  ✗ " + error, file=sys.stderr)
+    return 0 if result["ok"] else 1
+
+
+def candidates_path() -> Path:
+    return Path(
+        os.environ.get("SKYNET_PROMPT_CANDIDATES")
+        or REPO / "candidates" / "candidates.json"
+    ).expanduser()
+
+
+def cmd_candidates(args) -> int:
+    try:
+        store = load_store(candidates_path())
+    except CandidateError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    rows = store["candidates"]
+    if args.json:
+        print(json.dumps(rows, ensure_ascii=False, indent=2))
+    else:
+        for row in rows:
+            print("\t".join((
+                row["id"], row["status"], row["author"], row["url"],
+            )))
+        print(f"候选 {len(rows)} 条")
+    return 0
+
+
+def cmd_submit(args) -> int:
+    path = Path(args.file)
+    try:
+        candidate = json.loads(path.read_text(encoding="utf-8"))
+        store = load_store(candidates_path())
+        result = add_candidate(store, candidate, submitted_by=args.as_name)
+        if result["added"]:
+            save_store(candidates_path(), store)
+    except (OSError, json.JSONDecodeError, CandidateError) as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result["added"] else 1
+
+
+def cmd_release(args) -> int:
+    try:
+        result = release_pack(
+            REPO,
+            Path(args.out).expanduser(),
+            channel=args.channel,
+            private_key=Path(args.private_key).expanduser() if args.private_key else None,
+            key_id=args.key_id,
+            approval_paths=[Path(path).expanduser() for path in args.approval],
+            trust_path=Path(args.trust).expanduser(),
+        )
+    except ReleaseError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_approve(args) -> int:
+    try:
+        approval = create_approval(
+            Path(args.release).expanduser(),
+            approver=args.approver,
+            role=args.role,
+            private_key=Path(args.private_key).expanduser(),
+            key_id=args.key_id,
+        )
+    except ApprovalError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    out = Path(args.release).expanduser() / "approvals" / f"{approval['approval_id']}.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(approval, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({
+        "ok": True,
+        "out": str(out),
+        "approval_id": approval["approval_id"],
+        "approver": approval["approver"],
+        "role": approval["role"],
+    }, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_registry(args) -> int:
+    manifest = Path(args.manifest).expanduser()
+    root = Path(args.root).expanduser() if args.root else manifest.parent
+    trust = Path(args.trust).expanduser()
+    try:
+        registry = load_registry(manifest)
+        result = verify_registry(root, registry, trust_path=trust)
+        selected = (
+            select_pack(registry, args.pack, args.channel)
+            if args.pack
+            else None
+        )
+    except RegistryError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    output = {**result, "selected": selected}
+    print(json.dumps(output, ensure_ascii=False, indent=2))
+    return 0 if result["ok"] else 1
+
+
+def sync_store(args) -> Path:
+    return Path(
+        args.store or os.environ.get("SKYNET_PROMPT_STORE") or default_store()
+    ).expanduser()
+
+
+def cmd_update(args) -> int:
+    try:
+        result = sync_update(
+            args.registry,
+            pack_id=args.pack,
+            channel=args.channel,
+            store=sync_store(args),
+            trust_path=Path(args.trust).expanduser(),
+        )
+    except SyncError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_rollback(args) -> int:
+    try:
+        result = sync_rollback(
+            pack_id=args.pack,
+            channel=args.channel,
+            store=sync_store(args),
+            trust_path=Path(args.trust).expanduser(),
+        )
+    except SyncError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_doctor(args) -> int:
+    try:
+        result = sync_doctor(
+            sync_store(args),
+            trust_path=Path(args.trust).expanduser(),
+            registry_source=args.registry,
+        )
+    except SyncError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result["ok"] else 1
+
+
+def cmd_cache(args) -> int:
+    store = sync_store(args)
+    result = cache_stats(store / "cache")
+    result["store"] = str(store)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0 if result["ok"] else 1
+
+
+def cmd_pin(args) -> int:
+    try:
+        result = sync_pin(
+            pack_id=args.pack,
+            channel=args.channel,
+            store=sync_store(args),
+            version=args.version,
+        )
+    except SyncError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_unpin(args) -> int:
+    try:
+        result = sync_unpin(
+            pack_id=args.pack,
+            channel=args.channel,
+            store=sync_store(args),
+        )
+    except SyncError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_events(args) -> int:
+    rows = sync_events(sync_store(args), limit=args.limit)
+    print(json.dumps(rows, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_team(args) -> int:
+    path = Path(args.config).expanduser() if args.config else config_env()
+    try:
+        config = load_config(path)
+        auth = (
+            authorize(config, args.user, args.action)
+            if args.user and args.action
+            else None
+        )
+    except TeamError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps({
+        "ok": True,
+        "config": str(path),
+        "org_id": config["org_id"],
+        "registries": config["registries"],
+        "members": config["members"],
+        "authorization": auth,
+    }, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_team_update(args) -> int:
+    path = Path(args.config).expanduser() if args.config else config_env()
+    try:
+        config = load_config(path)
+        registry = resolve_registry(config, args.registry_id)
+        result = sync_update(
+            registry["source"],
+            pack_id=args.pack,
+            channel=registry["channel"],
+            store=sync_store(args),
+            trust_path=Path(registry["trust"]).expanduser(),
+        )
+    except (TeamError, SyncError) as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    result["registry_id"] = registry["id"]
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def feedback_path() -> Path:
+    return Path(
+        os.environ.get("SKYNET_PROMPT_FEEDBACK") or default_feedback_path()
+    ).expanduser()
+
+
+def cmd_feedback(args) -> int:
+    try:
+        PromptService(catalog()).get(args.id)
+        result = add_feedback(
+            feedback_path(),
+            item_id=args.id,
+            kind=args.kind,
+            note=args.note,
+        )
+    except (PromptServiceError, FeedbackError) as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_feedback_summary(args) -> int:
+    print(json.dumps(
+        summarize_feedback(feedback_path()),
+        ensure_ascii=False,
+        indent=2,
+    ))
+    return 0
+
+
+def cmd_suggest(args) -> int:
+    rows = advisor_suggest(
+        PromptService(catalog()).items(),
+        " ".join(args.words),
+        limit=args.limit,
+    )
+    if args.json:
+        print(json.dumps(rows, ensure_ascii=False, indent=2))
+    else:
+        for row in rows:
+            print("\t".join((
+                row["id"],
+                f"{row['score']:.1f}",
+                ",".join(row["reasons"]),
+                row["zh"],
+            )))
+    return 0
+
+
+def trust_path(args) -> Path:
+    return Path(
+        args.trust or REPO / "trust" / "keys.json"
+    ).expanduser()
+
+
+def cmd_trust(args) -> int:
+    try:
+        payload = load_trust(trust_path(args))
+    except TrustError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_trust_add(args) -> int:
+    try:
+        row = add_key(
+            trust_path(args),
+            Path(args.public_key).expanduser(),
+            key_id=args.key_id,
+            publisher=args.publisher,
+            status=args.status,
+            expires_at=args.expires_at,
+        )
+    except TrustError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps({"ok": True, "key": row}, ensure_ascii=False, indent=2))
+    return 0
+
+
+def cmd_trust_revoke(args) -> int:
+    try:
+        row = revoke_key(trust_path(args), args.key_id)
+    except TrustError as exc:
+        raise SystemExit(f"psup: {exc}") from exc
+    print(json.dumps({"ok": True, "key": row}, ensure_ascii=False, indent=2))
+    return 0
+
+
+def main(argv: list[str]) -> int:
+    if argv and argv[0] == "install":
+        return subprocess.call([sys.executable, str(REPO / "scripts" / "install.py"), *argv[1:]])
+    known = {
+        "list", "show", "print", "pick", "selftest", "packs", "audit",
+        "capabilities", "categories", "reviews", "safety", "sources",
+        "candidates", "submit", "release", "registry", "update", "rollback",
+        "doctor", "cache", "pin", "unpin", "events", "team", "team-update",
+        "approve", "feedback", "feedback-summary", "suggest",
+        "trust", "trust-add", "trust-revoke", "verify", "build", "version",
+    }
+    if not argv:
+        argv = ["pick"]          # 不带参数就是交互选择
+    elif argv[0] not in known and not argv[0].startswith("-"):
+        argv = ["list", *argv]   # psup 验收 → 直接过滤
+    ap = argparse.ArgumentParser(
+        prog="psup",
+        description="提示词补充：命令行入口",
+        epilog=(
+            f"Agent 统一触发器：{CANONICAL_TRIGGER}。"
+            "宿主集成安装：psup install [codex|pi|opencode|hermes|copilot|claude]"
+        ),
+    )
+    ap.add_argument("--version", action="version", version=__version__)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+
+    p_version = sub.add_parser("version", help="输出产品版本")
+    p_version.set_defaults(func=cmd_version)
+
+    p_list = sub.add_parser("list", help="列出条目（给 fzf 或脚本用）")
+    p_list.add_argument("words", nargs="*", help="关键词，全部命中才算")
+    p_list.add_argument("--json", action="store_true")
+    p_list.add_argument("--pack", help="只列指定提示词包")
+    p_list.add_argument("--category", help="按类目键或显示名过滤")
+    p_list.add_argument("--limit", type=int, help="最多返回多少条")
+    p_list.set_defaults(func=cmd_list)
+
+    p_show = sub.add_parser("show", help="显示一条的完整内容")
+    p_show.add_argument("id")
+    p_show.add_argument("--width", type=int, default=0)
+    p_show.set_defaults(func=cmd_show)
+
+    p_print = sub.add_parser("print", help="只输出某字段（默认中文）")
+    p_print.add_argument("id")
+    p_print.add_argument("--field", default="zh", choices=["zh", "en", "id", "url", "author"])
+    p_print.add_argument("--lang", help="读取指定语言译文，例如 zh-CN")
+    p_print.set_defaults(func=cmd_print)
+
+    p_pick = sub.add_parser("pick", help="fzf 交互选择，选中后把正文打到 stdout")
+    p_pick.add_argument("words", nargs="*")
+    p_pick.add_argument("--field", default="zh", choices=["zh", "en", "id"])
+    p_pick.set_defaults(func=cmd_pick)
+
+    p_self = sub.add_parser("selftest", help="条数 + sha256 自检")
+    p_self.set_defaults(func=cmd_selftest)
+
+    p_packs = sub.add_parser("packs", help="列出已加载的提示词包")
+    p_packs.add_argument("--json", action="store_true")
+    p_packs.set_defaults(func=cmd_packs)
+
+    p_audit = sub.add_parser("audit", help="审计结构化来源证据")
+    p_audit.add_argument("--json", action="store_true")
+    p_audit.set_defaults(func=cmd_audit)
+
+    p_caps = sub.add_parser("capabilities", help="列出各入口与宿主支持等级")
+    p_caps.add_argument("--json", action="store_true")
+    p_caps.set_defaults(func=cmd_capabilities)
+
+    p_categories = sub.add_parser("categories", help="列出提示词类目")
+    p_categories.add_argument("--json", action="store_true")
+    p_categories.set_defaults(func=cmd_categories)
+
+    p_safety = sub.add_parser("safety", help="扫描提示词注入、凭据外传和危险命令")
+    p_safety.add_argument("--json", action="store_true")
+    p_safety.set_defaults(func=cmd_safety)
+
+    p_reviews = sub.add_parser("reviews", help="校验来源与翻译审核账本")
+    p_reviews.add_argument("--json", action="store_true")
+    p_reviews.set_defaults(func=cmd_reviews)
+
+    p_sources = sub.add_parser("sources", help="校验来源快照 manifest 与文件哈希")
+    p_sources.add_argument("--json", action="store_true")
+    p_sources.set_defaults(func=cmd_sources)
+
+    p_candidates = sub.add_parser("candidates", help="列出候选提交")
+    p_candidates.add_argument("--json", action="store_true")
+    p_candidates.set_defaults(func=cmd_candidates)
+
+    p_submit = sub.add_parser("submit", help="提交一条候选 JSON 并检查重复")
+    p_submit.add_argument("file")
+    p_submit.add_argument("--as", dest="as_name", default="unknown")
+    p_submit.set_defaults(func=cmd_submit)
+
+    p_release = sub.add_parser("release", help="执行完整 v2 发布流水线")
+    p_release.add_argument("--out", default=str(REPO / "dist" / "release"))
+    p_release.add_argument("--channel", choices=["dev", "canary", "stable"], default="dev")
+    p_release.add_argument("--private-key")
+    p_release.add_argument("--key-id", default="skynet-club-dev")
+    p_release.add_argument("--approval", action="append", default=[])
+    p_release.add_argument("--trust", default=str(REPO / "trust" / "keys.json"))
+    p_release.set_defaults(func=cmd_release)
+
+    p_approve = sub.add_parser("approve", help="为已生成 Pack 创建签名审批")
+    p_approve.add_argument("--release", required=True)
+    p_approve.add_argument("--as", dest="approver", required=True)
+    p_approve.add_argument("--role", choices=["reviewer", "publisher"], required=True)
+    p_approve.add_argument("--private-key", required=True)
+    p_approve.add_argument("--key-id", required=True)
+    p_approve.set_defaults(func=cmd_approve)
+
+    p_registry = sub.add_parser("registry", help="校验 Registry manifest 并可选择包")
+    p_registry.add_argument("manifest")
+    p_registry.add_argument("--root")
+    p_registry.add_argument("--trust", default=str(REPO / "trust" / "keys.json"))
+    p_registry.add_argument("--pack")
+    p_registry.add_argument("--channel", choices=["dev", "canary", "stable"], default="dev")
+    p_registry.set_defaults(func=cmd_registry)
+
+    p_update = sub.add_parser("update", help="从 Registry 增量安装 Pack")
+    p_update.add_argument(
+        "--registry",
+        default=str(REPO / "dist" / "registry" / "registry.json"),
+    )
+    p_update.add_argument("--pack", default="official")
+    p_update.add_argument("--channel", choices=["dev", "canary", "stable"], default="dev")
+    p_update.add_argument("--store")
+    p_update.add_argument("--trust", default=str(REPO / "trust" / "keys.json"))
+    p_update.set_defaults(func=cmd_update)
+
+    p_rollback = sub.add_parser("rollback", help="回滚到上一安装版本")
+    p_rollback.add_argument("--pack", default="official")
+    p_rollback.add_argument("--channel", choices=["dev", "canary", "stable"], default="dev")
+    p_rollback.add_argument("--store")
+    p_rollback.add_argument("--trust", default=str(REPO / "trust" / "keys.json"))
+    p_rollback.set_defaults(func=cmd_rollback)
+
+    p_doctor = sub.add_parser("doctor", help="检查本地 Pack、签名和 Registry 状态")
+    p_doctor.add_argument("--registry")
+    p_doctor.add_argument("--store")
+    p_doctor.add_argument("--trust", default=str(REPO / "trust" / "keys.json"))
+    p_doctor.set_defaults(func=cmd_doctor)
+
+    p_cache = sub.add_parser("cache", help="检查内容寻址缓存")
+    p_cache.add_argument("--store")
+    p_cache.set_defaults(func=cmd_cache)
+
+    p_pin = sub.add_parser("pin", help="固定当前或已安装版本")
+    p_pin.add_argument("--pack", default="official")
+    p_pin.add_argument("--channel", choices=["dev", "canary", "stable"], default="dev")
+    p_pin.add_argument("--version")
+    p_pin.add_argument("--store")
+    p_pin.set_defaults(func=cmd_pin)
+
+    p_unpin = sub.add_parser("unpin", help="解除版本固定")
+    p_unpin.add_argument("--pack", default="official")
+    p_unpin.add_argument("--channel", choices=["dev", "canary", "stable"], default="dev")
+    p_unpin.add_argument("--store")
+    p_unpin.set_defaults(func=cmd_unpin)
+
+    p_events = sub.add_parser("events", help="读取本地更新与回滚事件")
+    p_events.add_argument("--limit", type=int, default=100)
+    p_events.add_argument("--store")
+    p_events.set_defaults(func=cmd_events)
+
+    p_team = sub.add_parser("team", help="校验团队 Registry 与角色配置")
+    p_team.add_argument("--config")
+    p_team.add_argument("--user")
+    p_team.add_argument("--action", choices=["submit", "review", "publish", "admin", "read"])
+    p_team.set_defaults(func=cmd_team)
+
+    p_team_update = sub.add_parser("team-update", help="从团队指定 Registry 更新 Pack")
+    p_team_update.add_argument("--config")
+    p_team_update.add_argument("--registry-id", required=True)
+    p_team_update.add_argument("--pack", default="official")
+    p_team_update.add_argument("--store")
+    p_team_update.set_defaults(func=cmd_team_update)
+
+    p_feedback = sub.add_parser("feedback", help="记录本地提示词反馈")
+    p_feedback.add_argument("id")
+    p_feedback.add_argument(
+        "--kind",
+        choices=["adopted", "undone", "useful", "not-useful", "source-broken"],
+        required=True,
+    )
+    p_feedback.add_argument("--note", default="")
+    p_feedback.set_defaults(func=cmd_feedback)
+
+    p_feedback_summary = sub.add_parser("feedback-summary", help="汇总本地反馈")
+    p_feedback_summary.set_defaults(func=cmd_feedback_summary)
+
+    p_suggest = sub.add_parser("suggest", help="可解释地建议候选，不修改正文")
+    p_suggest.add_argument("words", nargs="*")
+    p_suggest.add_argument("--limit", type=int, default=5)
+    p_suggest.add_argument("--json", action="store_true")
+    p_suggest.set_defaults(func=cmd_suggest)
+
+    p_trust = sub.add_parser("trust", help="列出发布者公钥信任库")
+    p_trust.add_argument("--trust")
+    p_trust.set_defaults(func=cmd_trust)
+
+    p_trust_add = sub.add_parser("trust-add", help="登记第三方 Ed25519 公钥")
+    p_trust_add.add_argument("--trust")
+    p_trust_add.add_argument("--public-key", required=True)
+    p_trust_add.add_argument("--key-id", required=True)
+    p_trust_add.add_argument("--publisher", required=True)
+    p_trust_add.add_argument("--status", choices=["active", "dev"], default="active")
+    p_trust_add.add_argument("--expires-at")
+    p_trust_add.set_defaults(func=cmd_trust_add)
+
+    p_trust_revoke = sub.add_parser("trust-revoke", help="撤销发布者公钥")
+    p_trust_revoke.add_argument("--trust")
+    p_trust_revoke.add_argument("--key-id", required=True)
+    p_trust_revoke.set_defaults(func=cmd_trust_revoke)
+
+    p_verify = sub.add_parser("verify", help="校验 content/ 并比对 data/ 迁移结果")
+    p_verify.add_argument("--json", action="store_true")
+    p_verify.set_defaults(func=cmd_verify)
+
+    p_build = sub.add_parser("build", help="从 content/ 生成宿主产物")
+    p_build.add_argument("--host", default="all", choices=["all", "pi", "codex", "opencode"])
+    p_build.add_argument("--check", action="store_true", help="只比对，不写文件")
+    p_build.add_argument("--json", action="store_true")
+    p_build.set_defaults(func=cmd_build)
+
+    args = ap.parse_args(argv)
+    return args.func(args)
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

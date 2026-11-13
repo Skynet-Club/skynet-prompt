@@ -1,0 +1,1 @@
+Here is the local IP and username/password of my DGX Spark. Log in, set up ssh keys, set up vLLM, download and bench Qwen3-VL, set up a server endpoint to inference videos, a basic web ui dashboard, test everything, it up with systemd, record memory notes for yourself and write up a markdown report for me

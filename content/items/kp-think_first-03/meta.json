@@ -1,0 +1,21 @@
+{
+  "id": "kp-think_first-03",
+  "cat": "think_first",
+  "author": "Karpathy",
+  "date": "2026-11-11",
+  "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+  "origin": "compilation",
+  "excerpt": false,
+  "source": {
+    "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+    "author": "Karpathy",
+    "published_at": "2026-11-11",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "79c9fbc9072051b70bd484d515a51956387d7abbe6c15458cc8a39b844a08bd9",
+    "en": "2be0f504f78a9a0d072b3c88260fa01efc43b1d7b412eb1232549acbd2d12ba4"
+  }
+}

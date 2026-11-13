@@ -1,0 +1,21 @@
+{
+  "id": "kp-perspective-21",
+  "cat": "perspective",
+  "author": "Karpathy",
+  "date": "2026-03-28",
+  "url": "https://x.com/karpathy/status/2037921699824607591",
+  "origin": "verbatim",
+  "excerpt": false,
+  "source": {
+    "url": "https://x.com/karpathy/status/2037921699824607591",
+    "author": "Karpathy",
+    "published_at": "2026-03-28",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "d87c470d4a7ac36b22462f447187aa42e2a6da0929aea6b3087ef51269c93a30",
+    "en": "9a51a35857e4c6cc50b5f43f9ee30b52af74f1118518fad5541dbeb1806bed96"
+  }
+}

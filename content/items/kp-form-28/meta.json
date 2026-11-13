@@ -1,0 +1,21 @@
+{
+  "id": "kp-form-28",
+  "cat": "form",
+  "author": "Karpathy",
+  "date": "2026-05-01",
+  "url": "https://x.com/karpathy/status/2049903821095354523",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://x.com/karpathy/status/2049903821095354523",
+    "author": "Karpathy",
+    "published_at": "2026-05-01",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "6f5b334b87de2e5da2dda3e36dabeeee20a215ff4b7d56586d8988b71fcb1132",
+    "en": "8a1a95bb5490dbf1b33ae176a5aa43e126edac3b963669c5ce9bf8c49012b12d"
+  }
+}

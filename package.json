@@ -1,0 +1,19 @@
+{
+  "name": "skynet-prompt",
+  "version": "0.3.0",
+  "description": "42 条带出处与中文直译的提示词，供 AI Agent 原样检索和插入",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "prompts",
+    "agents"
+  ],
+  "pi": {
+    "prompts": [
+      "./adapters/pi/prompts/*.md"
+    ],
+    "extensions": [
+      "./adapters/pi-extension/index.ts"
+    ]
+  }
+}

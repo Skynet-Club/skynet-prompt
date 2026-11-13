@@ -1,0 +1,189 @@
+{
+  "ok": true,
+  "model": "deepseek-chat",
+  "judge_model": "deepseek-reasoner",
+  "method": "blind-pairwise-single-model",
+  "selection": "advisor",
+  "checked_at": "2026-11-12T22:13:15+08:00",
+  "count": 10,
+  "repeats": 1,
+  "wins": {
+    "baseline": 1,
+    "augmented": 7,
+    "tie": 2
+  },
+  "augmented_win_rate": 0.7,
+  "rows": [
+    {
+      "id": "eval-plan-01-r1",
+      "prompt_id": "kp-think_first-03",
+      "selected_prompt_id": "fx-verify-13",
+      "task": "你是 Python CLI 项目维护者。需求：修复 `parse_limit()` 对 \"10MB\" 返回 ValueError 的 bug，只改 `config.py` 和对应测试。先给出可执行计划和每步验证方式，不要直接写代码。",
+      "criteria": [
+        "有分步计划",
+        "每步有验证",
+        "写码前确认范围"
+      ],
+      "baseline": "# 修复 `parse_limit()` 对 \"10MB\" 抛 ValueError 的执行计划\n\n## 一、问题定位（先做，不改代码）\n\n**步骤 1：复现 bug**\n- 在项目根目录运行最小复现脚本或 `python -c \"from config import parse_limit; print(parse_limit('10MB'))\"`。\n- 验证方式：确认当前确实抛出 `ValueError`，并记录完整 traceback 与异常消息（用于后续断言）。\n\n**步骤 2：阅读 `config.py` 中 `parse_limit()` 实现**\n- 关注：单位识别逻辑（是否只认小写 `mb`？是否只认 `M`？是否用 `endswith` 顺序导致 `B` 先匹配？正则是否大小写敏感？）。\n- 验证方式：在代码旁注释出可疑行，形成\"假设根因\"清单（例如：单位表 key 为 `\"mb\"`，输入 `\"MB\"` 未命中）。\n\n**步骤 3：确认现有测试覆盖**\n- 找到对应测试文件（如 `tests/test_config.py`），运行 `pytest tests/test_config.py -k parse_limit -v`。\n- 验证方式：记录现有用例通过情况，确认没有已存在的 `\"10MB\"` 用例（否则 bug 应已被捕获）。\n\n## 二、确定修复契约（改代码前先定行为）\n\n**步骤 4：明确期望语义**\n- `\"10MB\"` → `10 * 1024 * 1024`（还是 `10 * 1000 * 1000`？需与项目其他部分/文档一致，先查 README 或调用方）。\n- 大小写不敏感（`10mb`、`10Mb`、`10MB` 等价）。\n- 是否允许空格（`\"10 MB\"`）、小数（`\"1.5GB\"`）、无单位（`\"1024\"`）——**只修 bug，不扩范围**：若原实现已支持则保持，不支持则不新增。\n- 验证方式：把上述结论写成 3–5 条断言清单，作为测试用例来源；与需求方/issue 描述核对一次。\n\n## 三、修改 `config.py`（最小改动）\n\n**步骤 5：修正单位匹配逻辑**\n- 仅改 `parse_limit()` 内部：单位归一化（如 `unit.upper()` 后查表）或正则加 `re.IGNORECASE`，保持函数签名、返回类型、异常类型不变。\n- 不改其他函数、不改公开 API、不重构。\n- 验证方式：\n  - `git diff config.py` 人工审阅，确认 diff 只落在 `parse_limit()` 内；\n  - 运行步骤 1 的复",
+      "augmented": "## 可执行计划\n\n### 第 0 步：先质疑问题陈述本身\n在动手前，先对抗性检验“`parse_limit()` 对 `\"10MB\"` 返回 ValueError 是 bug”这一前提：\n- 读 `config.py` 中 `parse_limit()` 的实现与 docstring，确认它**声称**支持的格式（是否明确包含 `\"10MB\"` 这类带单位后缀？单位大小写？是否只支持纯数字？）。\n- 读现有测试，确认既有约定：`\"10MB\"` 是**从未被支持**（则这是功能缺口，不是回归 bug），还是**曾经支持、被改坏**（真 bug）。用 `git log -p -- config.py` 和 `git log -S \"MB\"` 复现历史结论，而不是相信“bug”这个标签。\n- 检查调用方：谁在传 `\"10MB\"`？是配置样例、文档、还是用户输入？这决定修复的边界（只修解析，还是也要改默认值/文档——但本次约束只允许改 `config.py` 和测试，所以文档类改动要记录为遗留项）。\n\n**验证方式**：产出一段结论——`\"10MB\"` 属于“应支持但坏了”还是“本就不支持”。若结论是后者，先向需求方确认再继续；若无法确认，按“应支持”推进但在测试里显式固化该契约。\n\n### 第 1 步：用原始输入复现，不靠转述\n- 在隔离环境（`python -m venv` 或项目既有环境）里直接跑：`python -c \"from config import parse_limit; print(parse_limit('10MB'))\"`，记录完整 traceback。\n- 同时跑一组**原始输入矩阵**，把行为摊开而不是只测一个点：`\"10\"`, `\"10MB\"`, `\"10mb\"`, `\"10 MB\"`, `\"10M\"`, `\"10MiB\"`, `\"1.5GB\"`, `\"0MB\"`, `\"-5MB\"`, `\"\"`, `None`, `\"abc\"`, `\"10XB\"`。记录每个的当前输出/异常。\n- 从矩阵里**反推**实现的实际解析逻辑（正则？`int()` 前缀截断？单位表？），而不是假设它“应该”怎么解析。\n\n**验证方式**：得到一张“输入 → 当前行为”的实测表，作为修复前后的对照基线。\n\n### 第 2 步：定义修复后的契约（先写清楚再改）\n基于第 0、1 步的证据，明确：\n- 支持的单位集合与大小写规则（如 `B/KB/MB/GB`，",
+      "verdict": {
+        "winner": "augmented",
+        "reason": "两者均有分步与验证；B步骤完整且写码前明确范围，A末尾截断"
+      }
+    },
+    {
+      "id": "eval-verify-02-r1",
+      "prompt_id": "kp-verify-17",
+      "selected_prompt_id": "fx-verify-13",
+      "task": "当前代码 `def parse_limit(raw): return int(raw)` 对 \"10MB\" 抛出 ValueError。请给出修复片段和测试代码，证明 \"10MB\" 变为 10、非法输入仍明确失败。",
+      "criteria": [
+        "先复现",
+        "有自动化测试",
+        "有完成标准"
+      ],
+      "baseline": "# 修复 `parse_limit` 以支持 \"10MB\" 等带单位输入\n\n## 问题分析\n\n当前实现 `def parse_limit(raw): return int(raw)` 只能解析纯数字字符串。当输入 `\"10MB\"` 时，`int(\"10MB\")` 会抛出 `ValueError`。\n\n## 修复方案\n\n需要：\n1. 支持带单位（如 `MB`、`KB`、`GB`、`B`）的输入，返回数值部分\n2. 对非法输入（空字符串、纯字母、负数、浮点数等）明确抛出 `ValueError`\n3. 保持向后兼容：纯数字输入仍返回整数\n\n## 修复代码\n\n```python\nimport re\n\n# 允许的单位（大小写不敏感），可按需扩展\n_UNIT_PATTERN = re.compile(r\"^\\s*(\\d+)\\s*(B|KB|MB|GB|TB)?\\s*$\", re.IGNORECASE)\n\n\ndef parse_limit(raw):\n    \"\"\"\n    解析限制值。\n\n    支持格式：\n      - 纯数字：       \"10\"    -> 10\n      - 数字 + 单位：  \"10MB\"  -> 10\n      - 带空白：       \" 10 MB \" -> 10\n\n    非法输入（空串、非数字、负数、浮点数、未知单位等）抛出 ValueError。\n    \"\"\"\n    if not isinstance(raw, str):\n        raise ValueError(f\"parse_limit expects str, got {type(raw).__name__}\")\n\n    match = _UNIT_PATTERN.match(raw)\n    if not match:\n        raise ValueError(f\"Invalid limit format: {raw!r}\")\n\n    return int(match.group(1))\n```\n\n## 测试代码\n\n```python\nimport pytest\n\n\nclass TestParseLimit:\n    # ---------- 正常路径 ----------\n    @pytest.mark.parametrize(\"raw, expected\", [\n        (\"10MB\", 10),\n        (\"10mb\", 10),          # 大小写不敏感\n        (\"10 MB\", 10),         # 中间有空格\n        (\"  10MB  \", 10),      # 前后有空白\n        (\"10\", 10),            # 纯数字（向后兼容）\n        (\"0B\", 0),\n        (\"512KB\", 512),\n        (\"2GB\", 2),\n        (\"1TB\", 1),\n    ])\n    def test_valid_inputs(self, raw, expected):\n        assert parse_limit(raw) == expected\n\n    # ---------- 非法输入必须明确失败 ----------\n    @pytest.mark.parametrize(\"raw\", [\n        \"\",              # 空字符串\n        \"   \",           # 纯空白\n        \"MB\",            # 只有单位\n        \"abc\",           # 纯",
+      "augmented": "修复片段：\n\n```python\nimport re\n\n_SIZE_RE = re.compile(r\"^\\s*(\\d+)\\s*(?:MB)?\\s*$\", re.IGNORECASE)\n\ndef parse_limit(raw):\n    if not isinstance(raw, str):\n        raise TypeError(f\"parse_limit expects str, got {type(raw).__name__}\")\n    m = _SIZE_RE.match(raw)\n    if not m:\n        raise ValueError(f\"invalid limit: {raw!r}\")\n    return int(m.group(1))\n```\n\n测试代码：\n\n```python\nimport pytest\n\ndef test_parse_limit_accepts_mb_suffix():\n    assert parse_limit(\"10MB\") == 10\n    assert parse_limit(\"10mb\") == 10\n    assert parse_limit(\"10 MB\") == 10\n    assert parse_limit(\" 10MB \") == 10\n\ndef test_parse_limit_accepts_plain_integer():\n    assert parse_limit(\"10\") == 10\n    assert parse_limit(\"0\") == 0\n\n@pytest.mark.parametrize(\"bad\", [\"\", \"MB\", \"10GB\", \"10.5MB\", \"-10MB\", \"abc\", \"10MBx\", \"1e3MB\"])\ndef test_parse_limit_rejects_invalid(bad):\n    with pytest.raises(ValueError):\n        parse_limit(bad)\n\ndef test_parse_limit_rejects_non_str():\n    with pytest.raises(TypeError):\n        parse_limit(10)\n```\n\n关于附加约束的说明：上面的测试只验证了「10MB → 10」这一条被写进需求的假设，并没有检验它背后的前提。如果按提示词的要求对抗性地看原始输入，值得先问：真实调用方传进来的 `raw` 到底长什么样？\"10MB\" 是唯一格式吗，还是日志里其实混着 \"10M\"、\"10 MiB\"、\"10mb/s\"、带千分位的 \"1,024MB\"、甚至已经是整数的 10？在没看过真实数据分布之前，`^\\d+\\s*(MB)?$` 这个正则只是对「输入格式」的又一个粗略近似——它会把 \"10M\" 判为非法而让上游崩掉，也可能把 \"10MB\" 里本应保留的单位信息悄悄丢掉。建议先抓一批真实的 `raw` 值跑一遍，看非法样本具体是哪些，再决定正则边界，而不是先假定 \"10MB\" 就是全部真相。",
+      "verdict": {
+        "winner": "tie",
+        "reason": "judge_non_json",
+        "raw": ""
+      }
+    },
+    {
+      "id": "eval-simple-03-r1",
+      "prompt_id": "kp-cut-29",
+      "selected_prompt_id": "kp-cut-29",
+      "task": "下面原型为只做字符串去空白，却定义了 BaseCleaner、CleanerFactory、CleanerStrategy、CleanerPipeline 四层抽象和 60 行代码。请给出最小可读实现，并说明删除哪些抽象。",
+      "criteria": [
+        "删除未要求功能",
+        "无单次使用抽象",
+        "代码明显缩短"
+      ],
+      "baseline": "# 最小可读实现\n\n## 原始过度设计的问题\n\n原代码为\"字符串去空白\"这一单一操作定义了四层抽象：\n\n1. **BaseCleaner** — 抽象基类，定义 `clean()` 接口\n2. **CleanerStrategy** — 策略接口/枚举，用于选择清理方式\n3. **CleanerFactory** — 工厂类，根据策略创建 Cleaner 实例\n4. **CleanerPipeline** — 管道类，串联多个 Cleaner\n\n这四层抽象对\"去空白\"来说完全是负担：没有多种清理算法、没有运行时切换需求、没有组合需求，抽象只增加了阅读成本和调用链深度。\n\n## 最小可读实现\n\n```python\ndef clean(text: str) -> str:\n    \"\"\"去除字符串首尾及内部多余空白，返回单空格分隔的规范形式。\"\"\"\n    return \" \".join(text.split())\n```\n\n如果只需要\"去首尾空白\"：\n\n```python\ndef clean(text: str) -> str:\n    return text.strip()\n```\n\n如果确实需要\"去所有空白\"：\n\n```python\ndef clean(text: str) -> str:\n    return \"\".join(text.split())\n```\n\n一行函数即可，调用方直接 `clean(s)`。\n\n## 应删除的抽象\n\n| 抽象 | 删除理由 |\n|------|----------|\n| **BaseCleaner** | 只有一个实现，抽象基类无多态价值；Python 中函数本身就是一等公民，无需类包装 |\n| **CleanerStrategy** | 没有多种策略可选，枚举/策略接口是空壳；需求变化时再加不迟 |\n| **CleanerFactory** | 工厂用于\"根据参数创建不同对象\"，此处只有一个对象，工厂是纯转发 |\n| **CleanerPipeline** | 管道用于组合多个处理步骤，此处只有一步，管道退化为单次调用 |\n\n## 保留的判断标准\n\n只有当出现以下信号时，才值得重新引入抽象：\n\n- **出现第二种清理算法**（如去 HTML 标签、去标点）→ 可考虑策略或简单函数列表\n- **需要运行时按配置组合步骤** → 可考虑 pipeline（通常一个 `functools.reduce` 或列表推导即可）\n- **需要跨模块统一接口**（如插件系统）→ 才需要基类/协议\n\n在此之前，**一个函数 + 一个 docstring** 就是最可读、最易测、最易改的实现。YAGNI 原则在这里完全适用：抽象的成本是即时的，收益是假设的。",
+      "augmented": "最小实现：\n\n```python\ndef clean(s: str) -> str:\n    return s.strip()\n```\n\n删除的抽象：\n\n- `BaseCleaner`：只有一个实现，没有多态需求。\n- `CleanerFactory`：没有多种 cleaner 需要按条件创建。\n- `CleanerStrategy`：策略模式需要可替换算法，这里算法唯一且固定。\n- `CleanerPipeline`：没有多步骤串联需求，单次 `strip()` 即完成。\n\n原需求只是“字符串去空白”，Python 内置 `str.strip()` 已直接表达，无需任何封装层。",
+      "verdict": {
+        "winner": "augmented",
+        "reason": "B仅用strip，无多余变体，删除全部四层抽象，代码最短。"
+      }
+    },
+    {
+      "id": "eval-boundary-04-r1",
+      "prompt_id": "kp-boundary-31",
+      "selected_prompt_id": "kp-boundary-31",
+      "task": "文件中 `normalize_email()` 未处理大写，需要 `User@Example.COM` 变为 `user@example.com`。相邻的 `format_phone()` 可用但风格较旧。请只修复 `normalize_email()`，不要修改 `format_phone()`，并说明改动边界。",
+      "criteria": [
+        "改动可追溯",
+        "不删除既有死代码",
+        "保留现有风格"
+      ],
+      "baseline": "我无法直接看到你提到的文件内容（当前对话里没有附上文件或代码片段），所以不能给出精确到行的补丁。不过我可以说明**应当如何只改 `normalize_email()`**，以及改动边界。\n\n## 修复方式\n\n在 `normalize_email()` 内部，对邮箱做大小写归一化。通常做法是：\n\n```python\ndef normalize_email(email):\n    return email.strip().lower()\n```\n\n如果原函数已有其他逻辑（例如校验、拆分、去空格），只在其返回值前加 `.lower()`，例如：\n\n```python\ndef normalize_email(email):\n    email = email.strip()\n    # ... 原有校验/处理逻辑保持不变 ...\n    return email.lower()\n```\n\n这样 `User@Example.COM` → `user@example.com`。\n\n## 改动边界（重要）\n\n- **只修改 `normalize_email()` 函数体**：加入小写转换（以及必要的去空格，如果原本没有）。\n- **不修改 `format_phone()`**：即使它风格较旧，也不动它，避免引入无关变更。\n- **不修改函数签名、调用方、模块级代码、导入、测试文件**（除非任务明确要求补测试）。\n- **不重构、不重命名、不格式化相邻代码**，保持 diff 最小。\n- 如果 `normalize_email()` 原本对 `None` 或非字符串有处理，保持原有行为；`.lower()` 只作用于字符串路径，避免改变异常语义。\n\n## 需要你确认的一点\n\n如果原函数对 `None` 有特殊返回（如返回 `None`），应写成：\n\n```python\ndef normalize_email(email):\n    if email is None:\n        return None\n    return email.strip().lower()\n```\n\n请把 `normalize_email()` 和 `format_phone()` 的现有代码贴出来，我可以给出**只改 `normalize_email()`、完全不碰 `format_phone()`** 的最小 diff。",
+      "augmented": "我无法直接修改文件，因为你没有提供文件内容。请把包含 `normalize_email()` 和 `format_phone()` 的代码贴出来，我会按约束只改 `normalize_email()`。\n\n在拿到代码前，先说明我预期的改动边界：\n\n**只改 `normalize_email()` 内部**\n- 在返回前对邮箱做小写化，使 `User@Example.COM` → `user@example.com`。\n- 按现有代码风格实现（例如若原函数用 `return email.strip()`，则改为 `return email.strip().lower()` 这类最小改动），不引入新风格、不重排、不加注释。\n\n**明确不动**\n- `format_phone()` 一行不改，即使风格旧。\n- 不顺手改相邻注释、格式、命名。\n- 不重构没坏的东西。\n- 不删本来就存在的死代码；若发现无关死代码，只提一句，不删。\n- 仅当我的改动导致某个 import／变量／函数变得没用时，才删除它（通常小写化不会产生这种连带删除）。\n\n**检验标准**\n- 每一行 diff 都能直接追溯到“让 `normalize_email()` 处理大写”这一要求。\n\n请贴出文件内容（或至少 `normalize_email()` 与 `format_phone()` 及其相关 import 的片段），我再给出精确的最小改动。",
+      "verdict": {
+        "winner": "augmented",
+        "reason": "A边界更严格，强调最小改动、保留风格、不动format_phone且不删既有死代码；B可能额外去空格，超出范围。"
+      }
+    },
+    {
+      "id": "eval-judge-05-r1",
+      "prompt_id": "fx-verify-15",
+      "selected_prompt_id": "fx-outcome-02",
+      "task": "候选实现声称：“登录接口已通过测试，可以上线。”已知验收标准是：错误密码返回 401、连续 5 次失败锁定 10 分钟、锁定期间正确密码也返回 429。请设计外部裁判方案，不引用生成者自评。",
+      "criteria": [
+        "不使用生成者自评",
+        "有外部裁判",
+        "结论可复核"
+      ],
+      "baseline": "# 外部裁判方案：登录接口验收\n\n## 一、裁判原则\n\n1. **只信外部可观测行为**：裁判只依据 HTTP 响应（状态码、响应体、响应头）和可独立观测的副作用（如锁定状态、审计日志），不采信生成者的测试报告、自评或代码注释。\n2. **裁判与被测系统隔离**：裁判脚本由独立方编写/执行，不读取被测代码内部实现，不依赖被测方提供的 mock 或测试桩。\n3. **可复现**：所有用例参数化、可重复执行，结果可存档。\n\n## 二、被测对象与观测面\n\n- 被测：登录接口 `POST /login`（或等价端点），输入用户名+密码。\n- 观测面：\n  - HTTP 状态码（401 / 429 / 200 等）\n  - 响应体中的错误码/提示（仅作辅助，不作为唯一判据）\n  - 响应头（如 `Retry-After`，若存在则记录但不强制）\n  - 时间戳（用于验证 10 分钟窗口）\n  - 独立账号：裁判自备测试账号，避免污染真实用户\n\n## 三、验收标准拆解为可判定断言\n\n| 编号 | 标准 | 外部断言 |\n|---|---|---|\n| A1 | 错误密码返回 401 | 对有效用户名 + 错误密码，响应状态码 == 401 |\n| A2 | 连续 5 次失败锁定 10 分钟 | 第 1–4 次失败后仍为 401；第 5 次失败后进入锁定态；锁定态下请求返回 429 |\n| A3 | 锁定期间正确密码也返回 429 | 锁定窗口内用**正确密码**请求，状态码 == 429 |\n| A4 | 锁定持续 10 分钟 | 锁定开始后 t < 10min 内请求为 429；t > 10min（留缓冲）后正确密码可成功（200/302 等非 429/401） |\n\n## 四、测试用例设计（黑盒）\n\n**前置**：为每个用例准备独立账号（或使用可重置的测试账号），确保用例间不互相污染；记录服务器时间基准。\n\n### 用例组 1：单次错误密码（A1）\n- 步骤：正确用户名 + 错误密码，请求 1 次。\n- 断言：状态码 == 401。\n- 重复 3 次（不同账号），排除偶发。\n\n### 用例组 2：连续失败计数与锁定触发（A2）\n- 步骤：同一账号连续提交错误密码 5 次，逐次记录状态码。\n- 断言：\n  - 第 1–4 次：状态码",
+      "augmented": "# 外部裁判方案：登录接口验收\n\n## 一、裁判原则\n\n- **不采信任何生成者自评、日志声明或“已通过测试”的结论**，只采信裁判独立发起的黑盒请求所观测到的 HTTP 状态码与时间行为。\n- 裁判与被测系统**代码隔离**：裁判只持有接口地址、测试账号，不读取实现源码、不读取开发者测试报告。\n- 所有判定基于**可复现的外部观测**，每条结论附请求/响应证据。\n\n## 二、被测对象与前置条件\n\n- 接口：`POST /login`，入参 `{username, password}`。\n- 准备独立测试账号（裁判自建或由环境提供），并确认其正确密码。\n- 每个用例使用**独立账号或独立 IP/会话维度**，避免用例间锁定状态互相污染；若锁定维度是账号，则每例换账号；若是 IP，则每例换出口。\n- 记录服务端时间基准，用于验证 10 分钟窗口。\n\n## 三、验收用例（黑盒）\n\n### 用例 A：错误密码返回 401\n1. 用正确用户名 + 错误密码请求 1 次。\n2. 断言：HTTP 状态码 **401**。\n3. 重复 3 次（不同错误密码、不同账号），全部为 401，排除偶然。\n\n### 用例 B：连续 5 次失败锁定\n1. 选干净账号，连续提交 5 次错误密码。\n2. 断言：前 4 次为 401；第 5 次为 401 或进入锁定态（记录实际码）。\n3. 第 6 次用**正确密码**请求，断言进入锁定行为（见用例 C），证明第 5 次后已锁定。\n4. 边界校验：另取账号仅失败 4 次，第 5 次用正确密码，应**成功登录（200）**，证明阈值恰为 5 而非更早。\n\n### 用例 C：锁定期间正确密码返回 429\n1. 触发锁定（连续 5 次失败）后，立即用**正确密码**请求。\n2. 断言：HTTP 状态码 **429**。\n3. 在锁定窗口内多点采样（如第 1 分钟、第 5 分钟、第 9 分钟）均应为 429，证明锁定持续存在而非瞬时。\n\n### 用例 D：锁定 10 分钟窗口\n1. 记录第 5 次失败的时刻 T0。\n2. 在 T0 + 9 分钟（容差内）用正确密码请求，断言 **429**。\n3. 在 T0 + 10 分钟 + 缓冲（如 10 分",
+      "verdict": {
+        "winner": "augmented",
+        "reason": "均满足；B更明确附请求/响应证据及边界复核"
+      }
+    },
+    {
+      "id": "eval-deep-06-r1",
+      "prompt_id": "fx-expert_method-22",
+      "selected_prompt_id": "fx-perspective-20",
+      "task": "原始需求只有一句：“帮我做一份市场分析”。可用材料是 3 家竞品官网、20 条用户访谈和过去 6 个月销售明细。请把任务重写成更深而不是更长的版本，并说明专家会用的方法、原始材料和外部验证。",
+      "criteria": [
+        "说明专家方法",
+        "指出原始材料",
+        "定义外部验证"
+      ],
+      "baseline": "# 任务重写：从“做一份市场分析”到可执行的市场诊断\n\n## 一、原始需求的问题诊断\n\n“帮我做一份市场分析”是一句**目标缺失、边界缺失、决策场景缺失**的委托。它无法回答三个关键问题：这份分析为谁做、要支持什么决策、什么算“做完了”。直接执行的结果通常是：把 3 家竞品官网抄成功能对比表、把 20 条访谈摘成引语集、把 6 个月销售明细画成趋势图——**信息齐全，但无法支撑任何决策**。\n\n## 二、重写后的任务（更深，而非更长）\n\n> **核心问题**：在过去 6 个月的销售表现中，哪些增长/流失是由“我们与 3 家竞品的相对定位”造成的，哪些是由“用户真实决策逻辑”造成的？据此判断：未来 6 个月，我们应当**主攻哪个细分人群、强化哪个差异化卖点、放弃哪个伪需求**？\n>\n> **交付物**：一份带明确取舍建议的市场诊断，包含（1）竞品定位与我方差异的可验证映射；（2）用户访谈中“声称的偏好”与“销售明细中“实际的选择”之间的偏差清单；（3）3 条按置信度排序的行动建议，每条注明所需证据强度与验证方式。\n>\n> **边界**：不做全行业规模测算（无外部数据支撑）；不输出泛化的 SWOT；结论必须能追溯到具体材料或外部验证来源。\n\n**为什么这是“更深”而非“更长”**：它把“描述市场”转为“解释因果 + 做出取舍”，把三份材料从“并列展示”转为“交叉验证”，并要求结论承担决策后果。\n\n## 三、专家会用的方法\n\n1. **三角验证（Triangulation）**：竞品官网=“对方声称的定位”，用户访谈=“用户声称的偏好”，销售明细=“实际发生的选择”。三者不一致处，才是分析价值所在。\n2. **声称-行为偏差分析**：访谈中说“看重 A”，但销售数据显示买的是 B 驱动的 SKU——偏差即洞察。\n3. **竞品定位映射**：把 3 家官网的功能/价格/话术提炼为 2-3 个关键维度上的坐标，而非罗列功能清单。\n4. **销售明细的归因拆解**：按人群/渠道/价格带/时间切片，区分“结构性趋势”与“偶发波动”，识别流失集中点。\n5. **假设-证据矩阵**：每条结论标注证据来源与置信度，低置信度结论明确标注“待外部验证”。\n\n## 四、原始材料的分工\n\n- **3 家竞品官网**：提供“对方想被如何看待”的定位假设，用于构建竞",
+      "augmented": "**重写后的任务（更深而非更长）**\n\n不要“做一份市场分析”，而要：**在 6 个月内，用 3 家竞品官网、20 条用户访谈和过去 6 个月销售明细，回答一个可证伪的因果问题——我们增长/停滞的主因是什么，哪些细分与场景值得加注、哪些应退出，并让决策者在一次 30 分钟会议上据此做出取舍。** 交付物不是报告，而是一个“因果故事 + 取舍建议 + 验证计划”：明确 2–3 个关键假设、每个假设的证据强度与反证、对应的行动与停止条件。\n\n**专家会用的方法**\n\n1. **先定义决策与假设**：把“市场分析”拆成决策问题（加注/退出/定价/渠道），列出 3–5 个竞争性假设（如“增长来自某渠道/某客群/某价格带”“停滞因转化而非流量”）。\n2. **销售明细做因果与分层**：按时间、渠道、客群、价格带、SKU 做分解；区分量价效应、新老客、复购与流失；做 cohort/留存、漏斗转化、弹性与集中度分析；用简单对照或断点/事件研究找“变化发生在哪一刻”。\n3. **访谈做机制验证**：20 条访谈不做“意见汇总”，而做编码与对照（购买触发、替代方案、否决理由、价格锚点、使用场景），刻意找反例与负样本，形成“因果链”而非语录。\n4. **竞品官网做定位与承诺拆解**：提取价值主张、目标客群、价格/套餐、证据类型（案例、指标、合规）、渠道与话术；做定位图与“承诺—证据”差距表，识别可攻击的空白与不可复制的壁垒。\n5. **三角验证与贝叶斯式更新**：销售给“发生了什么”，访谈给“为什么”，竞品给“相对位置与替代威胁”；对每个假设标注证据强度、冲突点与下一步验证。\n6. **把分析变成会议决策**：用一页因果图（驱动因素—机制—结果—可观测指标）、取舍清单（加注/维持/退出）、以及 30 分钟议程（结论先行、争议点、决策项、风险与停止条件）。\n\n**原始材料怎么用**\n\n- **3 家竞品官网**：只取可比较维度（客群、场景、价格、承诺、证据、渠道），做结构化表格；把“他们说什么”与“他们能证明什么”分开，避免被营销话术带偏。\n- **20 条用户访谈**：按“触发—考虑—否决—使用—复购/流失”编码；统计频次不等于重要性，重点找“高信念+",
+      "verdict": {
+        "winner": "augmented",
+        "reason": "A更完整说明专家方法并明确原始材料用法，外部验证虽略弱但整体优于B。"
+      }
+    },
+    {
+      "id": "eval-html-07-r1",
+      "prompt_id": "kp-form-26",
+      "selected_prompt_id": "kp-form-26",
+      "task": "把以下信息做成单文件 HTML：标题“发布检查”，三个步骤“跑测试”“核对来源”“记录版本”，每个步骤附一句说明。要求浏览器直接打开、不依赖外部资源。",
+      "criteria": [
+        "输出 HTML",
+        "可直接打开",
+        "信息完整"
+      ],
+      "baseline": "以下是您需要的单文件HTML代码。它创建了一个名为“发布检查”的交互式清单页面，包含“跑测试”、“核对来源”和“记录版本”三个步骤，每个步骤都附有说明。页面设计简洁，可直接在浏览器中打开使用。\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>发布检查 · 三步清单</title>\n    <style>\n        /* 干净、现代、无外部依赖 */\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n\n        body {\n            background: #f4f7fc;\n            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-height: 100vh;\n            padding: 1.5rem;\n            line-height: 1.5;\n            color: #1e293b;\n        }\n\n        .card {\n            max-width: 820px;\n            width: 100%;\n            background: #ffffff;\n            border-radius: 2rem;\n            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.15), 0 8px 18px -6px rgba(0, 0, 0, 0.05);\n            padding: 2.5rem 2rem;\n            transition: all 0.2s ease;\n        }\n\n        /* 标题区域 */\n        .header {\n            display: flex;\n            align-items: center;\n            gap: 0.75rem;\n            margin-bottom: 2.5rem;\n            border-bottom: 2px solid #e9eef4;\n            padding-bottom: 1.25rem;\n        }\n\n        .header h1 {\n            font-size: 2.2rem;\n            font-weight: 700;\n            letter-spacing: -0.02em;\n            color: #0f172a;\n            display: flex;\n            align-items: center;\n            gap: 0.5rem;\n        }\n\n        .header h1::before {\n            content: \"✅\";\n            font-size: 2rem;\n            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));\n        }\n\n        /* 步骤列表 */\n        .steps {\n            display: flex;\n            flex-direction: column;\n            gap: 1.5rem;\n        }\n\n        .step {\n            display: flex;\n            gap: 1.25rem;\n            align-items: flex-start;",
+      "augmented": "这是您需要的“发布检查”单文件HTML。它用三个清晰的步骤卡片，展示了“跑测试”、“核对来源”和“记录版本”的核心检查项，并附有简要说明。页面设计简洁，适合在浏览器中直接打开使用。\n```html\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>发布检查 · 三步清单</title>\n    <style>\n        /* 干净、轻量的基础样式，不依赖任何外部资源 */\n        * {\n            margin: 0;\n            padding: 0;\n            box-sizing: border-box;\n        }\n\n        body {\n            background: #f5f7fb;\n            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;\n            display: flex;\n            align-items: center;\n            justify-content: center;\n            min-height: 100vh;\n            padding: 1.5rem;\n            line-height: 1.5;\n            color: #1e293b;\n        }\n\n        .card {\n            max-width: 780px;\n            width: 100%;\n            background: #ffffff;\n            border-radius: 2rem;\n            box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.1), 0 8px 16px -6px rgba(0, 0, 0, 0.02);\n            padding: 2.5rem 2rem;\n            transition: all 0.2s ease;\n        }\n\n        h1 {\n            font-size: 2.2rem;\n            font-weight: 700;\n            letter-spacing: -0.02em;\n            color: #0f172a;\n            display: flex;\n            align-items: center;\n            gap: 0.5rem;\n            margin-bottom: 0.25rem;\n        }\n\n        h1::before {\n            content: \"✅\";\n            font-size: 2rem;\n            line-height: 1;\n        }\n\n        .subhead {\n            color: #475569;\n            font-size: 1rem;\n            margin-bottom: 2.5rem;\n            border-left: 4px solid #3b82f6;\n            padding-left: 1rem;\n            font-weight: 400;\n        }\n\n        .steps {\n            display: flex;\n            flex-direction: column;\n            gap: 1.25rem;\n        }\n\n        .step {\n            display: flex;\n            gap: 1.25rem;\n            background: #f8fafc;\n            border-radius: 1.5rem;\n            padding: 1.5rem 1.75",
+      "verdict": {
+        "winner": "tie",
+        "reason": "两者代码均截断，缺少步骤内容与闭合标签，信息不完整且无法直接打开。"
+      }
+    },
+    {
+      "id": "eval-concise-08-r1",
+      "prompt_id": "em-format-11",
+      "selected_prompt_id": "em-format-11",
+      "task": "改写这段风险说明：“在当前这个阶段，我们可能需要考虑一些潜在的、尚未完全明确的稳定性方面的问题，团队最好在后续适当的时候进一步关注相关情况。”目标是简洁直接，保留事实，不增加承诺。",
+      "criteria": [
+        "句子短",
+        "无含糊词",
+        "保留事实"
+      ],
+      "baseline": "当前阶段存在一些尚未完全明确的稳定性问题，团队应在后续适当时候关注。",
+      "augmented": "当前阶段存在一些尚未明确的稳定性问题，团队需在后续适当时候关注。",
+      "verdict": {
+        "winner": "baseline",
+        "reason": "B更完整保留“尚未完全明确”，且“应”较“需”少增承诺；A省略“完全”改变事实。"
+      }
+    },
+    {
+      "id": "eval-ambitious-09-r1",
+      "prompt_id": "fx-outcome-02",
+      "selected_prompt_id": "fx-outcome-02",
+      "task": "当前移动端页面 P75 加载时间为 10 秒，业务要求降到 5 秒。请提出一个更激进但仍能在 7 天内验证的目标，并给出可测指标和验证方式。",
+      "criteria": [
+        "目标更激进",
+        "指标可测",
+        "说明验证方式"
+      ],
+      "baseline": "# P75 加载时间优化：激进目标提案\n\n## 一、目标设定\n\n**当前基线**：P75 加载时间 10 秒\n**业务要求**：5 秒\n**激进但可验证目标**：**7 天内将 P75 加载时间降至 ≤ 3.5 秒（降幅 65%）**\n\n### 为什么是 3.5 秒而不是 5 秒？\n\n| 维度 | 说明 |\n|------|------|\n| **激进性** | 3.5 秒比业务要求的 5 秒再快 30%，为业务目标留出 1.5 秒安全缓冲，避免\"刚好达标\"在波动中回退 |\n| **可行性** | 移动端首屏加载的行业优秀实践普遍在 2.5–4 秒区间（4G 网络、中端机型），3.5 秒属于\"跳一跳够得着\"而非天方夜谭 |\n| **7 天可验证** | 该目标不依赖大重构，主要靠资源治理 + 渲染路径优化即可达成，7 天内可完成改动并采集到稳定数据 |\n| **风险可控** | 若 7 天只做到 4.5 秒，仍优于业务要求的 5 秒，目标设定本身不构成\"失败即事故\" |\n\n> 核心逻辑：**用激进目标倒逼结构性优化，而非在 5 秒线上做微调**。10→5 秒可能靠\"压缩图片 + 加 CDN\"糊弄过去，10→3.5 秒必须动渲染关键路径。\n\n---\n\n## 二、可测指标（北极星 + 护栏）\n\n### 1. 北极星指标\n- **P75 加载时间 ≤ 3.5 秒**\n  - 定义：从导航开始（navigationStart）到首屏关键内容可见（LCP）的 P75 分位值\n  - 采样口径：真实用户监控（RUM），移动端、4G/弱网分层统计\n\n### 2. 过程指标（拆解到可归因）\n| 指标 | 当前（估） | 目标 | 说明 |\n|------|-----------|------|------|\n| TTFB（P75） | — | ≤ 800ms | 服务端/网络层 |\n| FCP（P75） | — | ≤ 1.8s | 首次内容绘制 |\n| LCP（P75） | 10s | ≤ 3.5s | 首屏最大内容 |\n| 首屏 JS 体积 | — | 减少 ≥ 40% | 资源治理 |\n| 首屏请求数 | — | ≤ 25 个 | 减少串行阻塞 |\n| 主线程长任务",
+      "augmented": "**更激进但可在 7 天内验证的目标：P75 加载时间降至 ≤ 1.5 秒（首屏可交互），并以 ≤ 800 ms 的 P75 服务端响应作为硬门槛。**\n\n### 可测指标\n1. **主指标**：P75 加载时间（从导航开始到首屏可交互）≤ 1.5 s，采样为真实用户监控（RUM）移动端会话。\n2. **硬门槛**：P75 TTFB ≤ 800 ms；P75 LCP ≤ 1.2 s。\n3. **辅助约束**：P75 总阻塞时间（TBT）≤ 200 ms；JS 传输量较基线下降 ≥ 40%。\n4. **回归护栏**：错误率不升、转化率不降（7 天内对比基线）。\n\n### 验证方式\n- **第 1–2 天**：接入/校准 RUM，锁定基线分位数与设备/网络分层，建立每日看板。\n- **第 3–5 天**：灰度 10% 移动流量，按上述指标每日对比；用合成监控（WebPageTest 移动配置）交叉验证。\n- **第 6–7 天**：扩至 50% 流量，检查 P75 是否稳定 ≤ 1.5 s 且硬门槛达标；不达标则回滚并记录瓶颈。\n- **判定标准**：连续 48 小时灰度流量中，P75 主指标与硬门槛均达标，且护栏指标无显著恶化，即视为目标可达成并进入全量。",
+      "verdict": {
+        "winner": "augmented",
+        "reason": "B目标更激进，指标可测，验证方式分阶段且判定标准明确；A缺少验证方式。"
+      }
+    },
+    {
+      "id": "eval-opposite-10-r1",
+      "prompt_id": "kp-perspective-21",
+      "selected_prompt_id": "kp-perspective-21",
+      "task": "产品结论是：“AI 代码审查将在两年内完全取代人工代码审查。”请先做有力的反向论证，区分事实与推测，再给出你自己的明确判断。",
+      "criteria": [
+        "有反向论证",
+        "区分事实与推测",
+        "形成明确判断"
+      ],
+      "baseline": "# 对“AI代码审查将在两年内完全取代人工代码审查”的反向论证与判断\n\n## 一、反向论证：为什么这个结论难以成立\n\n### 1. 事实层面：AI代码审查当前能力的客观边界\n\n**事实（可验证）：**\n- 当前主流AI代码审查工具（如GitHub Copilot代码审查、CodeRabbit、Qodo等）在**模式匹配类问题**上表现良好：风格违规、常见漏洞模式（SQL注入、硬编码密钥）、API误用等。\n- 在**需要跨文件、跨模块推理**的问题上，现有工具的召回率显著下降。学术评测（如对LLM代码审查能力的多项基准测试）普遍显示：对架构级缺陷、并发竞态、业务逻辑错误的检出率远低于对局部语法/模式问题的检出率。\n- AI工具产生**误报（false positive）**的比例在真实工程环境中仍然可观，团队需要投入人力做二次筛选——这本身说明“完全取代”不成立，因为筛选误报仍是人工工作。\n- **事实：** 目前没有任何一个生产环境中的AI代码审查系统被证明可以独立承担全部审查职责而不需要人工兜底。\n\n**推测（不可验证或依赖假设）：**\n- “两年内能力会跃升到覆盖所有审查维度”——这是推测，且依赖于模型推理能力、上下文窗口、工具链集成等多个不确定变量的同步突破。\n- “误报率会降到可忽略”——推测，且与“审查越深入、误报越难控制”的工程规律相悖。\n\n### 2. 逻辑层面：代码审查的功能不止于“找缺陷”\n\n代码审查在工程实践中承担的功能包括（这是组织行为学与软件工程研究的共识，属事实性描述）：\n- **缺陷发现**（AI可部分替代）\n- **知识传播与团队共识**（审查者通过阅读代码理解系统，AI无法替代人际知识流动）\n- **责任归属与签字确认**（合规、安全审计要求“有人负责”，这是制度事实而非技术问题）\n- **需求与设计意图的对齐**（审查者往往掌握AI不具备的上下文：产品决策、历史包袱、团队约定）\n- ** mentorship 与技能成长**（初级工程师通过被审查和审查他人成长）\n\n“完全取代”意味着上述功能全部由AI承担，这在两年内没有任何制度和技术路径支持。\n\n### 3. 制度与责任层面（事实性约束）\n\n- 在受监管行业（金融、医疗、汽车功能安全），代码审查是**合规流程的一部分**，要求具名的人类审查者签字。改变这一制度需要监管修订，两年内不可能全球完成。\n- 当AI漏检导致生产事故时，**责任归属**无法落在AI身上。组织不会在两年内接受“无人签字”的审查流程。\n\n### 4. 反例与",
+      "augmented": "## 一、反向论证：为什么“两年内完全取代人工代码审查”极难成立\n\n### 1. 事实层面：当前AI代码审查的能力边界是清晰的\n\n- **AI擅长模式匹配，不擅长意图推断。** 现有工具（如基于LLM的审查助手）在识别已知漏洞模式、风格违规、常见反模式上表现不错，但代码审查的核心问题往往是“这段代码是否做了业务上正确的事”——这需要理解需求上下文、领域约束和组织历史，而这些信息通常不在diff里。\n- **误报率与漏报率的现实。** 工业界部署的AI审查工具普遍存在较高误报率，团队需要投入人力过滤噪音；同时对抗性场景（如逻辑漏洞、权限边界、并发时序问题）的漏报仍然显著。这不是模型规模问题，而是审查任务本身的开放性与上下文依赖性。\n- **责任归属是制度事实。** 代码审查不仅是技术活动，也是责任分配机制。合并决策需要可问责的主体。AI不能承担事故责任，这意味着最终签字环节在可预见的制度框架内仍需人类。\n\n### 2. 推测层面：那些“两年内取代”的论据依赖未经验证的跳跃\n\n- “模型能力指数增长”→ “两年内达到人类审查水平”：这是把基准测试的进步速度外推到开放域任务，属于推测而非事实。代码审查没有类似ImageNet的封闭评测集，进步速度不可直接类比。\n- “AI已经能写代码，自然能审代码”：生成与判别不对称，且审查要求的是发现生成模型自身也常犯的错误，存在系统性盲区。\n- “成本压力会迫使企业替换人工”：这是经济推测，但忽略了替换后的风险成本、合规成本和返工成本，净收益并未被证实。\n\n### 3. 结构性反驳\n\n即使AI审查能力在两年内大幅提升，“完全取代”要求的是**零人工介入**，而只要存在以下任一条件——高风险变更、监管合规要求、AI训练分布外的新架构、责任归属需求——人工审查就必须保留。这些条件不是技术问题，是制度与认识论问题，不会随模型迭代消失。\n\n## 二、我的明确判断\n\n**该产品结论不成立。** 两年内AI代码审查不会完全取代人工代码审查；更可能的图景是AI承担大部分常规审查工作量、人工审查聚焦高风险与上下文密集的变更，形成分层协作。把“完全取代”作为产品结论，是把能力进步的事实与制度替代的推测混为一谈，且时间尺度明显过于激进。\n\n（补充一句自我校准：我倾向于对“完全取代”类断言保持怀疑，因为这类断言通常低估了任务中的制度性成分；但我也承认，如果审查任务被窄化为“已知缺陷模式检测”，AI的替代速度会比我上面描述的更快——这正是需要区分任务边界的原因。）",
+      "verdict": {
+        "winner": "augmented",
+        "reason": "A完整满足三项标准并明确判断；B末尾截断，缺少独立明确判断。"
+      }
+    }
+  ]
+}

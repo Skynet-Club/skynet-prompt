@@ -1,0 +1,42 @@
+│  deepseek-flash · Nous Research  devops: sdlc-review                                                                 │
+│  /home/skynet/skynet-prompt  email: email-inbox-triage, himalaya                                                 │
+│  Session: 0d023e9b               general: installing-agent-skills, lark-approval, +30 more                           │
+│                                  media: gif-search, songsee, youtube-content                                         │
+│                                  note-taking: obsidian                                                               │
+│                                  productivity: airtable, box, +19 more                                               │
+│                                  research: arxiv, competitor-news-monitor, +4 more                                   │
+│                                  social-media: xurl                                                                  │
+│                                  software-development: agent-catalog-client, +22 more                                │
+│                                  web: blocked-page-recovery                                                          │
+│                                                                                                                      │
+│                                  21 tools · 109 skills · /help for commands                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Welcome to Hermes Agent! Type your message or /help for commands.
+✦ Tip: Checkpoints have zero overhead when no files are modified — enabled by default.
+
+ 提示词补充 · 32 条 / 9 类   ↑↓ 选类目 · → 看条目 · Enter 补进输入框 · ← 退回 · Esc 关闭
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+要结果             2 │ 如果提示词的目标是帮一个学生学懂某个概念，那么约束 AI「等学生回应后再往下走」… Ethan Mollick
+先想清楚           6 │ ▸ 如果你的指令包含多个部分，就把这些部分明确标出来（先给出几个我写商业计划时…  Ethan Mollick
+定格式             4 │ 你应当简洁，使用简单直接的语言，避免含糊的词。                                 Ethan Mollick
+定验收             6 │ 让你的大模型用 ASD-STE100 来解释某件事，那是一套最初为航空维修文档开发的受控语言规… Karpathy
+换视角             3 │
+用高手的方法       2 │
+换形态             5 │
+砍掉多余的         2 │
+别碰旁边的         2 │
+                       └──────────────────────────────────────────────────────────────────────────────────────────────
+                        原文  If your instructions have multiple parts clearly highlight those parts (First come up
+                              with several strategies I should consider when writing a business plan. Then, explain…
+                        中文  如果你的指令包含多个部分，就把这些部分明确标出来（先给出几个我写商业计划时应该考虑的策略
+                              。然后逐个解释这些策略，并针对我的业务说明我该怎么发展它们。）
+                        作者  Ethan Mollick · 2023-11-01
+                        链接  https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting
+
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ Set a reminder or schedule a recurring task
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ ☤ deepseek-flash · ctx -- · [░░░░░░░░░░] -- · 19s · ⏲ 0s · ~/skynet-prompt          / commands · @ files · ! shell

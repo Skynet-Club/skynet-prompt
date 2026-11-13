@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-explain-code",
+  "cat": "perspective",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "e2889a9e4b04d5982a75e02eb4c9c285e45c6255f5535fdb9a49735cb3939875",
+    "en": "f9868751eb116d4822c0647a43d38bc2b695f08a9cd167f80179d6baf5308612"
+  }
+}

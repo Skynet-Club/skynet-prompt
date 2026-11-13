@@ -1,0 +1,44 @@
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠑⢶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  skynet (stdio) — configured                                                         │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⢰⡆⠈⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                                                                      │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⠈⣡⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  Available Skills                                                                    │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  autonomous-ai-agents: claude-code, codex, +4 more                                   │
+│                                  creative: architecture-diagram, ascii-video, +10 more                               │
+│  deepseek-flash · Nous Research  devops: sdlc-review                                                                 │
+│  /home/skynet/skynet-prompt  email: email-inbox-triage, himalaya                                                 │
+│  Session: 74a77075               general: installing-agent-skills, lark-approval, +30 more                           │
+│                                  media: gif-search, songsee, youtube-content                                         │
+│                                  note-taking: obsidian                                                               │
+│                                  productivity: airtable, box, +19 more                                               │
+│                                  research: arxiv, competitor-news-monitor, +4 more                                   │
+│                                  social-media: xurl                                                                  │
+│                                  software-development: agent-catalog-client, +22 more                                │
+│                                  web: blocked-page-recovery                                                          │
+│                                                                                                                      │
+│                                  21 tools · 109 skills · /help for commands                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Welcome to Hermes Agent! Type your message or /help for commands.
+✦ Tip: Combine multiple references: "Review @file:main.py and @file:test.py for consistency."
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ Turn these notes into a to-do list
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ ☤ deepseek-flash · ctx -- · [░░░░░░░░░░] -- · 33s · ⏲ 0s · ~/skynet-prompt          / commands · @ files · ! shell
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-git-changes",
+  "cat": "format",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "c0ba71fff0d066fe59703479ecb4cb563aee171a40f9aee05aab87b88953cbdf",
+    "en": "c2a3f55f91f5ef5ec0da4fc6fbe7edd9b1f091bdf414a12430b2e46a33608086"
+  }
+}

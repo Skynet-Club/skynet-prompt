@@ -1,0 +1,1 @@
+Use an outside judge: Do not ask the model to judge itself.

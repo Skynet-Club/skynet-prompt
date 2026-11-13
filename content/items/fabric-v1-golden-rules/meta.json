@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-golden-rules",
+  "cat": "boundary",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "7bfe11b8363f392c1c4e9ccb38ef5f9b4db890be94c76be7f2c8c85977e1d403",
+    "en": "9c21a9301747bae6b1dcf8fdd33b5a7504fc7ceab5859099851c6e2b72e18207"
+  }
+}

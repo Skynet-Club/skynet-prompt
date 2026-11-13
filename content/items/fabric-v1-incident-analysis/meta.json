@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-incident-analysis",
+  "cat": "verify",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "e52eb8d6ec92359a81c2a3f84ef65c155b182e8b1dcd25d972abd46ef1cd9bc4",
+    "en": "78bf21bd2aef1290b1ef71d1258a7a5654a33a5114e99d64ea9e690d0ea28fc7"
+  }
+}

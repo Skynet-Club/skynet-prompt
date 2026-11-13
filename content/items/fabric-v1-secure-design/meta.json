@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-secure-design",
+  "cat": "think_first",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "b4a59439f61480dd05f991e2b4c8438566febdfcd3a0a6f760f53e3198363ac5",
+    "en": "64c693c288ed1ff2d8b707e96c6515ba45f4221bf73a23b4aac82f9358b4de51"
+  }
+}

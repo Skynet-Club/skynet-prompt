@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://skynet.club/schemas/prompts-v2.schema.json",
+  "title": "skynet-prompt Prompt Items v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "count", "items"],
+  "properties": {
+    "version": {"type": "string", "minLength": 1},
+    "count": {"type": "integer", "minimum": 1},
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/item"}
+    }
+  },
+  "$defs": {
+    "item": {
+      "type": "object",
+      "required": [
+        "id",
+        "cat",
+        "author",
+        "date",
+        "url",
+        "en",
+        "zh",
+        "source",
+        "evidence",
+        "review",
+        "safety",
+        "insertion"
+      ],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "cat": {"type": "string", "minLength": 1},
+        "author": {"type": "string", "minLength": 1},
+        "date": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri"},
+        "en": {"type": "string", "minLength": 1},
+        "zh": {"type": "string", "minLength": 1},
+        "nature": {"type": "string"},
+        "excerpt": {"type": "boolean"},
+        "source": {
+          "type": "object",
+          "required": [
+            "quote",
+            "url",
+            "author",
+            "published_at",
+            "language",
+            "license",
+            "rights_basis",
+            "redistribution",
+            "snapshot_sha256"
+          ],
+          "properties": {
+            "quote": {"type": "string", "minLength": 1},
+            "url": {"type": "string", "format": "uri"},
+            "author": {"type": "string", "minLength": 1},
+            "published_at": {"type": "string", "minLength": 1},
+            "language": {"type": "string", "minLength": 2},
+            "license": {"type": "string", "minLength": 1},
+            "rights_basis": {"enum": ["short-quotation-with-attribution", "explicit-license"]},
+            "redistribution": {"enum": ["excerpt-only", "full-text"]},
+            "snapshot_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+          }
+        },
+        "evidence": {
+          "type": "object",
+          "required": ["verdict", "checked_at"],
+          "properties": {
+            "verdict": {"enum": ["verbatim", "paraphrase", "unverified"]},
+            "checked_at": {"type": "string", "format": "date-time"}
+          }
+        },
+        "review": {
+          "type": "object",
+          "required": ["source", "translation", "safety"],
+          "properties": {
+            "source": {"enum": ["unreviewed", "reviewed"]},
+            "translation": {"enum": ["unreviewed", "reviewed"]},
+            "safety": {"enum": ["unreviewed", "reviewed", "rejected"]}
+          }
+        },
+        "safety": {
+          "type": "object",
+          "required": ["status", "flags"],
+          "properties": {
+            "status": {"enum": ["unreviewed", "passed", "needs-review", "rejected"]},
+            "flags": {"type": "array", "items": {"type": "string"}}
+          }
+        },
+        "insertion": {
+          "type": "object",
+          "required": ["policy"],
+          "properties": {
+            "policy": {"const": "exact-zh"}
+          }
+        },
+        "translations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["language", "text", "status"],
+            "properties": {
+              "language": {"type": "string", "minLength": 2},
+              "text": {"type": "string", "minLength": 1},
+              "status": {"enum": ["machine", "unreviewed", "reviewed"]},
+              "reviewer": {"type": "object"}
+            }
+          }
+        }
+      }
+    }
+  }
+}

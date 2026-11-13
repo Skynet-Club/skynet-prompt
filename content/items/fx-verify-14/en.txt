@@ -1,0 +1,1 @@
+Produce new knowledge: Build a simulation of our customers that reproduces the last year from our logs. Then find the earliest signal of churn we don't know about yet, and show it predicts on data it has not seen.

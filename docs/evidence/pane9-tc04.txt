@@ -1,0 +1,40 @@
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠻⢿⣿⣦⡉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  image_gen: image_generate                                                           │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⣦⣈⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  memory: memory                                                                      │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣴⠦⠈⠙⠿⣦⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  (and 6 more toolsets...)                                                            │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣤⡈⠁⢤⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                                                                      │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠷⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  MCP Servers                                                                         │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠑⢶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  skynet (stdio) — configured                                                         │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⢰⡆⠈⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                                                                      │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⠈⣡⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  Available Skills                                                                    │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  autonomous-ai-agents: claude-code, codex, +4 more                                   │
+│                                  creative: architecture-diagram, ascii-video, +10 more                               │
+│  deepseek-flash · Nous Research  devops: sdlc-review                                                                 │
+│  /home/skynet/skynet-prompt  email: email-inbox-triage, himalaya                                                 │
+│  Session: 7b3cc0c4               general: installing-agent-skills, lark-approval, +30 more                           │
+│                                  media: gif-search, songsee, youtube-content                                         │
+│                                  note-taking: obsidian                                                               │
+│                                  productivity: airtable, box, +19 more                                               │
+│                                  research: arxiv, competitor-news-monitor, +4 more                                   │
+│                                  social-media: xurl                                                                  │
+│                                  software-development: agent-catalog-client, +22 more                                │
+│                                  web: blocked-page-recovery                                                          │
+│                                                                                                                      │
+│                                  21 tools · 109 skills · /help for commands                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Welcome to Hermes Agent! Type your message or /help for commands.
+✦ Tip: /queue <prompt> queues a message for the next turn without interrupting the current one.
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ 让我先看看数据
+挑战你已知的东西：尤其在商业里，我们相信的很多东西只是对现实的粗略近似。把原始信息和数据交给模型，让它对抗性地检验这些假
+设。比如：「我们相信流失是引导环节的问题。试着从原始数据里复现这个结论。」
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ 挑战你已知的东西：尤其在商业里，我们相信的很多东西只是对现实的粗略近似。把原始信息和数据交给模型，让它对抗性地检验...
+ 产出新知识：建一个客户模拟，用我们的日志复现过去一年。然后找出一个我们目前还不知道的最早流失信号，并证明它在它没见...
+ 用外部裁判：不要让模型评判它自己。
+ 这是我 DGX Spark 的本地 IP 和用户名密码。登录进去，配好 ssh key，装 vLLM，下载并跑 Qwe…
+ 测试是最强的验证形式——能做就做：「加校验」→ 先写非法输入的测试，再让它通过；「修 bug」→ 先写一个能复现的测试…
+ 先验证再算完：先定义「完成」长什么样。往下走之前先确认它。
+
+ ☤ deepseek-flash · ctx -- · [░░░░░░░░░░] -- · 1m · ⏲ 0s · ~/skynet-prompt           / commands · @ files · ! shell

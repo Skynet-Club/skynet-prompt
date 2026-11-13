@@ -1,0 +1,232 @@
+{
+  "ok": true,
+  "batches": [
+    "evaluations/results-advisor-reasoner-v2-2026-11-13.json",
+    "evaluations/results-advisor-reasoner-run2-2026-11-13.json",
+    "evaluations/results-advisor-reasoner-run3-2026-11-13.json"
+  ],
+  "method": "cross-model blind pairwise",
+  "total": 30,
+  "wins": {
+    "baseline": 4,
+    "augmented": 20,
+    "tie": 6
+  },
+  "decisive": 24,
+  "augmented_win_rate": 0.667,
+  "decisive_win_rate": 0.833,
+  "sign_test_p_non_ties": 0.000771939754486084,
+  "sign_test_p_all": 0.04936857335269451,
+  "rows": [
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-plan-01",
+      "selected_prompt_id": "fx-verify-13",
+      "winner": "augmented",
+      "reason": "B分步更完整，每步验证明确，并在写码前复现、定位和确认范围。"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-verify-02",
+      "selected_prompt_id": "fx-verify-13",
+      "winner": "augmented",
+      "reason": "A正确将10MB解析为10且含自动化测试；B返回字节数且测试缺失。"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-simple-03",
+      "selected_prompt_id": "kp-cut-29",
+      "winner": "augmented",
+      "reason": "B严格保持最小实现，无额外参数，删除四层抽象且代码明显缩短。"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-boundary-04",
+      "selected_prompt_id": "kp-boundary-31",
+      "winner": "baseline",
+      "reason": "B更明确说明仅改normalize_email，保留format_phone、死代码与现有风格，边界更可追溯"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-judge-05",
+      "selected_prompt_id": "fx-outcome-02",
+      "winner": "augmented",
+      "reason": "B方案完整可执行、留存日志可复核；A截断，关键时间判定未完整。"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-deep-06",
+      "selected_prompt_id": "fx-perspective-20",
+      "winner": "augmented",
+      "reason": "A完整覆盖专家方法、原始材料与外部验证；B关键部分截断，缺外部验证。"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-html-07",
+      "selected_prompt_id": "kp-form-26",
+      "winner": "tie",
+      "reason": "两者代码均被截断，缺少步骤正文与闭合标签，无法直接打开且信息不完整。"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-concise-08",
+      "selected_prompt_id": "em-format-11",
+      "winner": "baseline",
+      "reason": "B保留“完全”，事实更准确；A删去后语义略变，虽更短但不够忠实。"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-ambitious-09",
+      "selected_prompt_id": "fx-outcome-02",
+      "winner": "augmented",
+      "reason": "B目标更激进且指标可测、验证完整；A目标6秒未比5秒激进且缺验证方式。"
+    },
+    {
+      "batch": "results-advisor-reasoner-v2-2026-11-13.json",
+      "id": "eval-opposite-10",
+      "selected_prompt_id": "kp-perspective-21",
+      "winner": "baseline",
+      "reason": "B有完整反向论证、事实推测区分表和明确判断；A论证清晰但截断且缺明确判断。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-plan-01-r1",
+      "selected_prompt_id": "fx-verify-13",
+      "winner": "augmented",
+      "reason": "B计划完整，每步有验证，写码前确认范围；A修改步骤截断。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-verify-02-r1",
+      "selected_prompt_id": "fx-verify-13",
+      "winner": "augmented",
+      "reason": "A有修复和自动化测试覆盖合法/非法；B缺少测试代码，未满足自动化测试要求"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-simple-03-r1",
+      "selected_prompt_id": "kp-cut-29",
+      "winner": "augmented",
+      "reason": "B更简洁，严格只留 strip；A额外讨论 None 和未来扩展，超出最小要求。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-boundary-04-r1",
+      "selected_prompt_id": "kp-boundary-31",
+      "winner": "augmented",
+      "reason": "A明确最小改动边界，不删既有死代码并保留风格；B示例可能改动现有逻辑。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-judge-05-r1",
+      "selected_prompt_id": "fx-outcome-02",
+      "winner": "augmented",
+      "reason": "外部隔离、独立时钟与账号池、日志复核更完整。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-deep-06-r1",
+      "selected_prompt_id": "fx-perspective-20",
+      "winner": "augmented",
+      "reason": "A完整覆盖专家方法、原始材料与外部验证；B材料部分截断且未定义外部验证。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-html-07-r1",
+      "selected_prompt_id": "kp-form-26",
+      "winner": "tie",
+      "reason": "两者HTML均未完整，缺少实际步骤内容，无法直接打开验证"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-concise-08-r1",
+      "selected_prompt_id": "em-format-11",
+      "winner": "tie",
+      "reason": "judge_non_json"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-ambitious-09-r1",
+      "selected_prompt_id": "fx-outcome-02",
+      "winner": "tie",
+      "reason": "judge_non_json"
+    },
+    {
+      "batch": "results-advisor-reasoner-run2-2026-11-13.json",
+      "id": "eval-opposite-10-r1",
+      "selected_prompt_id": "kp-perspective-21",
+      "winner": "augmented",
+      "reason": "A反向论证更完整，事实与推测区分清晰，立场明确；B截断更重。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-plan-01-r1",
+      "selected_prompt_id": "fx-verify-13",
+      "winner": "augmented",
+      "reason": "两者均有分步与验证；B步骤完整且写码前明确范围，A末尾截断"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-verify-02-r1",
+      "selected_prompt_id": "fx-verify-13",
+      "winner": "tie",
+      "reason": "judge_non_json"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-simple-03-r1",
+      "selected_prompt_id": "kp-cut-29",
+      "winner": "augmented",
+      "reason": "B仅用strip，无多余变体，删除全部四层抽象，代码最短。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-boundary-04-r1",
+      "selected_prompt_id": "kp-boundary-31",
+      "winner": "augmented",
+      "reason": "A边界更严格，强调最小改动、保留风格、不动format_phone且不删既有死代码；B可能额外去空格，超出范围。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-judge-05-r1",
+      "selected_prompt_id": "fx-outcome-02",
+      "winner": "augmented",
+      "reason": "均满足；B更明确附请求/响应证据及边界复核"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-deep-06-r1",
+      "selected_prompt_id": "fx-perspective-20",
+      "winner": "augmented",
+      "reason": "A更完整说明专家方法并明确原始材料用法，外部验证虽略弱但整体优于B。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-html-07-r1",
+      "selected_prompt_id": "kp-form-26",
+      "winner": "tie",
+      "reason": "两者代码均截断，缺少步骤内容与闭合标签，信息不完整且无法直接打开。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-concise-08-r1",
+      "selected_prompt_id": "em-format-11",
+      "winner": "baseline",
+      "reason": "B更完整保留“尚未完全明确”，且“应”较“需”少增承诺；A省略“完全”改变事实。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-ambitious-09-r1",
+      "selected_prompt_id": "fx-outcome-02",
+      "winner": "augmented",
+      "reason": "B目标更激进，指标可测，验证方式分阶段且判定标准明确；A缺少验证方式。"
+    },
+    {
+      "batch": "results-advisor-reasoner-run3-2026-11-13.json",
+      "id": "eval-opposite-10-r1",
+      "selected_prompt_id": "kp-perspective-21",
+      "winner": "augmented",
+      "reason": "A完整满足三项标准并明确判断；B末尾截断，缺少独立明确判断。"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+│  /home/skynet/skynet-prompt  email: email-inbox-triage, himalaya                                                 │
+│  Session: e0bb3c5d               general: installing-agent-skills, lark-approval, +30 more                           │
+│                                  media: gif-search, songsee, youtube-content                                         │
+│                                  note-taking: obsidian                                                               │
+│                                  productivity: airtable, box, +19 more                                               │
+│                                  research: arxiv, competitor-news-monitor, +4 more                                   │
+│                                  social-media: xurl                                                                  │
+│                                  software-development: agent-catalog-client, +22 more                                │
+│                                  web: blocked-page-recovery                                                          │
+│                                                                                                                      │
+│                                  21 tools · 109 skills · /help for commands                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Welcome to Hermes Agent! Type your message or /help for commands.
+✦ Tip: Session titles support lineage: "my project" → "my project #2" → "my project #3".
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ 先写个通知：
+产出新知识：建一个客户模拟，用我们的日志复现过去一年。然后找出一个我们目前还不知道的最早流失信号，并证明它在它没见过的数
+据上也能预测。
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ ☤ deepseek-flash · ctx -- · [░░░░░░░░░░] -- · 33s · ⏲ 0s · ~/skynet-prompt          / commands · @ files · ! shell
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

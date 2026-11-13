@@ -1,0 +1,1 @@
+Challenge what you know: Especially in business, a lot of things we believe to be true are rough approximations of reality. Give the model access to the raw information and data and ask it to adversarially check assumptions. "We believe churn is an onboarding problem. Try to reproduce that from the raw data."

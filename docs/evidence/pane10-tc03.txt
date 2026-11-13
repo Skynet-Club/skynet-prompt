@@ -1,0 +1,40 @@
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣿⡿⠛⢁⡈⠛⢿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  delegation: delegate_task                                                           │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠿⣿⣦⣤⣈⠁⢠⣴⣿⠿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  file: patch, read_file, search_files, write_file                                    │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠻⢿⣿⣦⡉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  image_gen: image_generate                                                           │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⢷⣦⣈⠛⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  memory: memory                                                                      │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣴⠦⠈⠙⠿⣦⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  (and 6 more toolsets...)                                                            │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣤⡈⠁⢤⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                                                                      │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠷⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  MCP Servers                                                                         │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠑⢶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  skynet (stdio) — configured                                                         │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠁⢰⡆⠈⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                                                                                      │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠳⠈⣡⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  Available Skills                                                                    │
+│  ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀  autonomous-ai-agents: claude-code, codex, +4 more                                   │
+│                                  creative: architecture-diagram, ascii-video, +10 more                               │
+│  deepseek-flash · Nous Research  devops: sdlc-review                                                                 │
+│  /home/skynet/skynet-prompt  email: email-inbox-triage, himalaya                                                 │
+│  Session: 7cc0b4db               general: installing-agent-skills, lark-approval, +30 more                           │
+│                                  media: gif-search, songsee, youtube-content                                         │
+│                                  note-taking: obsidian                                                               │
+│                                  productivity: airtable, box, +19 more                                               │
+│                                  research: arxiv, competitor-news-monitor, +4 more                                   │
+│                                  social-media: xurl                                                                  │
+│                                  software-development: agent-catalog-client, +22 more                                │
+│                                  web: blocked-page-recovery                                                          │
+│                                                                                                                      │
+│                                  21 tools · 109 skills · /help for commands                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Welcome to Hermes Agent! Type your message or /help for commands.
+✦ Tip: batch_runner.py --resume content-matches completed prompts by text so dataset reorders don't re-run finished
+work.
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ //定验收
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ 挑战你已知的东西：尤其在商业里，我们相信的很多东西只是对现实的粗略近似。把原始…  Felix Rieseberg
+ 产出新知识：建一个客户模拟，用我们的日志复现过去一年。然后找出一个我们目前还不…  Felix Rieseberg
+ 用外部裁判：不要让模型评判它自己。                                               Felix Rieseberg
+ 这是我 DGX Spark 的本地 IP 和用户名密码。登录进去，配好 ssh…                     Karpathy
+ 测试是最强的验证形式——能做就做：「加校验」→ 先写非法输入的测试，再让它通过…      Karpathy
+ 先验证再算完：先定义「完成」长什么样。往下走之前先确认它。                       Karpathy
+ ☤ deepseek-flash · ctx -- · [░░░░░░░░░░] -- · 13s · ⏲ 0s · ~/skynet-prompt          / commands · @ files · ! shell

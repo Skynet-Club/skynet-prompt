@@ -1,0 +1,65 @@
+{
+  "schema_version": 3,
+  "version": "2026-11-13",
+  "count": 42,
+  "natures": {
+    "本人原文": 17,
+    "他人整理": 12,
+    "未核实": 3,
+    "项目原文": 10
+  },
+  "excerpts": 24,
+  "sha256": "4ec7f1a8aee8130c71798f3d577fa1b17e812ceeca2565b8b5ae77bf16981c26",
+  "fetched_at": "2026-11-12T21:45:00+08:00",
+  "source": "Skynet editorial snapshot + Fabric v1.4.568",
+  "cats": {
+    "outcome": {
+      "name": "要结果",
+      "count": 2
+    },
+    "think_first": {
+      "name": "先想清楚",
+      "count": 8
+    },
+    "format": {
+      "name": "定格式",
+      "count": 5
+    },
+    "verify": {
+      "name": "定验收",
+      "count": 9
+    },
+    "perspective": {
+      "name": "换视角",
+      "count": 4
+    },
+    "expert_method": {
+      "name": "用高手的方法",
+      "count": 3
+    },
+    "form": {
+      "name": "换形态",
+      "count": 6
+    },
+    "cut": {
+      "name": "砍掉多余的",
+      "count": 2
+    },
+    "boundary": {
+      "name": "别碰旁边的",
+      "count": 3
+    }
+  },
+  "require_evidence": true,
+  "evidence": {
+    "unverified": 8,
+    "verbatim": 22,
+    "paraphrase": 12
+  },
+  "evidence_report": "reports/source-check.json",
+  "require_rights": true,
+  "rights": {
+    "short-quotation-with-attribution": 32,
+    "explicit-license": 10
+  }
+}

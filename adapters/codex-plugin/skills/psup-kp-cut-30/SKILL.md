@@ -1,0 +1,6 @@
+---
+name: "psup-kp-cut-30"
+description: "中文直译 · 砍掉多余的 · 他人整理 · 简单优先：一个资深工程师会不会说这太复杂了？会，就简化。"
+disable-model-invocation: true
+---
+简单优先：一个资深工程师会不会说这太复杂了？会，就简化。

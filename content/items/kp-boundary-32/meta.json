@@ -1,0 +1,21 @@
+{
+  "id": "kp-boundary-32",
+  "cat": "boundary",
+  "author": "Karpathy",
+  "date": "2026-11-11",
+  "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+  "origin": "compilation",
+  "excerpt": false,
+  "source": {
+    "url": "https://github.com/forrestchang/andrej-karpathy-skills",
+    "author": "Karpathy",
+    "published_at": "2026-11-11",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "4e9e87e946eaf45b93f5b5713908462af75a64312cf08cac21590d7cf379cc8f",
+    "en": "146997a3c5b943f8a45ccfcff55f328c0b2a2610078427ad7cd5ceb28613b8b8"
+  }
+}

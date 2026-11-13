@@ -1,0 +1,6 @@
+---
+name: "psup-fx-perspective-20"
+description: "中文直译 · 换视角 · 本人原话 · 节选 · 试着把名词换成动词：这是《创新者的艺术》（Tom Kelley、Jona…"
+disable-model-invocation: true
+---
+试着把名词换成动词：这是《创新者的艺术》（Tom Kelley、Jonathan Littman）里的老招。季度复盘不是「一份幻灯片」，而是「让一群很忙的人在 30 分钟里相信一个因果故事，并在不确定中做出决定」。

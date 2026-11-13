@@ -1,0 +1,1 @@
+If the goal of the prompt is to help a student learn a concept then constraining the AI "Wait for the student to respond before moving on" helps guide the AI in its interactions with the user. … if the AI is given a series of questions to ask the user and told to "only ask one question at a time" that constraint allows a more interactive and guided conversation.

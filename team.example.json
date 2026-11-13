@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "org_id": "skynet-club",
+  "registries": [
+    {
+      "id": "official",
+      "source": "https://registry.skynet.club/registry.json",
+      "channel": "stable",
+      "trust": "~/.config/skynet-prompt/trust/skynet-club.json",
+      "priority": 10
+    },
+    {
+      "id": "team",
+      "source": "/srv/skynet-team/registry/registry.json",
+      "channel": "canary",
+      "trust": "/srv/skynet-team/trust/keys.json",
+      "priority": 20
+    }
+  ],
+  "members": [
+    {
+      "id": "0@skynet-club",
+      "roles": ["admin", "publisher", "reviewer", "author"]
+    },
+    {
+      "id": "editor@skynet-club",
+      "roles": ["author", "reviewer"]
+    },
+    {
+      "id": "reader@skynet-club",
+      "roles": ["reader"]
+    }
+  ]
+}

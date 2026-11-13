@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-improve-prompt",
+  "cat": "expert_method",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "6866de3cd635ee4f2dd4b72f5582195e8c3040a845b716ee1bff1b5738a220c8",
+    "en": "aea451e4c619394ada4df0bbf4110eeb941d1dc36fc86c4c341978dfae2c37a3"
+  }
+}

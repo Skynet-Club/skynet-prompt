@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-extract-wisdom",
+  "cat": "think_first",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "473d17a3f842ebd1a7ab6506f438c003a967aef91e4bf63c2415dd72c5bda830",
+    "en": "b7c013e8cc1d55ec6dd1c1295843519c7420b095e69c8b50d576f888be788c31"
+  }
+}

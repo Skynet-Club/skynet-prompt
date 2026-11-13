@@ -1,0 +1,21 @@
+{
+  "id": "fx-expert_method-23",
+  "cat": "expert_method",
+  "author": "Felix Rieseberg",
+  "date": "2026-10-13",
+  "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+  "origin": "verbatim",
+  "excerpt": false,
+  "source": {
+    "url": "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/",
+    "author": "Felix Rieseberg",
+    "published_at": "2026-10-13",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "4a6945166d82a767a99197c8728e7e546f0ee852f68f61ee6d37ad510d7ce70f",
+    "en": "d43d90ea6fb37d8c8d98333208f11a3904d1ab39b21cf24358d7c2724fcf0a3c"
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-12T21:46:26+08:00",
+  "sources": {
+    "https://x.com/karpathy/status/2015883857489522876": {
+      "file": "x-2015883857489522876.md",
+      "via": "web_extract",
+      "ok": true,
+      "sha256": "68b8473557be1d0ec522ace06cba9fd44445c325b707c7b1cad96b444ee6beba",
+      "size": 8191,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-11T13:32:22+08:00"
+    },
+    "https://x.com/karpathy/status/2105819303471976479": {
+      "file": "x-2105819303471976479.md",
+      "via": "web_extract",
+      "ok": true,
+      "sha256": "eb70b1392a0aafc280731567f84b0b44537c3c26c9a4dbc71a90ab6d39bc09e2",
+      "size": 15426,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-11T13:29:57+08:00"
+    },
+    "https://x.com/karpathy/status/2026731645169185220": {
+      "file": "x-2026731645169185220.md",
+      "via": "web_extract",
+      "ok": true,
+      "sha256": "352f071e210769ab0f48bd3620d007e7a88fc8bf2a94e22cfa13596f56fe91eb",
+      "size": 3389,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-11T21:29:45+08:00"
+    },
+    "https://x.com/karpathy/status/2037921699824607591": {
+      "file": "x-2037921699824607591.md",
+      "via": "web_extract",
+      "ok": true,
+      "sha256": "5c7455f5e09b3b7ef860761bcdb9201479c37113641efcad92fb9d17c112fb49",
+      "size": 1183,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-11T21:29:45+08:00"
+    },
+    "https://x.com/karpathy/status/2053872850101285137": {
+      "file": "x-2053872850101285137.md",
+      "via": "web_extract",
+      "ok": true,
+      "sha256": "7d63ccfdfc96106b3bbd02e18f2932f81cc012eb3908c3b6a25515a2d063e2c8",
+      "size": 3241,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-11T13:33:08+08:00"
+    },
+    "https://x.com/karpathy/status/2049903821095354523": {
+      "file": "x-2049903821095354523.md",
+      "via": "web_extract",
+      "ok": true,
+      "sha256": "86a15b92eb56476bd001a1df2642c840c3dbf6088c283f7db4c8173c2ec2543d",
+      "size": 3788,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-11T13:33:33+08:00"
+    },
+    "https://felixrieseberg.com/how-to-be-more-ambitious-a-tutorial-for-humans-with-models/": {
+      "file": "felix-ambitious.html",
+      "via": "curl",
+      "ok": true,
+      "sha256": "777ffbbaacb24b6925c7e05125cacd4023f67d6a8ccef3c995f49a2591ad6531",
+      "size": 32290,
+      "media_type": "text/html",
+      "fetched_at": "2026-11-11T21:28:24+08:00"
+    },
+    "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting": {
+      "file": "mollick-two-paths.html",
+      "via": "curl",
+      "ok": true,
+      "sha256": "61f9a6be52855fcc049fcd532e915cc44edab8ca79bbd9ad5a5f27d57dbfe1b1",
+      "size": 137380,
+      "media_type": "text/html",
+      "fetched_at": "2026-11-11T21:29:04+08:00"
+    },
+    "https://github.com/forrestchang/andrej-karpathy-skills": {
+      "file": "karpathy-skills.md",
+      "via": "web_extract",
+      "note": "12 条「他人整理」的真实出处",
+      "sha256": "9d709a531884d54e5a2283f4456eef35af8cca943448efd6f60a7ca04d6161e2",
+      "size": 4659,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-11T21:32:01+08:00",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/improve_prompt/system.md": {
+      "file": "fabric-v1.4.568/improve_prompt-system.md",
+      "sha256": "81a1d238b0087d62a2e0b3cfb74a9fc9f62bd8021c4ce8762ba7432371f46886",
+      "size": 34687,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_golden_rules/system.md": {
+      "file": "fabric-v1.4.568/create_golden_rules-system.md",
+      "sha256": "ff6a2cf64d4608fa85628e56759f1a3a3607da0c8d8b4d9bf7a024c361c76f18",
+      "size": 2382,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md": {
+      "file": "fabric-v1.4.568/review_code-system.md",
+      "sha256": "d67da54180f1c8e447beec7297d70ffd485d0b3a8350573a31a21480f68d6fb6",
+      "size": 4831,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/analyze_incident/system.md": {
+      "file": "fabric-v1.4.568/analyze_incident-system.md",
+      "sha256": "182fe9741f539b777572f7fd163e71f20b09d85552a4cf7dd8d9fddbe4f6a72c",
+      "size": 1819,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/summarize_git_changes/system.md": {
+      "file": "fabric-v1.4.568/summarize_git_changes-system.md",
+      "sha256": "12cd31fe6aafc29d433deb7a04b4b7dfc86fc433142098c664e26ab12768b085",
+      "size": 768,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/create_design_document/system.md": {
+      "file": "fabric-v1.4.568/create_design_document-system.md",
+      "sha256": "23ef7ffda48444bc1b176125393ef750c8ba1781f0da085e391cbbfe1dee14e8",
+      "size": 4420,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/extract_wisdom/system.md": {
+      "file": "fabric-v1.4.568/extract_wisdom-system.md",
+      "sha256": "1dfc5719961081cde886470003c544c8397f659978474121b51f4ba87cdc1a09",
+      "size": 3251,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/explain_code/system.md": {
+      "file": "fabric-v1.4.568/explain_code-system.md",
+      "sha256": "fe381e0b31b2e3d9b057635fe2fe87361c7fce364da65d9514f77e9c349c17a3",
+      "size": 894,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/check_falsifiability/system.md": {
+      "file": "fabric-v1.4.568/check_falsifiability-system.md",
+      "sha256": "99d0d71b5e0ce4c465d8e437ff35b635da97d37eac9db481ff32c75de319bf73",
+      "size": 6274,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    },
+    "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/ask_secure_by_design_questions/system.md": {
+      "file": "fabric-v1.4.568/ask_secure_by_design_questions-system.md",
+      "sha256": "4daf2b6d5cc43bcbb46bc73e80b3ddce8de7ef6fbdbea687710684f1ab832677",
+      "size": 1926,
+      "media_type": "text/markdown",
+      "fetched_at": "2026-11-12T21:45:00+08:00",
+      "via": "github-api:pinned-tag",
+      "license": "MIT",
+      "ok": true
+    }
+  }
+}

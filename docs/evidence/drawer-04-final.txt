@@ -1,0 +1,42 @@
+│  /home/skynet/skynet-prompt  email: email-inbox-triage, himalaya                                                 │
+│  Session: e7bc9d56               general: installing-agent-skills, lark-approval, +30 more                           │
+│                                  media: gif-search, songsee, youtube-content                                         │
+│                                  note-taking: obsidian                                                               │
+│                                  productivity: airtable, box, +19 more                                               │
+│                                  research: arxiv, competitor-news-monitor, +4 more                                   │
+│                                  social-media: xurl                                                                  │
+│                                  software-development: agent-catalog-client, +22 more                                │
+│                                  web: blocked-page-recovery                                                          │
+│                                                                                                                      │
+│                                  21 tools · 109 skills · /help for commands                                          │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+Welcome to Hermes Agent! Type your message or /help for commands.
+✦ Tip: hermes gateway install sets up Hermes as a system service (systemd/launchd).
+
+ 提示词补充 · 32 条 / 9 类   ↑↓ 选类目 · → 看条目 · Enter 补进输入框 · ← 退回 · Esc 关闭
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+要结果             2 │ 组一支队伍：……很容易不小心滑进角色扮演，那只会让你的对话记录更怪，而不会让…  Felix Rieseberg
+先想清楚           6 │ 试着把名词换成动词：这是《创新者的艺术》（Tom Kelley、Jonathan Littman）里…  Felix Rieseberg
+定格式             4 │ ▸ 好玩的点子：让它反过来论证。……这其实是形成自己判断的好工具，只是要记得从不同方向… Karpathy
+定验收             6 │
+▸ 换视角           3 │
+用高手的方法       2 │
+换形态             5 │
+砍掉多余的         2 │
+别碰旁边的         2 │
+                       └──────────────────────────────────────────────────────────────────────────────────────────────
+                        原文  Fun idea let's ask it to argue the opposite. … This is actually super useful as a tool
+                              for forming your own opinions, just make sure to ask different directions and be…
+                        中文  好玩的点子：让它反过来论证。……这其实是形成自己判断的好工具，只是要记得从不同方向问，并且
+                              小心它的谄媚。
+                        作者  Karpathy · 2026-03-28
+                        链接  https://x.com/karpathy/status/2037921699824607591
+
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ 把这条加到我的方案里：
+
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ ☤ deepseek-flash · ctx -- · [░░░░░░░░░░] -- · 21s · ⏲ 0s · ~/skynet-prompt          / commands · @ files · ! shell

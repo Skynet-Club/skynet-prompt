@@ -1,0 +1,12 @@
+{
+  "name": "opencode-skynet-prompt",
+  "version": "0.3.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tui": "./src/tui.ts"
+  },
+  "peerDependencies": {
+    "@opencode/plugin": "latest"
+  }
+}

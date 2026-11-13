@@ -1,0 +1,21 @@
+{
+  "id": "fabric-v1-review-code",
+  "cat": "verify",
+  "author": "Daniel Miessler / Fabric contributors",
+  "date": "2026-11-10",
+  "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://github.com/danielmiessler/fabric/blob/v1.4.568/data/patterns/review_code/system.md",
+    "author": "Daniel Miessler / Fabric contributors",
+    "published_at": "2026-11-10",
+    "license": "MIT",
+    "rights_basis": "explicit-license",
+    "redistribution": "full-text"
+  },
+  "sha256": {
+    "zh": "1e29661db1aeaa01fab04750cd27cc5e8c928f20e38402c5b094c41843908ee2",
+    "en": "303c1191e8c02f117a0ee9068bb04556105057756587b38aa797d4b7b698dbdf"
+  }
+}

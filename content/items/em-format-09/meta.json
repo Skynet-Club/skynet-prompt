@@ -1,0 +1,21 @@
+{
+  "id": "em-format-09",
+  "cat": "format",
+  "author": "Ethan Mollick",
+  "date": "2023-11-01",
+  "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+  "origin": "verbatim",
+  "excerpt": true,
+  "source": {
+    "url": "https://www.oneusefulthing.org/p/working-with-ai-two-paths-to-prompting",
+    "author": "Ethan Mollick",
+    "published_at": "2023-11-01",
+    "license": "not-declared",
+    "rights_basis": "short-quotation-with-attribution",
+    "redistribution": "excerpt-only"
+  },
+  "sha256": {
+    "zh": "27b9fb6d91d1cb7553cf223c54175c72e49ab9e8da5906a32141ea533b557a8d",
+    "en": "0691af331c62648d06be4fe49162c418191797c4d0aba3d15cd541217902b4c1"
+  }
+}

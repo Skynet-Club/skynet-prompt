@@ -1,0 +1,303 @@
+{
+  "ok": true,
+  "rule_version": 1,
+  "count": 32,
+  "passed": 31,
+  "needs_review": 1,
+  "flag_count": 1,
+  "items_digest": "aa9f4525770a45f4954e7dce1cdd195d3264f8a1ff2d45a0a027da231e345e31",
+  "rows": [
+    {
+      "id": "fx-outcome-01",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "fx-outcome-02",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-think_first-03",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-think_first-04",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-think_first-05",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-think_first-06",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-think_first-07",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-think_first-08",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "em-format-09",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "em-format-10",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "em-format-11",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-format-12",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "fx-verify-13",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "fx-verify-14",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "fx-verify-15",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-verify-16",
+      "status": "needs-review",
+      "flags": [
+        "secret.credential_use"
+      ],
+      "severities": {
+        "secret.credential_use": "medium"
+      },
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-verify-17",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-verify-18",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "fx-perspective-19",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "fx-perspective-20",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-perspective-21",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "fx-expert_method-22",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "fx-expert_method-23",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-form-24",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-form-25",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-form-26",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-form-27",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-form-28",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-cut-29",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-cut-30",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-boundary-31",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    },
+    {
+      "id": "kp-boundary-32",
+      "status": "passed",
+      "flags": [],
+      "severities": {},
+      "rule_version": 1,
+      "automatic_only": true,
+      "high_risk": false
+    }
+  ]
+}
