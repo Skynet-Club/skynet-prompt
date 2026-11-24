@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "version": "2026-11-24",
+  "count": 42,
+  "official_count": 22,
+  "sha256": "efcf990bbb68d896558b15862d5d5c087b235c1aa28bdce531e71d052fb4bb23",
+  "cats": {
+    "outcome": {
+      "name": "要结果",
+      "count": 2
+    },
+    "think_first": {
+      "name": "先想清楚",
+      "count": 8
+    },
+    "format": {
+      "name": "定格式",
+      "count": 5
+    },
+    "verify": {
+      "name": "定验收",
+      "count": 9
+    },
+    "perspective": {
+      "name": "换视角",
+      "count": 4
+    },
+    "expert_method": {
+      "name": "用高手的方法",
+      "count": 3
+    },
+    "form": {
+      "name": "换形态",
+      "count": 6
+    },
+    "cut": {
+      "name": "砍掉多余的",
+      "count": 2
+    },
+    "boundary": {
+      "name": "别碰旁边的",
+      "count": 3
+    }
+  },
+  "evidence": {
+    "verbatim": 22,
+    "paraphrase": 12,
+    "unverified": 8
+  },
+  "rights": {
+    "explicit-license": 10,
+    "short-quotation-with-attribution": 32
+  },
+  "natures": {
+    "他人整理": 12,
+    "未核实": 8,
+    "本人原文": 12,
+    "项目原文": 10
+  },
+  "require_evidence": true,
+  "require_rights": true
+}
