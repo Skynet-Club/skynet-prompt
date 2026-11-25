@@ -1,0 +1,6 @@
+# dsh-skynet-prompt bundle: mount the empty host half; the Web half is
+# discovered from package.json's dsh.client and registers the picker overlay,
+# composer button and /p command.
+- insert:
+    - id: dsh-skynet-prompt
+      name: dsh-skynet-prompt

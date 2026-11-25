@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "version": "2026-11-24",
-  "count": 42,
-  "official_count": 22,
-  "sha256": "efcf990bbb68d896558b15862d5d5c087b235c1aa28bdce531e71d052fb4bb23",
+  "version": "2026-11-25",
+  "count": 39,
+  "official_count": 20,
+  "sha256": "8d5bf36b96042e5a94c3e1d7ae3cf246478acf3f8eff345d6bd285d89a9b66dc",
   "cats": {
     "outcome": {
       "name": "要结果",
@@ -15,7 +15,7 @@
     },
     "format": {
       "name": "定格式",
-      "count": 5
+      "count": 2
     },
     "verify": {
       "name": "定验收",
@@ -43,18 +43,18 @@
     }
   },
   "evidence": {
-    "verbatim": 22,
+    "verbatim": 20,
     "paraphrase": 12,
-    "unverified": 8
+    "unverified": 7
   },
   "rights": {
     "explicit-license": 10,
-    "short-quotation-with-attribution": 32
+    "short-quotation-with-attribution": 29
   },
   "natures": {
     "他人整理": 12,
-    "未核实": 8,
-    "本人原文": 12,
+    "未核实": 7,
+    "本人原文": 10,
     "项目原文": 10
   },
   "require_evidence": true,

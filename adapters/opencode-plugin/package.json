@@ -1,0 +1,19 @@
+{
+  "name": "opencode-skynet-prompt",
+  "version": "0.4.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tui": "./src/tui.ts"
+  },
+  "peerDependencies": {
+    "@opencode/plugin": "latest",
+    "@opentui/solid": ">=0.8.0",
+    "solid-js": ">=1.9.0"
+  },
+  "description": "skynet-prompt 的 opencode 选择器：session.panel 三栏 /p",
+  "devDependencies": {
+    "@opentui/solid": "^0.9.4",
+    "solid-js": "^1.9.12"
+  }
+}
