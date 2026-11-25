@@ -56,6 +56,8 @@ dsh plugin --profile web add "file:$PWD/adapters/dsh-plugin"
 # 重启 dsh web
 ```
 
+兼容性：DSH Web 已在 Linux 与 Windows 11 验证（0.1.2 + DSH 0.2.2-rc.5）；opencode TUI 当前在 Linux 验证，Windows 原生尚未适配。
+
 输入框工具栏的 prompt 图标，或在光标处输入 `；；`（兼容 `;;`），打开上半屏 1:1:2 浮窗；浮窗宽度与会话框一致、左右对齐，停在会话框上方 8px；收起侧栏、缩放窗口时持续跟随。`Tab` 切换整个窗体的中/英文，`Enter` 或「插入」补入当前光标处；`/p` 菜单项也可。图标来自 `prompt.svg`（深灰圆角方块 + 荧光绿双引号）。
 
 ## 数据
