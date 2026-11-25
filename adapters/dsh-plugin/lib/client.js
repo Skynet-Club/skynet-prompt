@@ -1273,29 +1273,52 @@ window.__ModuleLoader__.load({
 			}, [open, measureAnchor]);
 			(0, react.useEffect)(() => {
 				if (!inputActions?.captureInsertion || !inputActions?.insertText) return;
-				const composer = (probeRef.current?.closest("[data-composer-card]"))?.querySelector("[data-composer-input]");
-				if (!(composer instanceof HTMLElement)) return;
-				const onInput = () => {
-					if (picker.getSnapshot()) return;
-					let attempt = 0;
-					const check = () => {
-						const span = inputActions.captureInsertion();
-						const before = String(draftRef.current ?? "").slice(0, span.start);
-						const trigger = before.endsWith("；；") ? "；；" : before.endsWith(";;") ? ";;" : null;
-						if (trigger === null || span.start !== span.end) {
-							if (attempt++ < 2) window.setTimeout(check, 0);
-							return;
-						}
-						if (inputActions.insertText("", {
-							start: span.start - trigger.length,
-							end: span.start,
-							draftRev: span.draftRev
-						})) picker.show();
-					};
-					window.setTimeout(check, 0);
+				let timer;
+				let disposed = false;
+				const check = (attempt) => {
+					if (disposed || picker.getSnapshot()) return;
+					const span = inputActions.captureInsertion();
+					const before = String(draftRef.current ?? "").slice(0, span.start);
+					const trigger = before.endsWith("；；") ? "；；" : before.endsWith(";;") ? ";;" : null;
+					if (trigger === null || span.start !== span.end) {
+						if (attempt < 30) timer = window.setTimeout(() => {
+							timer = void 0;
+							check(attempt + 1);
+						}, 20);
+						return;
+					}
+					if (inputActions.insertText("", {
+						start: span.start - trigger.length,
+						end: span.start,
+						draftRev: span.draftRev
+					})) picker.show();
 				};
-				composer.addEventListener("input", onInput, true);
-				return () => composer.removeEventListener("input", onInput, true);
+				const schedule = () => {
+					if (timer !== void 0 || picker.getSnapshot()) return;
+					timer = window.setTimeout(() => {
+						timer = void 0;
+						check(0);
+					}, 0);
+				};
+				const onInput = (event) => {
+					const target = event.target;
+					if (!(target instanceof Element)) return;
+					if (!(target.closest("[data-composer-input], [contenteditable='true']") instanceof HTMLElement)) return;
+					schedule();
+				};
+				const onKeyUp = (event) => {
+					if (event.key === ";" || event.key === "；" || event.key === "Process") schedule();
+				};
+				document.addEventListener("input", onInput, true);
+				document.addEventListener("compositionend", onInput, true);
+				document.addEventListener("keyup", onKeyUp, true);
+				return () => {
+					disposed = true;
+					if (timer !== void 0) window.clearTimeout(timer);
+					document.removeEventListener("input", onInput, true);
+					document.removeEventListener("compositionend", onInput, true);
+					document.removeEventListener("keyup", onKeyUp, true);
+				};
 			}, [inputActions, picker]);
 			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
 				ref: probeRef,

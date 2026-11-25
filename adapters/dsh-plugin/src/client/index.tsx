@@ -258,31 +258,55 @@ function PickerOverlay(props: any) {
 
   useEffect(() => {
     if (!inputActions?.captureInsertion || !inputActions?.insertText) return
-    const card = probeRef.current?.closest("[data-composer-card]")
-    const composer = card?.querySelector("[data-composer-input]")
-    if (!(composer instanceof HTMLElement)) return
-    const onInput = (): void => {
-      if (picker.getSnapshot()) return
-      let attempt = 0
-      const check = (): void => {
-        const span = inputActions.captureInsertion()
-        const before = String(draftRef.current ?? "").slice(0, span.start)
-        const trigger = before.endsWith("；；") ? "；；" : before.endsWith(";;") ? ";;" : null
-        if (trigger === null || span.start !== span.end) {
-          if (attempt++ < 2) window.setTimeout(check, 0)
-          return
+    let timer: number | undefined
+    let disposed = false
+    const check = (attempt: number): void => {
+      if (disposed || picker.getSnapshot()) return
+      const span = inputActions.captureInsertion()
+      const before = String(draftRef.current ?? "").slice(0, span.start)
+      const trigger = before.endsWith("；；") ? "；；" : before.endsWith(";;") ? ";;" : null
+      if (trigger === null || span.start !== span.end) {
+        if (attempt < 30) {
+          timer = window.setTimeout(() => {
+            timer = undefined
+            check(attempt + 1)
+          }, 20)
         }
-        const removed = inputActions.insertText("", {
-          start: span.start - trigger.length,
-          end: span.start,
-          draftRev: span.draftRev,
-        })
-        if (removed) picker.show()
+        return
       }
-      window.setTimeout(check, 0)
+      const removed = inputActions.insertText("", {
+        start: span.start - trigger.length,
+        end: span.start,
+        draftRev: span.draftRev,
+      })
+      if (removed) picker.show()
     }
-    composer.addEventListener("input", onInput, true)
-    return () => composer.removeEventListener("input", onInput, true)
+    const schedule = (): void => {
+      if (timer !== undefined || picker.getSnapshot()) return
+      timer = window.setTimeout(() => {
+        timer = undefined
+        check(0)
+      }, 0)
+    }
+    const onInput = (event: Event): void => {
+      const target = event.target
+      if (!(target instanceof Element)) return
+      if (!(target.closest("[data-composer-input], [contenteditable='true']") instanceof HTMLElement)) return
+      schedule()
+    }
+    const onKeyUp = (event: KeyboardEvent): void => {
+      if (event.key === ";" || event.key === "；" || event.key === "Process") schedule()
+    }
+    document.addEventListener("input", onInput, true)
+    document.addEventListener("compositionend", onInput, true)
+    document.addEventListener("keyup", onKeyUp, true)
+    return () => {
+      disposed = true
+      if (timer !== undefined) window.clearTimeout(timer)
+      document.removeEventListener("input", onInput, true)
+      document.removeEventListener("compositionend", onInput, true)
+      document.removeEventListener("keyup", onKeyUp, true)
+    }
   }, [inputActions, picker])
 
   return (
