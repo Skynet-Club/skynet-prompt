@@ -50,7 +50,7 @@ def cmd_show(args) -> int:
         _json(item)
         return 0
     print(f"id       {item['id']}")
-    print(f"类目     {DISPLAY[item['cat']]}")
+    print(f"场景     {DISPLAY[item['cat']]}")
     print(f"作者     {item['author']}")
     print(f"日期     {item['date']}")
     print(f"性质     {item.get('nature', '未标注')}")
@@ -212,7 +212,7 @@ def build_parser() -> argparse.ArgumentParser:
                    choices=("id", "cat", "author", "date", "url", "en", "zh"))
     p.set_defaults(func=cmd_print)
 
-    p = sub.add_parser("categories", help="列出类目与条数")
+    p = sub.add_parser("categories", help="列出场景与条数")
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_categories)
 
@@ -220,7 +220,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--json", action="store_true")
     p.set_defaults(func=cmd_packs)
 
-    p = sub.add_parser("selftest", help="校验条数、类目和 sha256")
+    p = sub.add_parser("selftest", help="校验条数、场景和 sha256")
     p.set_defaults(func=cmd_selftest)
 
     p = sub.add_parser("audit", help="汇总证据与版权")

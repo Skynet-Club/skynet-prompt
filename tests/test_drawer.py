@@ -112,7 +112,8 @@ def test_long_result_set_is_windowed():
     assert "下面还有" in rendered
     for _ in range(len(d.rows()) - 1):     # 一路按到底，窗口要跟到末条
         d.key_down()
-    assert d.current()["zh"][:10] in "".join(flat(d))
+    needle = "".join(d.current()["zh"].split())[:10]
+    assert needle in "".join("".join(flat(d)).split())
 
 
 def test_search_renders_the_query_in_header():

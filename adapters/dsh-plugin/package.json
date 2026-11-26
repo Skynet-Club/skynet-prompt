@@ -1,6 +1,6 @@
 {
   "name": "dsh-skynet-prompt",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "description": "skynet-prompt picker for the DeepSeek Harness Web composer",
   "type": "module",

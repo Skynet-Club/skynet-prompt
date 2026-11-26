@@ -21,9 +21,6 @@ const MIL = {
   selectFg: "#f4f8e9",
   selectDimBg: "#2a351d",
   selectDimFg: "#b9c7a5",
-  verbatim: "#a8d36a",
-  paraphrase: "#d6b15f",
-  unverified: "#c88370",
   link: "#8fb39c",
 } as const
 
@@ -32,6 +29,7 @@ const BOLD = 1 // TextAttributes.BOLD; 不在运行时导入 @opentui/core
 export interface Category {
   key: string
   name: string
+  en?: string
   count: number
 }
 
@@ -44,8 +42,6 @@ export interface Item {
   author: string
   date: string
   url: string
-  nature?: string
-  evidence?: { verdict?: string }
 }
 
 export interface PickerState {
@@ -63,54 +59,20 @@ export interface PanelLike {
   close: () => void
 }
 
-const EVIDENCE: Record<string, string> = {
-  verbatim: "逐字可核",
-  paraphrase: "他人整理",
-  unverified: "未核实",
-}
-const EVIDENCE_EN: Record<string, string> = {
-  verbatim: "Verbatim",
-  paraphrase: "Paraphrase",
-  unverified: "Unverified",
-}
-const NATURE_EN: Record<string, string> = {
-  "本人原文": "Original",
-  "项目原文": "Project original",
-  "他人整理": "Paraphrased",
-  "未核实": "Unverified",
-}
 const CATEGORY_EN: Record<string, string> = {
-  outcome: "Outcome",
-  think_first: "Think first",
-  format: "Format",
-  verify: "Acceptance",
-  perspective: "Perspective",
-  expert_method: "Expert ways",
-  form: "Transform",
-  cut: "Cut excess",
-  boundary: "Boundaries",
-}
-
-function badge(item: Item, lang: "zh" | "en"): string {
-  const verdict = item.evidence?.verdict ?? "unverified"
-  return lang === "en"
-    ? EVIDENCE_EN[verdict] ?? "Unverified"
-    : EVIDENCE[verdict] ?? "未核实"
+  goal: "Goal",
+  depth: "Depth",
+  breadth: "Breadth",
+  constraint: "Constraints",
+  evidence: "Evidence",
+  check: "Check",
+  reader: "Reader",
+  execution: "Execution",
+  time: "Time",
 }
 
 function categoryLabel(row: Category, lang: "zh" | "en"): string {
-  return lang === "en" ? CATEGORY_EN[row.key] ?? row.key.replace(/_/g, " ") : row.name
-}
-
-function natureLabel(item: Item, lang: "zh" | "en"): string {
-  if (lang === "zh") return item.nature ?? "未标注"
-  return NATURE_EN[item.nature ?? ""] ?? item.nature ?? "Not stated"
-}
-
-function badgeColor(item: Item): string {
-  if (item.evidence?.verdict === "verbatim") return MIL.verbatim
-  if (item.evidence?.verdict === "paraphrase") return MIL.paraphrase
-  return MIL.unverified
+  return lang === "en" ? row.en ?? CATEGORY_EN[row.key] ?? row.key.replace(/_/g, " ") : row.name
 }
 
 function cells(text: string): number {
@@ -182,8 +144,8 @@ function PickerPanel(props: {
   const t = (zh: string, en: string) => lang() === "en" ? en : zh
   const headerText = createMemo(() => {
     const base = lang() === "en"
-      ? `Prompt picker · ${props.state.items.length} items / ${props.state.categories.length} categories`
-      : `提示词补充 · ${props.state.items.length} 条 / ${props.state.categories.length} 类`
+      ? `Prompt picker · ${props.state.items.length} items / ${props.state.categories.length} scenes`
+      : `提示词补充 · ${props.state.items.length} 条 / ${props.state.categories.length} 场景`
     if (!query()) return base
     return base + (lang() === "en" ? ` · Search "${query()}"` : ` · 搜索「${query()}」`)
   })
@@ -191,7 +153,7 @@ function PickerPanel(props: {
     ? "↑↓ Select · ←→ Columns · Tab: 中/En · Type to search · Enter insert · Esc close"
     : "↑↓ 选择 · ←→ 切栏 · Tab： 中/En · 直接打字搜索 · Enter 补入 · Esc 关闭")
   const leftTitle = createMemo(() => {
-    const base = t("类目", "Categories")
+    const base = t("场景", "Scenes")
     return focus() === "cats" ? `▸ ${base}` : base
   })
   const midTitle = createMemo(() => {
@@ -310,9 +272,7 @@ function PickerPanel(props: {
               const selected = () => view().start + index() === itemIndex()
               const active = () => selected() && focus() === "items"
               const label = () => {
-                const badgeText = badge(item, lang())
-                const room = Math.max(4, rowWidth() - 3 - cells(badgeText))
-                const raw = `${selected() ? "▸" : " "} ${badgeText} ${clip(promptText(item), room)}`
+                const raw = `${selected() ? "▸" : " "} ${clip(promptText(item), rowWidth() - 2)}`
                 return selected() ? pad(raw, rowWidth()) : raw
               }
               return (
@@ -337,8 +297,6 @@ function PickerPanel(props: {
                 <text wrapMode="word" fg={MIL.text}>{promptText(item())}</text>
                 <text> </text>
                 <text fg={MIL.muted}>{`${t("作者", "Author")}  ${item().author} · ${item().date}`}</text>
-                <text fg={MIL.muted}>{`${t("性质", "Nature")}  ${natureLabel(item(), lang())}`}</text>
-                <text fg={badgeColor(item())}>{`${t("证据", "Evidence")}  ${badge(item(), lang())}`}</text>
                 <text wrapMode="word" fg={MIL.link}>{`${t("链接", "Link")}  ${item().url}`}</text>
               </>
             )}

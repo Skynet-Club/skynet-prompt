@@ -1,61 +1,70 @@
 {
   "schema_version": 1,
-  "version": "2026-11-25",
-  "count": 39,
-  "official_count": 20,
-  "sha256": "8d5bf36b96042e5a94c3e1d7ae3cf246478acf3f8eff345d6bd285d89a9b66dc",
+  "version": "2026-11-26",
+  "count": 75,
+  "official_count": 56,
+  "sha256": "eb0eb7b60f613cba5100196118364318da2f7aa94c9c7723d346040a675f8928",
   "cats": {
-    "outcome": {
-      "name": "要结果",
-      "count": 2
+    "goal": {
+      "name": "加目标",
+      "count": 4,
+      "en": "Goal"
     },
-    "think_first": {
-      "name": "先想清楚",
-      "count": 8
+    "depth": {
+      "name": "加深度",
+      "count": 15,
+      "en": "Depth"
     },
-    "format": {
-      "name": "定格式",
-      "count": 2
+    "breadth": {
+      "name": "加广度",
+      "count": 7,
+      "en": "Breadth"
     },
-    "verify": {
-      "name": "定验收",
-      "count": 9
+    "constraint": {
+      "name": "加约束",
+      "count": 7,
+      "en": "Constraints"
     },
-    "perspective": {
-      "name": "换视角",
-      "count": 4
+    "evidence": {
+      "name": "加证据",
+      "count": 7,
+      "en": "Evidence"
     },
-    "expert_method": {
-      "name": "用高手的方法",
-      "count": 3
+    "check": {
+      "name": "加检验",
+      "count": 6,
+      "en": "Check"
     },
-    "form": {
-      "name": "换形态",
-      "count": 6
+    "reader": {
+      "name": "加读者",
+      "count": 9,
+      "en": "Reader"
     },
-    "cut": {
-      "name": "砍掉多余的",
-      "count": 2
+    "execution": {
+      "name": "加执行",
+      "count": 17,
+      "en": "Execution"
     },
-    "boundary": {
-      "name": "别碰旁边的",
-      "count": 3
+    "time": {
+      "name": "加时间",
+      "count": 3,
+      "en": "Time"
     }
   },
   "evidence": {
-    "verbatim": 20,
+    "verbatim": 56,
     "paraphrase": 12,
     "unverified": 7
   },
   "rights": {
-    "explicit-license": 10,
+    "explicit-license": 46,
     "short-quotation-with-attribution": 29
   },
   "natures": {
-    "他人整理": 12,
     "未核实": 7,
     "本人原文": 10,
-    "项目原文": 10
+    "他人整理": 12,
+    "项目原文": 46
   },
   "require_evidence": true,
   "require_rights": true

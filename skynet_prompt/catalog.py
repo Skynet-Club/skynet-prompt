@@ -1,7 +1,7 @@
 """官方提示词包：加载、校验、搜索、读取和审计。
 
 只有一份数据源：``data/prompts.json``。``meta.json`` 只记录版本、条数、
-sha256 和类目统计；两边的条数与 sha256 必须一致。
+sha256 和场景统计；两边的条数与 sha256 必须一致。
 """
 
 from __future__ import annotations
@@ -13,16 +13,27 @@ from pathlib import Path
 
 DEFAULT_DATA = Path(__file__).resolve().parent.parent / "data"
 CATS = [
-    ("要结果", "outcome"),
-    ("先想清楚", "think_first"),
-    ("定格式", "format"),
-    ("定验收", "verify"),
-    ("换视角", "perspective"),
-    ("用高手的方法", "expert_method"),
-    ("换形态", "form"),
-    ("砍掉多余的", "cut"),
-    ("别碰旁边的", "boundary"),
+    ("加目标", "goal"),
+    ("加深度", "depth"),
+    ("加广度", "breadth"),
+    ("加约束", "constraint"),
+    ("加证据", "evidence"),
+    ("加检验", "check"),
+    ("加读者", "reader"),
+    ("加执行", "execution"),
+    ("加时间", "time"),
 ]
+CATS_EN = {
+    "goal": "Goal",
+    "depth": "Depth",
+    "breadth": "Breadth",
+    "constraint": "Constraints",
+    "evidence": "Evidence",
+    "check": "Check",
+    "reader": "Reader",
+    "execution": "Execution",
+    "time": "Time",
+}
 DISPLAY = {key: name for name, key in CATS}
 REQUIRED = ("id", "cat", "author", "date", "url", "en", "zh")
 EVIDENCE_VERDICTS = {"verbatim", "paraphrase", "unverified"}
@@ -82,7 +93,7 @@ class PromptCatalog:
             if missing:
                 raise PromptDataError(f"条目 {item.get('id', '?')} 缺少字段：{missing}")
             if item["cat"] not in DISPLAY:
-                raise PromptDataError(f"条目 {item['id']} 的类目不存在：{item['cat']}")
+                raise PromptDataError(f"条目 {item['id']} 的场景不存在：{item['cat']}")
             if item["id"] in seen:
                 raise PromptDataError(f"提示词 id 重复：{item['id']}")
             seen.add(item["id"])
@@ -123,7 +134,7 @@ class PromptCatalog:
         counts = {key: 0 for _, key in CATS}
         for item in self._items or []:
             counts[item["cat"]] += 1
-        return [{"key": key, "name": name, "count": counts[key]}
+        return [{"key": key, "name": name, "en": CATS_EN[key], "count": counts[key]}
                 for name, key in CATS]
 
     def search(

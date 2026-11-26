@@ -1,4 +1,4 @@
-"""``；；`` 提示词抽屉：左列类目、右列条目 + 预览。
+"""``；；`` 提示词抽屉：左列场景、右列条目 + 预览。
 
 不用 prompt_toolkit 的补全下拉（单列，放不下预览），而是挂进 Hermes TUI 自己的两个
 扩展钩子：
@@ -106,7 +106,7 @@ class Drawer:
     # -- 数据 -------------------------------------------------------------
     @staticmethod
     def _haystack(item: dict) -> str:
-        """搜得到的字段：中文、原文、作者、类目名——用户想按类目名找也能命中所属条目。"""
+        """搜得到的字段：中文、原文、作者、场景名——用户想按场景名找也能命中所属条目。"""
         return " ".join((
             item.get("zh", ""), item.get("en", ""),
             item.get("author", ""), DISPLAY.get(item.get("cat"), ""),
@@ -235,8 +235,8 @@ class Drawer:
             head = f" 提示词补充 · 搜索「{self.query}」· {len(all_rows)} 条"
             hint = "↑↓ 选 · Enter 补进输入框 · ⌫ 删字 · Esc 关闭"
         else:
-            head = f" 提示词补充 · {len(self.items)} 条 / {len(self.cats)} 类"
-            hint = "↑↓ 选类目 · → 看条目 · Enter 补进输入框 · 直接打字可搜全库 · Esc 关闭"
+            head = f" 提示词补充 · {len(self.items)} 条 / {len(self.cats)} 场景"
+            hint = "↑↓ 选场景 · → 看条目 · Enter 补进输入框 · 直接打字可搜全库 · Esc 关闭"
         if self.last:
             head += "   · 已补 1 层"
         room = columns - _cells(head) - 3
@@ -244,7 +244,7 @@ class Drawer:
         line((DIM, "─" * columns))
 
         for i in range(body):
-            # 左栏：类目
+            # 左栏：场景
             if self.query:
                 if i == 0:
                     label = _pad(_clip("▸ 搜索", left_w - 6), left_w - 6)
@@ -287,7 +287,7 @@ class Drawer:
     def _detail_lines(self, item, width: int) -> list[tuple[str, str]]:
         """右栏：中文正文全量优先，其次出处；不折行到左中栏。"""
         if item is None:
-            msg = "没有匹配，⌫ 改字或 Esc 退出" if self.query else "（该类没有条目）"
+            msg = "没有匹配，⌫ 改字或 Esc 退出" if self.query else "（该场景没有条目）"
             return [(DIM, _clip(msg, width))]
         out: list[tuple[str, str]] = []
         text_w = max(width - 6, 10)
@@ -297,14 +297,6 @@ class Drawer:
         out.append(("", ""))
         meta = f"作者  {item.get('author', '')} · {item.get('date', '')}"
         out.append((DIM, _clip(meta, width)))
-        out.append((DIM, _clip(f"性质  {item.get('nature', '未核实')}", width)))
-        verdict = (item.get("evidence") or {}).get("verdict", "unverified")
-        verdict_label = {
-            "verbatim": "逐字可核",
-            "paraphrase": "他人整理",
-            "unverified": "未核实",
-        }.get(verdict, verdict)
-        out.append((DIM, _clip(f"证据  {verdict_label}", width)))
         out.append((DIM, _clip(f"链接  {item.get('url', '')}", width)))
         if item.get("en"):
             out.append(("", ""))

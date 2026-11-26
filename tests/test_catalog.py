@@ -7,17 +7,36 @@ from skynet_prompt.catalog import PromptDataError, default_catalog
 
 def test_library_keeps_all_content():
     catalog = default_catalog().load()
-    assert len(catalog.items()) == 39
+    assert len(catalog.items()) == 75
     assert len(catalog.categories()) == 9
-    assert sum(row["count"] for row in catalog.categories()) == 39
+    assert sum(row["count"] for row in catalog.categories()) == 75
     assert all(row["count"] > 0 for row in catalog.categories())
+
+
+def test_prompts_are_bilingual():
+    for item in default_catalog().load().items():
+        assert item["zh"].strip()
+        assert item["en"].strip()
+
+
+def test_scene_taxonomy():
+    rows = default_catalog().load().categories()
+    assert [row["name"] for row in rows] == [
+        "加目标", "加深度", "加广度", "加约束",
+        "加证据", "加检验", "加读者", "加执行", "加时间",
+    ]
+    assert [row["en"] for row in rows] == [
+        "Goal", "Depth", "Breadth", "Constraints",
+        "Evidence", "Check", "Reader", "Execution", "Time",
+    ]
+    assert all(row["count"] > 0 for row in rows)
 
 
 def test_meta_and_sha_match():
     catalog = default_catalog().load()
     meta = catalog.meta()
-    assert meta["count"] == 39
-    assert meta["official_count"] == 20
+    assert meta["count"] == 75
+    assert meta["official_count"] == 56
     assert meta["sha256"] == catalog.sha256
 
 
@@ -25,20 +44,20 @@ def test_audit_is_ready_for_the_official_subset():
     audit = default_catalog().load().audit()
     assert audit["ok"] is True
     assert audit["official_ready"] is True
-    assert audit["official_count"] == 20
-    assert audit["evidence"] == {"verbatim": 20, "paraphrase": 12, "unverified": 7}
+    assert audit["official_count"] == 56
+    assert audit["evidence"] == {"verbatim": 56, "paraphrase": 12, "unverified": 7}
     assert audit["missing"] == []
     assert audit["missing_rights"] == []
 
 
 def test_search_and_get():
     catalog = default_catalog().load()
-    hits = catalog.search("验收")
+    hits = catalog.search("验证")
     assert hits
     first = catalog.get(hits[0]["id"])
     assert first["id"] == hits[0]["id"]
-    assert catalog.search(category="定验收")
-    assert catalog.search(query="验收", category="定验收")
+    assert catalog.search(category="加检验")
+    assert catalog.search(query="测试", category="加检验")
 
 
 def test_unknown_id_fails():

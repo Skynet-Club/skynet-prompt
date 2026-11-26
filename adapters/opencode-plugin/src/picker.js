@@ -5,14 +5,14 @@ export function createPicker({ psup, select, append, alert, toast }) {
       categories = psup("categories", "--json").filter((row) => row.count > 0)
     } catch (error) {
       await alert({
-        title: "读取提示词类目失败",
+        title: "读取提示词场景失败",
         message: `psup categories --json 失败：${String(error)}`,
       })
       return
     }
     const category = await select({
-      title: "skynet-prompt · 选择类目",
-      placeholder: "搜索类目",
+      title: "skynet-prompt · 选择场景",
+      placeholder: "搜索场景",
       options: categories.map((row) => ({
         title: `${row.name}  ${row.count}`,
         value: row.key,
@@ -31,12 +31,11 @@ export function createPicker({ psup, select, append, alert, toast }) {
       })
       return
     }
-    const evidenceLabel = { verbatim: "逐字可核", paraphrase: "他人整理", unverified: "未核实" }
     const itemId = await select({
       title: `skynet-prompt · ${categoryName}`,
       placeholder: "搜索 id、中文或作者",
       options: items.map((item) => ({
-        title: `${evidenceLabel[item.evidence?.verdict] || "未核实"}  ${item.id}  ${item.zh.slice(0, 30)}  · ${item.author}`,
+        title: `${item.id}  ${item.zh.slice(0, 30)}  · ${item.author}`,
         value: item.id,
       })),
     })

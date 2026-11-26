@@ -36,15 +36,15 @@ interface Category {
 }
 
 const CATS = [
-  { key: "outcome", zh: "要结果", en: "Outcome" },
-  { key: "think_first", zh: "先想清楚", en: "Think first" },
-  { key: "format", zh: "定格式", en: "Format" },
-  { key: "verify", zh: "定验收", en: "Acceptance" },
-  { key: "perspective", zh: "换视角", en: "Perspective" },
-  { key: "expert_method", zh: "用高手的方法", en: "Expert ways" },
-  { key: "form", zh: "换形态", en: "Transform" },
-  { key: "cut", zh: "砍掉多余的", en: "Cut excess" },
-  { key: "boundary", zh: "别碰旁边的", en: "Boundaries" },
+  { key: "goal", zh: "加目标", en: "Goal" },
+  { key: "depth", zh: "加深度", en: "Depth" },
+  { key: "breadth", zh: "加广度", en: "Breadth" },
+  { key: "constraint", zh: "加约束", en: "Constraints" },
+  { key: "evidence", zh: "加证据", en: "Evidence" },
+  { key: "check", zh: "加检验", en: "Check" },
+  { key: "reader", zh: "加读者", en: "Reader" },
+  { key: "execution", zh: "加执行", en: "Execution" },
+  { key: "time", zh: "加时间", en: "Time" },
 ] as const
 
 const PROMPTS: Prompt[] = (payload as { items: Prompt[] }).items
@@ -480,11 +480,11 @@ function Picker({ picker, anchor, inputActions }: {
             setItemIndex(0)
             setFocus("items")
           }}
-          placeholder={t("输入关键词搜索类目、正文或作者", "Search categories, prompt text or author")}
+          placeholder={t("输入关键词搜索场景、正文或作者", "Search scenes, prompt text or author")}
           aria-label={t("搜索提示词", "Search prompts")}
         />
         <div className="skp-count">
-          {lang === "zh" ? `${PROMPTS.length} 条 / ${CATEGORIES.length} 类` : `${PROMPTS.length} items / ${CATEGORIES.length} categories`}
+          {lang === "zh" ? `${PROMPTS.length} 条 / ${CATEGORIES.length} 场景` : `${PROMPTS.length} items / ${CATEGORIES.length} scenes`}
         </div>
       </div>
       <div className="skp-hint">
@@ -495,7 +495,7 @@ function Picker({ picker, anchor, inputActions }: {
       </div>
       <div className="skp-grid">
         <section className={`skp-col${focus === "cats" ? " skp-col-focus" : ""}`}>
-          <div className="skp-colhead">{focus === "cats" ? "▸ " : ""}{t("类目", "Categories")}</div>
+          <div className="skp-colhead">{focus === "cats" ? "▸ " : ""}{t("场景", "Scenes")}</div>
           <div className="skp-list">
             {CATEGORIES.map((row, index) => (
               <button
