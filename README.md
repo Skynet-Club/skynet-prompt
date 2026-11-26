@@ -2,9 +2,9 @@
 
 给 AI Agent 会话框补一条提示词：本地、只读、带出处。
 
-- 75 条提示词，9 个场景：加目标 / 加深度 / 加广度 / 加约束 / 加证据 / 加检验 / 加读者 / 加执行 / 加时间；每条都有 `zh` + `en`，选择器里 `Tab` 切换；56 条逐字可核，12 条他人整理，7 条未核实。
+- 69 条提示词，9 个场景：加目标 / 加深度 / 加广度 / 加约束 / 加证据 / 加检验 / 加读者 / 加执行 / 加时间；每条都有 `zh` + `en`，选择器里 `Tab` 切换；50 条逐字可核，12 条他人整理，7 条未核实。
 - 内容来自 Karpathy、Felix Rieseberg、Daniel Miessler / Fabric contributors、云中江树 / LangGPT、DAIR.AI / Elvis Saravia 和 prompts.chat 的 CC0 贡献者。
-- 官方包只发 56 条 `verbatim`；库里 75 条全部保留。选择器只显示正文和作者/来源，证据留在 `psup audit` / `psup show`。
+- 官方包只发 50 条 `verbatim`；库里 69 条全部保留。选择器只显示正文和作者/来源，证据留在 `psup audit` / `psup show`。
 - 一份 `data/prompts.json`，一个 sha256；没有 Registry、团队、审批、签名、同步、评测。
 
 ## 安装
@@ -15,7 +15,7 @@ psup selftest
 opencode plugin add "$PWD/adapters/opencode-plugin"   # opencode
 ```
 
-当前仓库包含 CLI、75 条数据、1:1:2 TUI 抽屉核心、opencode 适配器、DSH Web 适配器。Claude / Codex / pi / Copilot / Hermes 的宿主适配器在后续提交中补齐。
+当前仓库包含 CLI、69 条数据、1:1:2 TUI 抽屉核心、opencode 适配器、DSH Web 适配器。Claude / Codex / pi / Copilot / Hermes 的宿主适配器在后续提交中补齐。
 
 ## 用
 
@@ -28,9 +28,19 @@ psup categories        # 场景和条数
 psup selftest          # 条数 + sha256
 psup audit             # 证据和版权
 psup doctor            # 本地数据是否可用
+psup admin             # 打开本地提示词库管理台
 ```
 
 Agent 取用只走 `psup`；不要复制 `data/prompts.json`，它会过期。
+
+## 管理台
+
+```sh
+psup admin              # 默认 http://127.0.0.1:8788/，自动开浏览器
+psup admin --no-open    # 只启动服务
+```
+
+管理台只绑定 `127.0.0.1`，可以搜索、按场景筛选、编辑中英正文、场景、作者、来源、证据和权利字段，也可以新建/删除条目。每次保存会先写入 `data/.backups/`，再原子替换 `data/prompts.json`，并同步重算 `meta.json` 的条数和 sha256。
 
 ## TUI 抽屉
 
@@ -56,7 +66,7 @@ dsh plugin --profile web add "file:$PWD/adapters/dsh-plugin"
 # 重启 dsh web
 ```
 
-兼容性：DSH Web 已在 Linux 与 Windows 11 验证（0.1.3 + DSH 0.2.2-rc.5）；opencode TUI 当前在 Linux 验证，Windows 原生尚未适配。
+兼容性：DSH Web 已在 Linux 与 Windows 11 验证（0.1.4 + DSH 0.2.2-rc.5）；opencode TUI 当前在 Linux 验证，Windows 原生尚未适配。
 
 输入框工具栏的 prompt 图标，或在光标处输入 `；；`（兼容 `;;`），打开上半屏 1:1:2 浮窗；浮窗宽度与会话框一致、左右对齐，停在会话框上方 8px；收起侧栏、缩放窗口时持续跟随。`Tab` 切换整个窗体的中/英文，`Enter` 或「插入」补入当前光标处；`/p` 菜单项也可。图标来自 `prompt.svg`（深灰圆角方块 + 荧光绿双引号）。
 
@@ -64,11 +74,11 @@ dsh plugin --profile web add "file:$PWD/adapters/dsh-plugin"
 
 `data/prompts.json` 是唯一数据源；`data/meta.json` 记录版本、条数、sha256 和场景统计。
 
-- 56 条 `verbatim`：进入官方包。
+- 50 条 `verbatim`：进入官方包。
 - 12 条 `paraphrase`：他人整理，保留在库里。
 - 7 条 `unverified`：保留在库里，不进入官方包。
 
-`psup audit` 的 `official_ready=true` 只判断 56 条官方子集；实验内容不阻塞发布。未来新增内容必须带 `source`、`evidence`、`rights`，并按同样三档标注。
+`psup audit` 的 `official_ready=true` 只判断 50 条官方子集；实验内容不阻塞发布。未来新增内容必须带 `source`、`evidence`、`rights`，并按同样三档标注。
 
 ## 开发
 

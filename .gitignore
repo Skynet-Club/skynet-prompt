@@ -5,3 +5,4 @@ __pycache__/
 /dist/
 *.tmp
 node_modules/
+data/.backups/

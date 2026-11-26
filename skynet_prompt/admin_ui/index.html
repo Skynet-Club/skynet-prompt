@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>提示词库 · 管理台</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">⌁</span>
+        <div>
+          <p class="brand-kicker">skynet / prompt library</p>
+          <h1>提示词库</h1>
+        </div>
+      </div>
+      <div class="topbar-stats" aria-label="库概览">
+        <div class="stat"><span class="stat-value" id="stat-count">—</span><span class="stat-label">条提示词</span></div>
+        <div class="stat"><span class="stat-value" id="stat-scenes">—</span><span class="stat-label">个场景</span></div>
+        <div class="stat"><span class="stat-value" id="stat-official">—</span><span class="stat-label">条可核</span></div>
+      </div>
+      <div class="topbar-actions">
+        <a class="quiet-link" href="/api/export" download="prompts.json">导出 JSON</a>
+        <button class="button button-primary" id="new-prompt" type="button">新增提示词</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="rail" aria-label="场景筛选">
+        <div class="rail-heading">
+          <span>场景</span>
+          <span class="rail-total" id="rail-total">—</span>
+        </div>
+        <nav id="scene-list" class="scene-list"></nav>
+        <div class="rail-footer">
+          <p class="data-label">数据版本</p>
+          <p id="data-version" class="data-value">—</p>
+          <p class="data-label">sha256</p>
+          <code id="data-sha" class="sha">—</code>
+          <p class="local-note">仅本机可写 · 自动备份</p>
+        </div>
+      </aside>
+
+      <section class="library" aria-labelledby="library-title">
+        <div class="library-heading">
+          <div>
+            <p class="section-kicker">馆藏索引</p>
+            <h2 id="library-title">全部提示词</h2>
+            <p class="result-line" id="result-line">正在读取…</p>
+          </div>
+          <div class="search-field">
+            <label class="sr-only" for="search">搜索提示词</label>
+            <input id="search" type="search" placeholder="搜索中文、英文、作者或 id" autocomplete="off">
+            <kbd>/</kbd>
+          </div>
+        </div>
+        <div class="prompt-list" id="prompt-list" aria-live="polite"></div>
+      </section>
+
+      <aside class="editor" id="editor" aria-label="编辑提示词">
+        <div class="editor-empty" id="editor-empty">
+          <p class="section-kicker">字段编辑器</p>
+          <h2>选择一条提示词</h2>
+          <p>从左侧馆藏中选一条，或新建一条。中英正文、场景、来源和权利字段都在这里维护。</p>
+          <div class="empty-rule"></div>
+          <p class="empty-hint">快捷键：<kbd>/</kbd> 搜索 · <kbd>n</kbd> 新建 · <kbd>⌘S</kbd> 保存</p>
+        </div>
+
+        <form id="prompt-form" class="editor-form" hidden>
+          <div class="editor-head">
+            <div>
+              <p class="section-kicker" id="editor-mode">编辑条目</p>
+              <h2 id="editor-title">—</h2>
+            </div>
+            <button class="icon-button" id="close-editor" type="button" aria-label="关闭编辑器">×</button>
+          </div>
+
+          <div class="form-scroll">
+            <section class="form-section">
+              <div class="field-row">
+                <label class="field">
+                  <span>ID</span>
+                  <input name="id" id="field-id" required spellcheck="false" autocomplete="off">
+                </label>
+                <label class="field">
+                  <span>场景</span>
+                  <select name="cat" id="field-cat"></select>
+                </label>
+              </div>
+              <div class="field-row">
+                <label class="field">
+                  <span>作者</span>
+                  <input name="author" required>
+                </label>
+                <label class="field">
+                  <span>日期</span>
+                  <input name="date" type="date" required>
+                </label>
+              </div>
+              <label class="field">
+                <span>来源链接</span>
+                <input name="url" type="url" required placeholder="https://…">
+              </label>
+            </section>
+
+            <section class="form-section">
+              <div class="language-head">
+                <span>正文</span>
+                <span class="language-note">插入时使用对应语言</span>
+              </div>
+              <label class="field language-field">
+                <span>中文 <em id="zh-count">0</em></span>
+                <textarea name="zh" rows="10" required></textarea>
+              </label>
+              <label class="field language-field">
+                <span>English <em id="en-count">0</em></span>
+                <textarea name="en" rows="8" required spellcheck="true"></textarea>
+              </label>
+            </section>
+
+            <details class="form-section more-fields">
+              <summary>来源、证据与权利</summary>
+              <div class="details-body">
+                <div class="field-row">
+                  <label class="field">
+                    <span>性质</span>
+                    <select name="nature">
+                      <option>本人原文</option>
+                      <option>项目原文</option>
+                      <option>他人整理</option>
+                      <option>未核实</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>证据</span>
+                    <select name="verdict">
+                      <option value="verbatim">逐字可核</option>
+                      <option value="paraphrase">他人整理</option>
+                      <option value="unverified">未核实</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="field-row">
+                  <label class="field">
+                    <span>许可</span>
+                    <input name="license" placeholder="MIT / CC0-1.0 / not-declared">
+                  </label>
+                  <label class="field">
+                    <span>权利依据</span>
+                    <select name="rights_basis">
+                      <option value="short-quotation-with-attribution">短引用 + 署名</option>
+                      <option value="explicit-license">明确许可</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="field-row">
+                  <label class="field">
+                    <span>再分发范围</span>
+                    <select name="redistribution">
+                      <option value="excerpt-only">仅节选</option>
+                      <option value="full-text">全文</option>
+                    </select>
+                  </label>
+                  <label class="field checkbox-field">
+                    <span>节选</span>
+                    <input name="excerpt" type="checkbox">
+                  </label>
+                </div>
+                <label class="field">
+                  <span>来源备注</span>
+                  <input name="note" placeholder="可留空">
+                </label>
+              </div>
+            </details>
+          </div>
+
+          <div class="editor-actions">
+            <button class="button button-danger" id="delete-prompt" type="button">删除</button>
+            <span class="save-state" id="save-state"></span>
+            <button class="button button-primary" type="submit">保存更改</button>
+          </div>
+        </form>
+      </aside>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

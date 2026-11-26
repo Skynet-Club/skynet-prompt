@@ -1,70 +1,70 @@
 {
   "schema_version": 1,
   "version": "2026-11-26",
-  "count": 75,
-  "official_count": 56,
-  "sha256": "eb0eb7b60f613cba5100196118364318da2f7aa94c9c7723d346040a675f8928",
+  "count": 69,
+  "official_count": 50,
+  "sha256": "797ae9ff4e926aa3f90770fe084bf226c2d273a40081357576f448bda7e37af9",
   "cats": {
     "goal": {
       "name": "加目标",
-      "count": 4,
-      "en": "Goal"
+      "en": "Goal",
+      "count": 4
     },
     "depth": {
       "name": "加深度",
-      "count": 15,
-      "en": "Depth"
+      "en": "Depth",
+      "count": 9
     },
     "breadth": {
       "name": "加广度",
-      "count": 7,
-      "en": "Breadth"
+      "en": "Breadth",
+      "count": 7
     },
     "constraint": {
       "name": "加约束",
-      "count": 7,
-      "en": "Constraints"
+      "en": "Constraints",
+      "count": 7
     },
     "evidence": {
       "name": "加证据",
-      "count": 7,
-      "en": "Evidence"
+      "en": "Evidence",
+      "count": 7
     },
     "check": {
       "name": "加检验",
-      "count": 6,
-      "en": "Check"
+      "en": "Check",
+      "count": 6
     },
     "reader": {
       "name": "加读者",
-      "count": 9,
-      "en": "Reader"
+      "en": "Reader",
+      "count": 9
     },
     "execution": {
       "name": "加执行",
-      "count": 17,
-      "en": "Execution"
+      "en": "Execution",
+      "count": 17
     },
     "time": {
       "name": "加时间",
-      "count": 3,
-      "en": "Time"
+      "en": "Time",
+      "count": 3
     }
   },
   "evidence": {
-    "verbatim": 56,
     "paraphrase": 12,
-    "unverified": 7
+    "unverified": 7,
+    "verbatim": 50
   },
   "rights": {
-    "explicit-license": 46,
+    "explicit-license": 40,
     "short-quotation-with-attribution": 29
   },
   "natures": {
     "未核实": 7,
     "本人原文": 10,
     "他人整理": 12,
-    "项目原文": 46
+    "项目原文": 40
   },
   "require_evidence": true,
   "require_rights": true

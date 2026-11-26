@@ -1,6 +1,6 @@
 # 给 Agent 的说明（skynet-prompt）
 
-本仓库提供 75 条带出处与中文直译的提示词：56 条逐字可核、12 条他人整理、7 条未核实；作者包括 Karpathy、Felix Rieseberg、Daniel Miessler / Fabric contributors、云中江树 / LangGPT、DAIR.AI / Elvis Saravia 和 prompts.chat 的 CC0 贡献者。**取用只走一个入口：`psup` 命令。**
+本仓库提供 69 条带出处与中文直译的提示词：50 条逐字可核、12 条他人整理、7 条未核实；作者包括 Karpathy、Felix Rieseberg、Daniel Miessler / Fabric contributors、云中江树 / LangGPT、DAIR.AI / Elvis Saravia 和 prompts.chat 的 CC0 贡献者。**取用只走一个入口：`psup` 命令。**
 不要复制 `data/prompts.json` 到你自己的目录，也不要改写原文——副本必然过期，改写会让“可核”失效。
 
 ## 你能用的命令
@@ -39,6 +39,6 @@ psup doctor               # 本地数据是否可用
 
 ## 边界
 
-- 56 条 `verbatim` 逐字核对通过，进入官方包；`official_ready=true`。
+- 50 条 `verbatim` 逐字核对通过，进入官方包；`official_ready=true`。
 - 12 条 `paraphrase` 是他人整理，不是作者原话；7 条 `unverified` 未核到来源。
-- 可以拿来用，但不要宣称“每一条都是作者原话”；官方包只认 56 条 `verbatim`。
+- 可以拿来用，但不要宣称“每一条都是作者原话”；官方包只认 50 条 `verbatim`。

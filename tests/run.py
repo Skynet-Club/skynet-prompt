@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
-MODULES = ["test_catalog", "test_cli", "test_drawer"]
+MODULES = ["test_catalog", "test_cli", "test_drawer", "test_admin"]
 failed = 0
 ran = 0
 

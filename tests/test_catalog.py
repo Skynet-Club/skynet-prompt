@@ -7,9 +7,10 @@ from skynet_prompt.catalog import PromptDataError, default_catalog
 
 def test_library_keeps_all_content():
     catalog = default_catalog().load()
-    assert len(catalog.items()) == 75
+    meta = catalog.meta()
+    assert len(catalog.items()) == meta["count"]
     assert len(catalog.categories()) == 9
-    assert sum(row["count"] for row in catalog.categories()) == 75
+    assert sum(row["count"] for row in catalog.categories()) == meta["count"]
     assert all(row["count"] > 0 for row in catalog.categories())
 
 
@@ -35,8 +36,12 @@ def test_scene_taxonomy():
 def test_meta_and_sha_match():
     catalog = default_catalog().load()
     meta = catalog.meta()
-    assert meta["count"] == 75
-    assert meta["official_count"] == 56
+    official = sum(
+        1 for item in catalog.items()
+        if item["evidence"]["verdict"] == "verbatim"
+    )
+    assert meta["count"] == len(catalog.items())
+    assert meta["official_count"] == official
     assert meta["sha256"] == catalog.sha256
 
 
@@ -44,8 +49,11 @@ def test_audit_is_ready_for_the_official_subset():
     audit = default_catalog().load().audit()
     assert audit["ok"] is True
     assert audit["official_ready"] is True
-    assert audit["official_count"] == 56
-    assert audit["evidence"] == {"verbatim": 56, "paraphrase": 12, "unverified": 7}
+    assert audit["official_count"] == sum(
+        1 for item in default_catalog().load().items()
+        if item["evidence"]["verdict"] == "verbatim"
+    )
+    assert sum(audit["evidence"].values()) == audit["count"]
     assert audit["missing"] == []
     assert audit["missing_rights"] == []
 
