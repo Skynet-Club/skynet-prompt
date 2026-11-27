@@ -1884,17 +1884,11 @@ window.__ModuleLoader__.load({
   display: grid; grid-template-rows: auto auto 1fr auto; overflow: hidden;
   background: var(--skp-bg); color: var(--skp-text);
   border: 1px solid var(--skp-border); border-radius: 10px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, .55);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .55); outline: none;
   font: 14px/1.45 -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
 }
-.skp-top { display: flex; align-items: center; gap: 12px; padding: 10px 14px 0; }
+.skp-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px 0; }
 .skp-brand { color: var(--skp-title); font: 700 13px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
-.skp-search {
-  min-width: 0; flex: 1; height: 32px; box-sizing: border-box; padding: 0 10px;
-  border: 1px solid var(--skp-border); border-radius: 7px;
-  background: var(--skp-panel); color: var(--skp-text); outline: none; font: inherit;
-}
-.skp-search:focus { border-color: var(--skp-focus); box-shadow: 0 0 0 1px var(--skp-focus); }
 .skp-count { color: var(--skp-muted); font-size: 12px; white-space: nowrap; }
 .skp-hint { padding: 7px 14px 9px; color: var(--skp-muted); font-size: 12px; }
 .skp-grid { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 8px; min-height: 0; padding: 0 12px; }
@@ -2086,20 +2080,14 @@ window.__ModuleLoader__.load({
 			const [focus, setFocus] = (0, react.useState)("cats");
 			const [catIndex, setCatIndex] = (0, react.useState)(0);
 			const [itemIndex, setItemIndex] = (0, react.useState)(0);
-			const [query, setQuery] = (0, react.useState)("");
 			const [error, setError] = (0, react.useState)("");
-			const searchRef = (0, react.useRef)(null);
 			const windowRef = (0, react.useRef)(null);
 			const category = CATEGORIES[catIndex] ?? CATEGORIES[0];
-			const rows = (0, react.useMemo)(() => {
-				const q = query.trim().toLowerCase();
-				if (q) return PROMPTS.filter((item) => `${item.zh} ${item.en} ${item.author} ${CATEGORIES.find((c) => c.key === item.cat)?.zh ?? ""} ${CATEGORIES.find((c) => c.key === item.cat)?.en ?? ""}`.toLowerCase().includes(q));
-				return PROMPTS.filter((item) => item.cat === category.key);
-			}, [category.key, query]);
+			const rows = (0, react.useMemo)(() => PROMPTS.filter((item) => item.cat === category.key), [category.key]);
 			const current = rows[Math.min(itemIndex, Math.max(rows.length - 1, 0))];
 			const t = (0, react.useCallback)((zh, en) => text(lang, zh, en), [lang]);
 			(0, react.useEffect)(() => {
-				const timer = window.setTimeout(() => searchRef.current?.focus(), 0);
+				const timer = window.setTimeout(() => windowRef.current?.focus(), 0);
 				return () => window.clearTimeout(timer);
 			}, []);
 			(0, react.useEffect)(() => {
@@ -2123,12 +2111,10 @@ window.__ModuleLoader__.load({
 				setCatIndex(index);
 				setItemIndex(0);
 				setFocus("cats");
-				searchRef.current?.focus();
 			};
 			const selectItem = (index) => {
 				setItemIndex(index);
 				setFocus("items");
-				searchRef.current?.focus();
 			};
 			const insert = (item) => {
 				if (!item) return;
@@ -2156,17 +2142,13 @@ window.__ModuleLoader__.load({
 				}
 				if (event.key === "Escape") {
 					event.preventDefault();
-					if (query) {
-						setQuery("");
-						setItemIndex(0);
-						setFocus("items");
-					} else picker.close();
+					picker.close();
 					return;
 				}
 				if (event.key === "ArrowUp" || event.key === "ArrowDown") {
 					event.preventDefault();
 					const delta = event.key === "ArrowUp" ? -1 : 1;
-					if (focus === "cats" && !query) {
+					if (focus === "cats") {
 						const next = Math.min(Math.max(catIndex + delta, 0), CATEGORIES.length - 1);
 						setCategory(next);
 					} else {
@@ -2187,7 +2169,7 @@ window.__ModuleLoader__.load({
 				}
 				if (event.key === "Enter") {
 					event.preventDefault();
-					if (focus === "cats" && !query) setFocus("items");
+					if (focus === "cats") setFocus("items");
 					else insert(current);
 				}
 			};
@@ -2212,33 +2194,19 @@ window.__ModuleLoader__.load({
 				style: anchorStyle,
 				role: "dialog",
 				"aria-modal": "false",
+				tabIndex: -1,
 				"aria-label": t("skynet-prompt 提示词选择器", "skynet-prompt picker"),
 				onKeyDown,
 				children: [
 					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 						className: "skp-top",
-						children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-								className: "skp-brand",
-								children: "skynet-prompt"
-							}),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-								ref: searchRef,
-								className: "skp-search",
-								value: query,
-								onChange: (event) => {
-									setQuery(event.currentTarget.value);
-									setItemIndex(0);
-									setFocus("items");
-								},
-								placeholder: t("输入关键词搜索场景、正文或作者", "Search scenes, prompt text or author"),
-								"aria-label": t("搜索提示词", "Search prompts")
-							}),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-								className: "skp-count",
-								children: lang === "zh" ? `${PROMPTS.length} 条 / ${CATEGORIES.length} 场景` : `${PROMPTS.length} items / ${CATEGORIES.length} scenes`
-							})
-						]
+						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+							className: "skp-brand",
+							children: "skynet-prompt"
+						}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+							className: "skp-count",
+							children: lang === "zh" ? `${PROMPTS.length} 条 / ${CATEGORIES.length} 场景` : `${PROMPTS.length} items / ${CATEGORIES.length} scenes`
+						})]
 					}),
 					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
 						className: "skp-hint",
@@ -2272,12 +2240,12 @@ window.__ModuleLoader__.load({
 								className: `skp-col${focus === "items" ? " skp-col-focus" : ""}`,
 								children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 									className: "skp-colhead",
-									children: [focus === "items" ? "▸ " : "", query ? t("搜索结果", "Results") : t("条目", "Items")]
+									children: [focus === "items" ? "▸ " : "", t("条目", "Items")]
 								}), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 									className: "skp-list",
 									children: [rows.length === 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
 										className: "skp-empty",
-										children: t("没有匹配的提示词", "No matching prompts")
+										children: t("这个场景还没有提示词", "No prompts in this scene")
 									}), rows.map((item, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 										type: "button",
 										"data-skp-item-selected": index === itemIndex ? "true" : void 0,

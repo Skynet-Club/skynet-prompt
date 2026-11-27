@@ -2,7 +2,7 @@
 
 给 AI Agent 会话框补一条提示词：本地、只读、带出处。
 
-- 69 条提示词，9 个场景：加目标 / 加深度 / 加广度 / 加约束 / 加证据 / 加检验 / 加读者 / 加执行 / 加时间；每条都有 `zh` + `en`，选择器里 `Tab` 切换；50 条逐字可核，12 条他人整理，7 条未核实。
+- 69 条提示词，9 个场景：加目标 / 加深度 / 加广度 / 加约束 / 加证据 / 加检验 / 加读者 / 加执行 / 加时间；每条都有 `zh` + `en`，选择器里 `Tab` 切换整个窗体；50 条逐字可核，12 条他人整理，7 条未核实。
 - 内容来自 Karpathy、Felix Rieseberg、Daniel Miessler / Fabric contributors、云中江树 / LangGPT、DAIR.AI / Elvis Saravia 和 prompts.chat 的 CC0 贡献者。
 - 官方包只发 50 条 `verbatim`；库里 69 条全部保留。选择器只显示正文和作者/来源，证据留在 `psup audit` / `psup show`。
 - 一份 `data/prompts.json`，一个 sha256；没有 Registry、团队、审批、签名、同步、评测。
@@ -15,7 +15,7 @@ psup selftest
 opencode plugin add "$PWD/adapters/opencode-plugin"   # opencode
 ```
 
-当前仓库包含 CLI、69 条数据、1:1:2 TUI 抽屉核心、opencode 适配器、DSH Web 适配器。Claude / Codex / pi / Copilot / Hermes 的宿主适配器在后续提交中补齐。
+当前仓库包含 CLI、69 条数据、1:1:2 TUI 抽屉核心、opencode 适配器、DSH Web 适配器。Claude / pi / Copilot / Hermes 的宿主适配器在后续提交中补齐。
 
 ## 用
 
@@ -42,6 +42,15 @@ psup admin --no-open    # 只启动服务
 
 管理台只绑定 `127.0.0.1`，可以搜索、按场景筛选、编辑中英正文、场景、作者、来源、证据和权利字段，也可以新建/删除条目。每次保存会先写入 `data/.backups/`，再原子替换 `data/prompts.json`，并同步重算 `meta.json` 的条数和 sha256。
 
+## 便携 Skill
+
+```sh
+python3 scripts/build_skill.py
+# dist/skynet-prompt.skill
+```
+
+这个 zip 的根目录就是 `SKILL.md`，另带 `index.tsv`、`README.md` 和 `prompts/<id>.md`。它只依赖文件读取，不依赖 Python、Node、psup、Docker 或宿主浮窗；宿主解压后把整个目录放进自己的 skill 目录即可。
+
 ## TUI 抽屉
 
 在支持输入钩子的 TUI 宿主里输入 `；；`，弹出左中右 1:1:2 的抽屉：
@@ -49,7 +58,7 @@ psup admin --no-open    # 只启动服务
 - 左：场景
 - 中：条目
 - 右：完整中文正文 + 作者/日期/链接 + 原文
-- `↑↓` 选择，`→` 进条目，`Enter` 原样补入，`Esc` 关闭，`⌥Z` 撤销
+- 不设搜索框，按场景目录浏览；`↑↓` 选择，`→` 进条目/正文，正文栏内 `↑↓` 滚动，`Enter` 原样补入，`Esc` 关闭，`⌥Z` 撤销
 
 ### opencode
 
@@ -57,7 +66,7 @@ psup admin --no-open    # 只启动服务
 opencode plugin add "$PWD/adapters/opencode-plugin"
 ```
 
-在会话里输入 `/p`（仅输入框行首）或按 `Alt+P`（任意光标）：打开 1:1:2 三栏浮窗——左场景、中条目、右完整正文；浮窗只占上半屏，会话输入框留在下方。`↑↓` 选择、`←→` 切栏、`Tab` 切换整个窗体的中/英文（顶部、提示行、栏标题、场景、条目、右栏和补入语言）、直接打字搜索、`Enter` 补入当前光标处、`Esc` 关闭。首页同样打开三栏浮窗；没有 `app` slot 的宿主才回退为两段选择。
+在会话里输入 `/p`（仅输入框行首）或按 `Alt+P`（任意光标）：打开 1:1:2 三栏选择器——左场景、中条目、右完整正文；会话中它挂在输入框上方并随输入框高度移动，宽度与输入框对齐；首页则居中显示在输入框上方。选择器不设搜索框，直接按 9 个场景目录浏览；打开期间 `↑↓←→` 由选择器接管，不会落进会话框。`Tab` 切换整个窗体的中/英文（顶部、提示行、栏标题、场景、条目、右栏和补入语言）、`Enter` 补入当前光标处、`Esc` 关闭。没有 `app` slot 的宿主才回退为两段选择。
 
 ### DeepSeek Harness
 
@@ -68,7 +77,7 @@ dsh plugin --profile web add "file:$PWD/adapters/dsh-plugin"
 
 兼容性：DSH Web 已在 Linux 与 Windows 11 验证（0.1.4 + DSH 0.2.2-rc.5）；opencode TUI 当前在 Linux 验证，Windows 原生尚未适配。
 
-输入框工具栏的 prompt 图标，或在光标处输入 `；；`（兼容 `;;`），打开上半屏 1:1:2 浮窗；浮窗宽度与会话框一致、左右对齐，停在会话框上方 8px；收起侧栏、缩放窗口时持续跟随。`Tab` 切换整个窗体的中/英文，`Enter` 或「插入」补入当前光标处；`/p` 菜单项也可。图标来自 `prompt.svg`（深灰圆角方块 + 荧光绿双引号）。
+输入框工具栏的 prompt 图标，或在光标处输入 `；；`（兼容 `;;`），打开上半屏 1:1:2 浮窗；浮窗宽度与会话框一致、左右对齐，停在会话框上方 8px；收起侧栏、缩放窗口时持续跟随。选择器不设搜索框，按 9 个场景目录浏览；`Tab` 切换整个窗体的中/英文，`Enter` 或「插入」补入当前光标处；`/p` 菜单项也可。图标来自 `prompt.svg`（深灰圆角方块 + 荧光绿双引号）。
 
 ## 数据
 

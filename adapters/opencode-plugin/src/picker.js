@@ -12,7 +12,7 @@ export function createPicker({ psup, select, append, alert, toast }) {
     }
     const category = await select({
       title: "skynet-prompt · 选择场景",
-      placeholder: "搜索场景",
+      placeholder: "选择场景",
       options: categories.map((row) => ({
         title: `${row.name}  ${row.count}`,
         value: row.key,
@@ -33,7 +33,7 @@ export function createPicker({ psup, select, append, alert, toast }) {
     }
     const itemId = await select({
       title: `skynet-prompt · ${categoryName}`,
-      placeholder: "搜索 id、中文或作者",
+      placeholder: "选择条目",
       options: items.map((item) => ({
         title: `${item.id}  ${item.zh.slice(0, 30)}  · ${item.author}`,
         value: item.id,

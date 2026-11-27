@@ -19,8 +19,18 @@ from .menu import CATS, data_dir, load
 
 DISPLAY = {key: name for name, key in CATS}
 
-SELECTED = "reverse"
-DIM = "fg:ansibrightblack"
+# 军旅绿：和 pi / opencode / DSH 选择器同一套色。
+BG = "bg:#0c1109"
+PANEL = "fg:#c9d5b7 bg:#131a0f"
+MUTED = "fg:#839170 bg:#0c1109"
+MUTED_PANEL = "fg:#839170 bg:#131a0f"
+ACCENT = "fg:#a8c878 bg:#0c1109"
+BORDER = "fg:#3b4a2e bg:#0c1109"
+SELECTED = "fg:#f4f8e9 bg:#4e5f00"
+SELECTED_DIM = "fg:#b9c7a5 bg:#303a00"
+
+# 固定内容区高度；列表/正文长短都不改变抽屉高度。
+BODY_ROWS = 14
 
 
 def _cells(text: str) -> int:
@@ -94,28 +104,18 @@ class Drawer:
                 self.counts[item["cat"]] += 1
         self.cats = [(name, key) for name, key in CATS if self.counts.get(key)]
         self.open = False
-        self.focus = "cats"          # cats / items
+        self.focus = "cats"          # cats / items / detail
         self.ci = 0
         self.ii = 0
-        self.query = ""              # 抽屉里打的字 → 全库过滤
+        self.dscroll = 0             # 右侧正文滚动行
+        self._detail_total = 0
         self.last = None             # 上一次补进去的 (起址, 文本)，供撤销
         self.buffer = None
         self.widget = None
         self.strip = None
 
     # -- 数据 -------------------------------------------------------------
-    @staticmethod
-    def _haystack(item: dict) -> str:
-        """搜得到的字段：中文、原文、作者、场景名——用户想按场景名找也能命中所属条目。"""
-        return " ".join((
-            item.get("zh", ""), item.get("en", ""),
-            item.get("author", ""), DISPLAY.get(item.get("cat"), ""),
-        )).casefold()
-
     def rows(self) -> list[dict]:
-        if self.query:
-            q = self.query.casefold()
-            return [i for i in self.items if q in self._haystack(i)]
         if not self.cats:
             return []
         key = self.cats[self.ci][1]
@@ -129,36 +129,40 @@ class Drawer:
 
     # -- 键盘 -------------------------------------------------------------
     def key_down(self) -> None:
-        if self.focus == "cats" and not self.query:
+        if self.focus == "detail":
+            self.dscroll = min(self.dscroll + 1, self._detail_scroll_max())
+            return
+        if self.focus == "cats":
             self.ci = min(self.ci + 1, len(self.cats) - 1)
             self.ii = 0
+            self.dscroll = 0
         else:
             self.ii = min(self.ii + 1, max(len(self.rows()) - 1, 0))
+            self.dscroll = 0
 
     def key_up(self) -> None:
-        if self.focus == "cats" and not self.query:
+        if self.focus == "detail":
+            self.dscroll = max(self.dscroll - 1, 0)
+            return
+        if self.focus == "cats":
             self.ci = max(self.ci - 1, 0)
             self.ii = 0
+            self.dscroll = 0
         else:
             self.ii = max(self.ii - 1, 0)
+            self.dscroll = 0
 
     def key_right(self) -> None:
-        if self.rows():
+        if self.focus == "cats" and self.rows():
             self.focus = "items"
+        elif self.focus == "items":
+            self.focus = "detail"
 
     def key_left(self) -> None:
-        self.focus = "cats"
+        self.focus = "items" if self.focus == "detail" else "cats"
 
-    def type_char(self, text: str) -> None:
-        self.query += text
-        self.focus = "items"
-        self.ii = 0
-
-    def backspace(self) -> None:
-        self.query = self.query[:-1]
-        self.ii = 0
-        if not self.query:
-            self.focus = "cats"
+    def _detail_scroll_max(self) -> int:
+        return max(0, self._detail_total - BODY_ROWS)
 
     def close(self) -> None:
         self.open = False
@@ -206,14 +210,13 @@ class Drawer:
         return left_w, mid_w, right_w
 
     def _layout(self) -> tuple[list, list, list, int, int, int, int, int]:
-        columns, rows_avail = self._size()
+        columns, _rows_avail = self._size()
         left_w, mid_w, right_w = self._widths(columns)
         all_rows = self.rows()
-        left_rows = [] if self.query else self.cats
+        left_rows = self.cats
         detail = self._detail_lines(self.current(), right_w)
-        # 抽屉不滚整页：正文先占右栏，超过一屏再截断。
-        max_body = min(max(rows_avail - 3, 4), 16)
-        body = min(max(len(left_rows), len(all_rows), len(detail), 1), max_body)
+        self._detail_total = len(detail)
+        body = BODY_ROWS
         start = 0
         if len(all_rows) > body:
             start = max(0, min(self.ii - body + 1, len(all_rows) - body))
@@ -224,6 +227,8 @@ class Drawer:
         columns, _rows_avail = self._size()
         left_rows, rows, detail, body, start, left_w, mid_w, right_w = self._layout()
         all_rows = self.rows()
+        dstart = min(self.dscroll, self._detail_scroll_max())
+        self.dscroll = dstart
         out: list[tuple[str, str]] = []
 
         def line(*parts: tuple[str, str]) -> None:
@@ -231,86 +236,87 @@ class Drawer:
                 out.append((style, text))
             out.append(("", "\n"))
 
-        if self.query:
-            head = f" 提示词补充 · 搜索「{self.query}」· {len(all_rows)} 条"
-            hint = "↑↓ 选 · Enter 补进输入框 · ⌫ 删字 · Esc 关闭"
+        head = f" 提示词补充 · {len(self.items)} 条 / {len(self.cats)} 场景"
+        if self.focus == "detail":
+            hint = "↑↓ 滚动正文 · ← 回条目 · Enter 补入 · Esc 关闭"
+        elif self.focus == "items":
+            hint = "↑↓ 选条目 · ← 场景 · → 正文 · Enter 补入 · Esc 关闭"
         else:
-            head = f" 提示词补充 · {len(self.items)} 条 / {len(self.cats)} 场景"
-            hint = "↑↓ 选场景 · → 看条目 · Enter 补进输入框 · 直接打字可搜全库 · Esc 关闭"
+            hint = "↑↓ 选场景 · → 看条目 · Enter 补入 · Esc 关闭"
         if self.last:
             head += "   · 已补 1 层"
         room = columns - _cells(head) - 3
-        line((DIM, head), (DIM, "   " + (hint if _cells(hint) <= room else _clip(hint, max(room, 0)))))
-        line((DIM, "─" * columns))
+        shown_hint = hint if _cells(hint) <= room else _clip(hint, max(room, 0))
+        line((ACCENT, head), (MUTED, "   " + shown_hint))
+        line((BORDER, "─" * columns))
 
         for i in range(body):
             # 左栏：场景
-            if self.query:
-                if i == 0:
-                    label = _pad(_clip("▸ 搜索", left_w - 6), left_w - 6)
-                    out.append((SELECTED, f"{label}{len(all_rows):>4} │"))
-                else:
-                    out.append(("", " " * (left_w - 1) + "│"))
-            elif i < len(left_rows):
+            if i < len(left_rows):
                 cname, ckey = left_rows[i]
-                selected = self.focus == "cats" and i == self.ci
-                current = i == self.ci
-                mark = "▸ " if current else "  "
+                active = i == self.ci
+                focus = active and self.focus == "cats"
+                mark = "▸ " if active else "  "
                 label = _pad(_clip(mark + cname, left_w - 6), left_w - 6)
-                out.append((SELECTED if selected else "", f"{label}{self.counts[ckey]:>4} │"))
+                out.append((SELECTED if focus else SELECTED_DIM if active else PANEL,
+                            f"{label}{self.counts[ckey]:>4} "))
             else:
-                out.append(("", " " * (left_w - 1) + "│"))
+                out.append((PANEL, " " * (left_w - 1)))
+            out.append((BORDER, "│"))
 
             # 中栏：条目
             if i < len(rows):
                 row = rows[i]
                 at = start + i
-                selected = self.focus == "items" and at == self.ii
-                mark = "▸ " if selected else "  "
+                active = at == self.ii
+                focus = active and self.focus == "items"
+                mark = "▸ " if active else "  "
                 label = _pad(_clip(mark + row.get("zh", ""), mid_w), mid_w)
-                out.append((SELECTED if selected else "", label + "│"))
+                out.append((SELECTED if focus else SELECTED_DIM if active else PANEL, label))
             else:
-                out.append(("", " " * mid_w + "│"))
+                out.append((PANEL, " " * mid_w))
+            out.append((BORDER, "│"))
 
-            # 右栏：完整正文
-            if i < len(detail):
-                style, text = detail[i]
-                out.append((style, _clip(text, right_w)))
+            # 右栏：完整正文；进入正文栏后可 ↑↓ 滚动。
+            if dstart + i < len(detail):
+                style, text = detail[dstart + i]
+                out.append((style, _pad(_clip(text, right_w), right_w)))
+            else:
+                out.append((PANEL, " " * right_w))
             out.append(("", "\n"))
 
-        if start or len(all_rows) > body:
-            more = len(all_rows) - start - len(rows)
-            note = f"共 {len(all_rows)} 条，下面还有 {more} 条" if more else f"共 {len(all_rows)} 条"
-            line((DIM, note))
+        more = len(all_rows) - start - len(rows)
+        note = f"共 {len(all_rows)} 条" + (f" · 下面还有 {more} 条" if more else "")
+        if detail:
+            note += f" · 正文 {dstart + 1}-{min(dstart + body, len(detail))}/{len(detail)}"
+        line((MUTED, _clip(note, columns)))
         return out
 
     def _detail_lines(self, item, width: int) -> list[tuple[str, str]]:
         """右栏：中文正文全量优先，其次出处；不折行到左中栏。"""
         if item is None:
-            msg = "没有匹配，⌫ 改字或 Esc 退出" if self.query else "（该场景没有条目）"
-            return [(DIM, _clip(msg, width))]
+            return [(MUTED_PANEL, _clip("（该场景没有条目）", width))]
         out: list[tuple[str, str]] = []
         text_w = max(width - 6, 10)
-        for n, seg in enumerate(_wrap(item.get("zh", ""), text_w, 20)):
+        for n, seg in enumerate(_wrap(item.get("zh", ""), text_w, 2000)):
             prefix = "中文  " if n == 0 else " " * 6
-            out.append(("", _clip(prefix + seg, width)))
-        out.append(("", ""))
+            out.append((PANEL, _clip(prefix + seg, width)))
+        out.append((PANEL, ""))
         meta = f"作者  {item.get('author', '')} · {item.get('date', '')}"
-        out.append((DIM, _clip(meta, width)))
-        out.append((DIM, _clip(f"链接  {item.get('url', '')}", width)))
+        out.append((MUTED_PANEL, _clip(meta, width)))
+        out.append((MUTED_PANEL, _clip(f"链接  {item.get('url', '')}", width)))
         if item.get("en"):
-            out.append(("", ""))
+            out.append((PANEL, ""))
             label = "原文（节选）" if item.get("excerpt") else "原文"
-            out.append((DIM, label))
-            for seg in _wrap(item.get("en", ""), text_w, 12):
-                out.append((DIM, _clip(" " * 6 + seg, width)))
+            out.append((MUTED_PANEL, label))
+            for seg in _wrap(item.get("en", ""), text_w, 2000):
+                out.append((MUTED_PANEL, _clip(" " * 6 + seg, width)))
         return out
 
     def height(self) -> int:
         if not self.open:
             return 0
-        _left, _rows, _detail, body, _start, *_ = self._layout()
-        return 2 + body + (1 if len(self.rows()) > body else 0)
+        return 2 + BODY_ROWS + 1
 
     # -- 安装 -------------------------------------------------------------
     def install(self, cli) -> None:
@@ -321,11 +327,12 @@ class Drawer:
 
         self.widget = ConditionalContainer(
             Window(FormattedTextControl(self.fragments), wrap_lines=False,
-                   height=self.height),
+                   height=self.height, style=BG),
             filter=Condition(lambda: self.open),
         )
         self.strip = ConditionalContainer(
-            Window(FormattedTextControl(self.strip_fragments), height=1, wrap_lines=False),
+            Window(FormattedTextControl(self.strip_fragments), height=1,
+                   wrap_lines=False, style=BG),
             filter=Condition(lambda: self.last is not None),
         )
 
@@ -349,9 +356,9 @@ class Drawer:
         item = self.last.get("item") or {}
         name = next((n for n, k in CATS if k == item.get("cat")), "")
         title = _clip(item.get("zh", ""), 28)
-        return [(DIM, f" 已补 1 层 · {name} · {title} "),
-                ("", "  "),
-                (DIM, "⌥Z 撤销")]
+        return [(MUTED, f" 已补 1 层 · {name} · {title} "),
+                (MUTED, "  "),
+                (ACCENT, "⌥Z 撤销")]
 
     def _bind(self, kb, Condition) -> None:
         from prompt_toolkit.application import get_app
@@ -379,14 +386,21 @@ class Drawer:
                 self.buffer.delete_before_cursor(1)
                 self.buffer.cancel_completion()
             self.open = True
-            self.query = ""
             self.focus = "cats"
             self.ci = min(self.ci, max(len(self.cats) - 1, 0))
             self.ii = 0
+            self.dscroll = 0
             repaint()
 
         kb.add(";", filter=Condition(at_second_semicolon), eager=True)(open_drawer)
         kb.add("；", filter=Condition(at_second_semicolon), eager=True)(open_drawer)
+
+        def _ignore(event) -> None:
+            return None
+
+        # 抽屉打开时不再搜索，也不要把字打进后面的输入框。
+        kb.add(Keys.Any, filter=is_open)(_ignore)
+        kb.add("backspace", filter=is_open)(_ignore)
 
         kb.add("up", filter=is_open, eager=True)(lambda e: (self.key_up(), repaint()))
         kb.add("down", filter=is_open, eager=True)(lambda e: (self.key_down(), repaint()))
@@ -395,14 +409,7 @@ class Drawer:
         kb.add("enter", filter=is_open, eager=True)(lambda e: (self.accept(), repaint()))
         kb.add("escape", filter=is_open, eager=True)(lambda e: (self.close(), repaint()))
         kb.add("c-c", filter=is_open, eager=True)(lambda e: (self.close(), repaint()))
-        kb.add("backspace", filter=is_open, eager=True)(lambda e: (self.backspace(), repaint()))
 
-        def _type(event) -> None:
-            if event.data and event.data.isprintable():
-                self.type_char(event.data)
-                repaint()
-
-        kb.add(Keys.Any, filter=is_open)(_type)     # 抽屉里直接打字 = 全库搜
 
         def _undo(event) -> None:
             self.undo()

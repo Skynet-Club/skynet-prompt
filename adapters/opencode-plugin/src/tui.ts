@@ -6,7 +6,7 @@ import { dirname, join } from "node:path"
 import { createSignal, type Setter } from "solid-js"
 import { createPicker } from "./picker.js"
 import {
-  PANEL_NAME, renderOverlay, renderPanel,
+  PANEL_NAME, renderComposer, renderOverlay, renderPanel,
   type Category, type Item, type PickerState,
 } from "./panel.tsx"
 
@@ -65,14 +65,27 @@ export default Plugin.define({
     log("setup")
     const [state, setState] = createSignal<PickerState | null>(null)
     const [overlay, setOverlay] = createSignal(false)
+    const [overlayMode, setOverlayMode] = createSignal<"home" | "session">("home")
     let disposeSlot: (() => void) | undefined
     let disposeApp: (() => void) | undefined
+    let disposeComposer: (() => void) | undefined
     let appSlot = false
+    let composerSlot = false
+
+    let previousFocus: any
+    const rememberFocus = () => {
+      previousFocus = context.renderer?.currentFocusedRenderable
+    }
+    const restoreFocus = () => {
+      try { previousFocus?.focus?.() } catch {}
+      previousFocus = undefined
+    }
 
     const finish = (item: Item, text: string, close?: () => void) => {
       close?.()
       setOverlay(false)
       setState(null)
+      restoreFocus()
       setTimeout(() => {
         void appendToPrompt(context, text).then((ok) => {
           if (ok) {
@@ -116,11 +129,13 @@ export default Plugin.define({
         disposeApp = context.ui.slot({
           append: "app",
           render: () => renderOverlay({
-            open: overlay(),
+            open: overlay() && (overlayMode() === "home" || !composerSlot),
             state: state(),
+            mode: overlayMode(),
             onClose: () => {
               setOverlay(false)
               setState(null)
+              restoreFocus()
             },
             onPick: (item: Item, text: string) => finish(item, text),
           }),
@@ -128,6 +143,24 @@ export default Plugin.define({
         appSlot = true
       } catch (error) {
         log(`app slot failed ${String(error)}`)
+      }
+      try {
+        disposeComposer = context.ui.slot({
+          append: "session.composer.top",
+          render: () => renderComposer({
+            open: overlay() && overlayMode() === "session",
+            state: state(),
+            onClose: () => {
+              setOverlay(false)
+              setState(null)
+              restoreFocus()
+            },
+            onPick: (item: Item, text: string) => finish(item, text),
+          }),
+        })
+        composerSlot = true
+      } catch (error) {
+        log(`composer slot failed ${String(error)}`)
       }
     } else {
       log("slot missing")
@@ -147,7 +180,7 @@ export default Plugin.define({
           slash: { name: "p" },
           run: async () => {
             try {
-              await runPanel(context, setState, setOverlay, appSlot)
+              await runPanel(context, setState, setOverlay, setOverlayMode, appSlot, rememberFocus)
             } catch (error) {
               log(`picker failed: ${String(error)}`)
               context.ui.toast.show({
@@ -173,6 +206,9 @@ export default Plugin.define({
       try {
         disposeApp?.()
       } catch {}
+      try {
+        disposeComposer?.()
+      } catch {}
     }
   },
 })
@@ -181,15 +217,20 @@ async function runPanel(
   context: any,
   setState: Setter<PickerState | null>,
   setOverlay: Setter<boolean>,
+  setOverlayMode: Setter<"home" | "session">,
   appSlot: boolean,
+  rememberFocus: () => void,
 ): Promise<void> {
   try {
+    const route = context.ui?.router?.current?.()
+    setOverlayMode(route?.type === "session" ? "session" : "home")
+    rememberFocus()
     const categories = psup<Category[]>("categories", "--json").filter((row) => row.count > 0)
     const items = psup<Item[]>("list", "--json")
     setState({ categories, items })
     if (appSlot) {
       setOverlay(true)
-      log("overlay open")
+      log(`overlay open (${route?.type ?? "unknown"})`)
       return
     }
     const opened = context.ui?.panel?.open?.(PANEL_NAME, { presentation: "panel" })

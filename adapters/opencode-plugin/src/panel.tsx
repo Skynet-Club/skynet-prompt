@@ -1,5 +1,6 @@
 /** @jsxImportSource @opentui/solid */
 import { For, Show, createMemo, createSignal, onMount } from "solid-js"
+import { usePlugin } from "@opencode/plugin/tui"
 import { useKeyboard, useTerminalDimensions } from "@opentui/solid"
 import type { BoxRenderable } from "@opentui/core"
 
@@ -99,33 +100,22 @@ function pad(text: string, width: number): string {
 function PickerPanel(props: {
   panel: PanelLike
   state: PickerState
+  flush?: boolean
   onClose: () => void
   onPick: (item: Item, text: string) => void
 }) {
   const [catIndex, setCatIndex] = createSignal(0)
   const [itemIndex, setItemIndex] = createSignal(0)
-  const [query, setQuery] = createSignal("")
   const [focus, setFocus] = createSignal<"cats" | "items">("cats")
   const [lang, setLang] = createSignal<"zh" | "en">("zh")
   const dimensions = useTerminalDimensions()
+  const plugin = usePlugin() as any
   const promptText = (item: Item) => lang() === "en" ? item.en || item.zh : item.zh
 
-  const categoryName = (key: string) => {
-    const row = props.state.categories.find((item) => item.key === key)
-    if (!row) return key
-    return `${row.name} ${CATEGORY_EN[row.key] ?? row.key.replace(/_/g, " ")}`.trim()
-  }
   const selectedCategory = createMemo(() => props.state.categories[catIndex()])
   const rows = createMemo(() => {
-    const q = query().trim().toLowerCase()
     const key = selectedCategory()?.key
-    return props.state.items.filter((item) => {
-      if (q) {
-        const haystack = `${item.zh} ${item.en ?? ""} ${item.author} ${categoryName(item.cat)}`.toLowerCase()
-        return haystack.includes(q)
-      }
-      return key === undefined || item.cat === key
-    })
+    return props.state.items.filter((item) => key === undefined || item.cat === key)
   })
   const current = createMemo(() => rows()[Math.min(itemIndex(), Math.max(rows().length - 1, 0))])
   const panelHeight = createMemo(() => props.panel.height && props.panel.height > 0
@@ -142,22 +132,17 @@ function PickerPanel(props: {
   const panelWidth = createMemo(() => props.panel.width > 0 ? props.panel.width : dimensions().width)
   const rowWidth = createMemo(() => Math.max(10, Math.floor((panelWidth() - 6) / 4) - 2))
   const t = (zh: string, en: string) => lang() === "en" ? en : zh
-  const headerText = createMemo(() => {
-    const base = lang() === "en"
-      ? `Prompt picker · ${props.state.items.length} items / ${props.state.categories.length} scenes`
-      : `提示词补充 · ${props.state.items.length} 条 / ${props.state.categories.length} 场景`
-    if (!query()) return base
-    return base + (lang() === "en" ? ` · Search "${query()}"` : ` · 搜索「${query()}」`)
-  })
+  const headerText = createMemo(() => lang() === "en"
+    ? `Prompt picker · ${props.state.items.length} items / ${props.state.categories.length} scenes`
+    : `提示词补充 · ${props.state.items.length} 条 / ${props.state.categories.length} 场景`)
   const hintText = createMemo(() => lang() === "en"
-    ? "↑↓ Select · ←→ Columns · Tab: 中/En · Type to search · Enter insert · Esc close"
-    : "↑↓ 选择 · ←→ 切栏 · Tab： 中/En · 直接打字搜索 · Enter 补入 · Esc 关闭")
+    ? "↑↓ Select · ←→ Columns · Tab: 中/En · Enter insert · Esc close"
+    : "↑↓ 选择 · ←→ 切栏 · Tab： 中/En · Enter 补入 · Esc 关闭")
   const leftTitle = createMemo(() => {
     const base = t("场景", "Scenes")
     return focus() === "cats" ? `▸ ${base}` : base
   })
   const midTitle = createMemo(() => {
-    if (query()) return `▸ ${t("搜索结果", "Results")}`
     const base = t("条目", "Items")
     return focus() === "items" ? `▸ ${base}` : base
   })
@@ -165,6 +150,34 @@ function PickerPanel(props: {
     if (lang() === "zh") return current()?.excerpt ? "完整提示词 · 节选" : "完整提示词"
     return current()?.excerpt ? "Full prompt · excerpt" : "Full prompt"
   })
+
+  const moveVertical = (delta: number) => {
+    if (focus() === "cats") {
+      setCatIndex((value) => Math.min(Math.max(value + delta, 0), props.state.categories.length - 1))
+      setItemIndex(0)
+    } else {
+      setItemIndex((value) => Math.min(Math.max(value + delta, 0), Math.max(rows().length - 1, 0)))
+    }
+  }
+  const moveLeft = () => {
+    if (focus() === "items") setFocus("cats")
+  }
+  const moveRight = () => {
+    if (focus() === "cats") setFocus("items")
+  }
+
+  // The composer keeps the arrow keys in its own scope; claim them at a higher
+  // keymap priority while the picker is mounted.
+  plugin.keymap.layer(() => ({
+    mode: "global",
+    priority: 1000,
+    commands: [
+      { id: "skynet.prompt.up", bind: "up", run: () => moveVertical(-1) },
+      { id: "skynet.prompt.down", bind: "down", run: () => moveVertical(1) },
+      { id: "skynet.prompt.left", bind: "left", run: moveLeft },
+      { id: "skynet.prompt.right", bind: "right", run: moveRight },
+    ],
+  }))
 
   useKeyboard((key) => {
     if (!props.panel.focused) return
@@ -180,12 +193,7 @@ function PickerPanel(props: {
     }
     if (name === "escape") {
       handled()
-      if (query()) {
-        setQuery("")
-        setItemIndex(0)
-      } else {
-        props.onClose()
-      }
+      props.onClose()
       return
     }
     if (name === "return") {
@@ -196,46 +204,26 @@ function PickerPanel(props: {
     }
     if (name === "up" || name === "down") {
       handled()
-      const delta = name === "up" ? -1 : 1
-      if (focus() === "cats") {
-        setCatIndex((value) => Math.min(Math.max(value + delta, 0), props.state.categories.length - 1))
-        setItemIndex(0)
-      } else {
-        setItemIndex((value) => Math.min(Math.max(value + delta, 0), Math.max(rows().length - 1, 0)))
-      }
+      moveVertical(name === "up" ? -1 : 1)
       return
     }
     if (name === "left" && focus() === "items") {
       handled()
-      setFocus("cats")
+      moveLeft()
       return
     }
     if (name === "right" && focus() === "cats") {
       handled()
-      setFocus("items")
+      moveRight()
       return
-    }
-    if (name === "backspace") {
-      handled()
-      setQuery((value) => value.slice(0, -1))
-      setItemIndex(0)
-      setFocus("items")
-      return
-    }
-    if (key.ctrl || key.meta || key.option) return
-    if (["up", "down", "left", "right", "return", "escape", "tab", "backspace",
-      "delete", "home", "end", "pageup", "pagedown", "insert"].includes(name)) return
-    const sequence = key.sequence
-    if (sequence && sequence.length > 0 && sequence !== "\r" && sequence !== "\n" && sequence !== "\t") {
-      handled()
-      setQuery((value) => value + sequence)
-      setItemIndex(0)
-      setFocus("items")
     }
   })
 
   return (
-    <box flexDirection="column" flexGrow={1} padding={1} backgroundColor={MIL.bg}>
+    <box flexDirection="column" flexGrow={1}
+         paddingTop={1} paddingBottom={1}
+         paddingLeft={props.flush ? 0 : 1} paddingRight={props.flush ? 0 : 1}
+         backgroundColor={MIL.bg}>
       <text fg={MIL.accent}>{headerText()}</text>
       <text fg={MIL.muted}>{hintText()}</text>
       <box flexDirection="row" flexGrow={1} gap={1}>
@@ -321,14 +309,18 @@ export function renderPanel(props: {
 }
 
 
-export function PickerOverlay(props: {
+function sessionColumns(terminalWidth: number): number {
+  return Math.max(20, terminalWidth >= 121 ? terminalWidth - 46 : terminalWidth - 4)
+}
+
+export function PickerComposer(props: {
   open: boolean
   state: PickerState | null
   onClose: () => void
   onPick: (item: Item, text: string) => void
 }) {
   const dimensions = useTerminalDimensions()
-  const width = () => Math.max(20, dimensions().width)
+  const width = () => sessionColumns(Math.max(20, dimensions().width))
   const height = () => Math.max(12, Math.min(
     dimensions().height - 4,
     Math.floor(dimensions().height * 0.5),
@@ -338,8 +330,74 @@ export function PickerOverlay(props: {
   return (
     <Show when={props.open && props.state !== null}>
       <box ref={(el: BoxRenderable) => { box = el }} focusable
-           position="absolute" top={2} left={0}
-           width={width()} height={height()} zIndex={1000}
+           width="100%" height={height()} backgroundColor={MIL.bg}>
+        <PickerPanel
+          panel={{
+            name: PANEL_NAME,
+            sessionID: "",
+            width: width(),
+            height: height(),
+            presentation: "panel",
+            focused: true,
+            close: props.onClose,
+          }}
+          state={props.state!}
+          flush
+          onClose={props.onClose}
+          onPick={props.onPick}
+        />
+      </box>
+    </Show>
+  )
+}
+
+export function renderComposer(props: {
+  open: boolean
+  state: PickerState | null
+  onClose: () => void
+  onPick: (item: Item, text: string) => void
+}) {
+  return <PickerComposer {...props} />
+}
+
+export function PickerOverlay(props: {
+  open: boolean
+  state: PickerState | null
+  mode: "home" | "session"
+  onClose: () => void
+  onPick: (item: Item, text: string) => void
+}) {
+  const dimensions = useTerminalDimensions()
+  const terminalWidth = () => Math.max(20, dimensions().width)
+  // OpenCode's home composer is a centered 75-column composer; the session
+  // composer is the content area (sidebar takes 42 columns plus margins).
+  const width = () => {
+    const w = terminalWidth()
+    if (props.mode === "home") return Math.max(20, Math.min(75, w - 4))
+    return sessionColumns(w)
+  }
+  // The panel carries one column of padding; widen the overlay so its border
+  // spans exactly the composer's border.
+  const frameWidth = () => width() + 2
+  const left = () => props.mode === "home"
+    ? Math.max(0, Math.ceil((terminalWidth() - width()) / 2) - 1)
+    : 1
+  const height = () => Math.max(12, Math.min(
+    dimensions().height - 4,
+    Math.floor(dimensions().height * 0.5),
+  ))
+  // In a session the composer occupies the last 7 rows; dock the picker
+  // directly above it instead of leaving it floating near the top.
+  const top = () => props.mode === "session"
+    ? Math.max(0, dimensions().height - 7 - height())
+    : 2
+  let box: BoxRenderable | undefined
+  onMount(() => { box?.focus?.() })
+  return (
+    <Show when={props.open && props.state !== null}>
+      <box ref={(el: BoxRenderable) => { box = el }} focusable
+           position="absolute" top={top()} left={left()}
+           width={frameWidth()} height={height()} zIndex={1000}
            backgroundColor={MIL.bg}>
         <PickerPanel
           panel={{
@@ -363,6 +421,7 @@ export function PickerOverlay(props: {
 export function renderOverlay(props: {
   open: boolean
   state: PickerState | null
+  mode: "home" | "session"
   onClose: () => void
   onPick: (item: Item, text: string) => void
 }) {

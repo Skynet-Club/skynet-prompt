@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from skynet_prompt.drawer import Drawer, _at_second_semicolon, _cells
+from skynet_prompt.drawer import BODY_ROWS, Drawer, _at_second_semicolon, _cells
 
 
 class FakeBuffer:
@@ -87,27 +87,29 @@ def test_preview_follows_category():
     assert d.current()["en"][:20] in rendered
 
 
-def test_typing_filters_the_whole_library():
+def test_rows_follow_only_the_selected_scene():
     d = make()
-    assert len(d.rows()) < len(d.items)          # 默认只看当前类
-    for ch in "裁判":
-        d.type_char(ch)
-    assert d.query == "裁判"
-    assert d.focus == "items"
-    hits = d.rows()
-    assert hits and all("裁判" in i["zh"] for i in hits)
-    d.backspace()
-    assert d.query == "裁"
-    d.backspace()
-    assert d.query == "" and d.focus == "cats"
+    assert not hasattr(d, "query")
+    assert len(d.rows()) == d.counts[d.cats[0][1]]
+    d.ci = 4
+    assert all(item["cat"] == d.cats[4][1] for item in d.rows())
+
+
+def test_height_is_fixed_across_scenes_and_content():
+    d = make()
+    for ci in range(len(d.cats)):
+        d.ci = ci
+        d.ii = 0
+        assert d.height() == 2 + BODY_ROWS + 1
+        assert len(flat(d)) == 2 + BODY_ROWS + 1
 
 
 def test_long_result_set_is_windowed():
     d = make()
-    for ch in "e":                     # 英文原文里遍地是 e，命中远超一屏
-        d.type_char(ch)
-    assert len(d.rows()) > 10
-    assert d.height() <= 2 + 10 + 1 + 8
+    d.ci = max(range(len(d.cats)), key=lambda i: d.counts[d.cats[i][1]])
+    d.focus = "items"
+    assert len(d.rows()) > BODY_ROWS
+    assert d.height() == 2 + BODY_ROWS + 1
     rendered = "".join(flat(d))
     assert "下面还有" in rendered
     for _ in range(len(d.rows()) - 1):     # 一路按到底，窗口要跟到末条
@@ -116,11 +118,28 @@ def test_long_result_set_is_windowed():
     assert needle in "".join("".join(flat(d)).split())
 
 
-def test_search_renders_the_query_in_header():
+def test_header_has_no_search_prompt():
     d = make()
-    d.type_char("流失")
     text = "".join(flat(d))
-    assert "搜索「流失」" in text
+    assert "搜索" not in text
+    assert "直接打字" not in text
+
+
+def test_right_column_scrolls_long_prompt():
+    d = make()
+    index = max(range(len(d.items)), key=lambda n: len(d.items[n].get("zh", "")))
+    item = d.items[index]
+    d.ci = next(i for i, (_name, key) in enumerate(d.cats) if key == item["cat"])
+    d.ii = [i for i in d.rows()].index(item)
+    d.focus = "items"
+    d.key_right()
+    assert d.focus == "detail"
+    d.fragments()
+    assert d._detail_total > BODY_ROWS
+    d.key_down()
+    assert d.dscroll == 1
+    d.key_left()
+    assert d.focus == "items"
 
 
 def test_undo_removes_the_inserted_slice_only():

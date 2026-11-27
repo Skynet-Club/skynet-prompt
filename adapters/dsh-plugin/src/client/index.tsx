@@ -108,17 +108,11 @@ const CSS = `
   display: grid; grid-template-rows: auto auto 1fr auto; overflow: hidden;
   background: var(--skp-bg); color: var(--skp-text);
   border: 1px solid var(--skp-border); border-radius: 10px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, .55);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .55); outline: none;
   font: 14px/1.45 -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
 }
-.skp-top { display: flex; align-items: center; gap: 12px; padding: 10px 14px 0; }
+.skp-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px 0; }
 .skp-brand { color: var(--skp-title); font: 700 13px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: nowrap; }
-.skp-search {
-  min-width: 0; flex: 1; height: 32px; box-sizing: border-box; padding: 0 10px;
-  border: 1px solid var(--skp-border); border-radius: 7px;
-  background: var(--skp-panel); color: var(--skp-text); outline: none; font: inherit;
-}
-.skp-search:focus { border-color: var(--skp-focus); box-shadow: 0 0 0 1px var(--skp-focus); }
 .skp-count { color: var(--skp-muted); font-size: 12px; white-space: nowrap; }
 .skp-hint { padding: 7px 14px 9px; color: var(--skp-muted); font-size: 12px; }
 .skp-grid { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 8px; min-height: 0; padding: 0 12px; }
@@ -326,26 +320,16 @@ function Picker({ picker, anchor, inputActions }: {
   const [focus, setFocus] = useState<Focus>("cats")
   const [catIndex, setCatIndex] = useState(0)
   const [itemIndex, setItemIndex] = useState(0)
-  const [query, setQuery] = useState("")
   const [error, setError] = useState("")
-  const searchRef = useRef<HTMLInputElement>(null)
   const windowRef = useRef<HTMLDivElement>(null)
 
   const category = CATEGORIES[catIndex] ?? CATEGORIES[0]!
-  const rows = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (q) {
-      return PROMPTS.filter(item =>
-        `${item.zh} ${item.en} ${item.author} ${CATEGORIES.find(c => c.key === item.cat)?.zh ?? ""} ${CATEGORIES.find(c => c.key === item.cat)?.en ?? ""}`
-          .toLowerCase().includes(q))
-    }
-    return PROMPTS.filter(item => item.cat === category.key)
-  }, [category.key, query])
+  const rows = useMemo(() => PROMPTS.filter(item => item.cat === category.key), [category.key])
   const current = rows[Math.min(itemIndex, Math.max(rows.length - 1, 0))]
   const t = useCallback((zh: string, en: string) => text(lang, zh, en), [lang])
 
   useEffect(() => {
-    const timer = window.setTimeout(() => searchRef.current?.focus(), 0)
+    const timer = window.setTimeout(() => windowRef.current?.focus(), 0)
     return () => window.clearTimeout(timer)
   }, [])
 
@@ -368,13 +352,11 @@ function Picker({ picker, anchor, inputActions }: {
     setCatIndex(index)
     setItemIndex(0)
     setFocus("cats")
-    searchRef.current?.focus()
   }
 
   const selectItem = (index: number): void => {
     setItemIndex(index)
     setFocus("items")
-    searchRef.current?.focus()
   }
 
   const insert = (item: Prompt | undefined): void => {
@@ -404,19 +386,13 @@ function Picker({ picker, anchor, inputActions }: {
     }
     if (event.key === "Escape") {
       event.preventDefault()
-      if (query) {
-        setQuery("")
-        setItemIndex(0)
-        setFocus("items")
-      } else {
-        picker.close()
-      }
+      picker.close()
       return
     }
     if (event.key === "ArrowUp" || event.key === "ArrowDown") {
       event.preventDefault()
       const delta = event.key === "ArrowUp" ? -1 : 1
-      if (focus === "cats" && !query) {
+      if (focus === "cats") {
         const next = Math.min(Math.max(catIndex + delta, 0), CATEGORIES.length - 1)
         setCategory(next)
       } else {
@@ -437,7 +413,7 @@ function Picker({ picker, anchor, inputActions }: {
     }
     if (event.key === "Enter") {
       event.preventDefault()
-      if (focus === "cats" && !query) setFocus("items")
+      if (focus === "cats") setFocus("items")
       else insert(current)
     }
   }
@@ -467,22 +443,11 @@ function Picker({ picker, anchor, inputActions }: {
 
   return (
     <div className="skp-window" ref={windowRef} style={anchorStyle} role="dialog" aria-modal="false"
+      tabIndex={-1}
       aria-label={t("skynet-prompt 提示词选择器", "skynet-prompt picker")}
       onKeyDown={onKeyDown}>
       <div className="skp-top">
         <div className="skp-brand">skynet-prompt</div>
-        <input
-          ref={searchRef}
-          className="skp-search"
-          value={query}
-          onChange={(event) => {
-            setQuery(event.currentTarget.value)
-            setItemIndex(0)
-            setFocus("items")
-          }}
-          placeholder={t("输入关键词搜索场景、正文或作者", "Search scenes, prompt text or author")}
-          aria-label={t("搜索提示词", "Search prompts")}
-        />
         <div className="skp-count">
           {lang === "zh" ? `${PROMPTS.length} 条 / ${CATEGORIES.length} 场景` : `${PROMPTS.length} items / ${CATEGORIES.length} scenes`}
         </div>
@@ -513,10 +478,10 @@ function Picker({ picker, anchor, inputActions }: {
         <section className={`skp-col${focus === "items" ? " skp-col-focus" : ""}`}>
           <div className="skp-colhead">
             {focus === "items" ? "▸ " : ""}
-            {query ? t("搜索结果", "Results") : t("条目", "Items")}
+            {t("条目", "Items")}
           </div>
           <div className="skp-list">
-            {rows.length === 0 && <div className="skp-empty">{t("没有匹配的提示词", "No matching prompts")}</div>}
+            {rows.length === 0 && <div className="skp-empty">{t("这个场景还没有提示词", "No prompts in this scene")}</div>}
             {rows.map((item, index) => (
               <button
                 key={item.id}
