@@ -224,12 +224,12 @@ def build(data_dir: Path = DEFAULT_DATA, out: Path = DEFAULT_OUT) -> dict:
     with tempfile.TemporaryDirectory(prefix="skynet-prompt-skill-") as tmp:
         root = Path(tmp)
         (root / "prompts").mkdir()
-        (root / "SKILL.md").write_text(_skill_md(len(items), meta.get("version", ""), sha), encoding="utf-8")
-        (root / "README.md").write_text(_readme(len(items), meta.get("version", ""), sha), encoding="utf-8")
-        (root / "index.tsv").write_text(_index(items, scene_names), encoding="utf-8")
+        (root / "SKILL.md").write_text(_skill_md(len(items), meta.get("version", ""), sha), encoding="utf-8", newline="\n")
+        (root / "README.md").write_text(_readme(len(items), meta.get("version", ""), sha), encoding="utf-8", newline="\n")
+        (root / "index.tsv").write_text(_index(items, scene_names), encoding="utf-8", newline="\n")
         for item in items:
             (root / "prompts" / f"{item['id']}.md").write_text(
-                _prompt_file(item, scene_names[item["cat"]]), encoding="utf-8",
+                _prompt_file(item, scene_names[item["cat"]]), encoding="utf-8", newline="\n",
             )
         fixed_time = (2026, 11, 26, 0, 0, 0)
         with zipfile.ZipFile(out, "w", compression=zipfile.ZIP_DEFLATED) as archive:

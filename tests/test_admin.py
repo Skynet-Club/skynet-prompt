@@ -56,7 +56,7 @@ def test_admin_crud_updates_meta_and_backup(tmp: Path):
 
     deleted = store.delete_item("test-admin-02")
     assert deleted["state"]["stats"]["count"] == before_count
-    rows = json.loads((tmp / "data" / "prompts.json").read_text())["items"]
+    rows = json.loads((tmp / "data" / "prompts.json").read_text(encoding="utf-8"))["items"]
     assert not any(row["id"] == "test-admin-02" for row in rows)
 
 

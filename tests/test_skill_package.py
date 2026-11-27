@@ -16,7 +16,7 @@ def test_skill_archive_is_root_level_and_complete(tmp: Path):
     out = tmp / "skynet-prompt.skill"
     proc = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "build_skill.py"), "--out", str(out)],
-        capture_output=True, text=True,
+        capture_output=True, text=True, encoding="utf-8",
     )
     assert proc.returncode == 0, proc.stderr
     result = json.loads(proc.stdout)
@@ -25,7 +25,7 @@ def test_skill_archive_is_root_level_and_complete(tmp: Path):
     second = tmp / "skynet-prompt.second.skill"
     proc2 = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "build_skill.py"), "--out", str(second)],
-        capture_output=True, text=True,
+        capture_output=True, text=True, encoding="utf-8",
     )
     assert proc2.returncode == 0, proc2.stderr
     assert result["sha256"] == json.loads(proc2.stdout)["sha256"]
@@ -45,7 +45,7 @@ def test_skill_archive_is_root_level_and_complete(tmp: Path):
         assert index[0].startswith("id\tscene\t")
         assert len(index) == 70
 
-        data = json.loads((ROOT / "data" / "prompts.json").read_text())
+        data = json.loads((ROOT / "data" / "prompts.json").read_text(encoding="utf-8"))
         for item in data["items"]:
             body = archive.read(f"prompts/{item['id']}.md").decode()
             zh = re.search(r"<!-- BEGIN ZH -->\n(.*?)\n<!-- END ZH -->", body, re.S)
