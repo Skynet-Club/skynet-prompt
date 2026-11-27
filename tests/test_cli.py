@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 def run(*args: str) -> subprocess.CompletedProcess:
     return subprocess.run(
         [sys.executable, str(ROOT / "psup"), *args],
-        capture_output=True, text=True,
+        capture_output=True, text=True, encoding="utf-8",
     )
 
 
